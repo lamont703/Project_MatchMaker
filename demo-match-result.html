@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeMatch - It's a Match!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            background: #8B5CF6 !important;
+            /* Fallback color */
+            background: -webkit-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: -moz-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: -o-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #8B5CF6 !important;
+            /* Fallback color */
+            background: -webkit-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: -moz-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: -o-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 420px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .celebration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .confetti {
+            position: absolute;
+            font-size: 24px;
+            animation: fall 3s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .match-content {
+            text-align: center;
+            z-index: 2;
+            position: relative;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .match-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .match-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+
+        .profiles-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.15);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+            max-width: 140px;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #F97316, #EA580C);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 12px;
+        }
+
+        .profile-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .profile-vibe {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .heart-icon {
+            font-size: 32px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        .compatibility-score {
+            background: rgba(255, 255, 255, 0.2);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .score-number {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #FFF, #F0F9FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .score-text {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .vibe-summary {
+            background: rgba(255, 255, 255, 0.15);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .vibe-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .vibe-match {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .vibe-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .vibe-info {
+            flex: 1;
+        }
+
+        .vibe-name {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .vibe-desc {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .icebreaker {
+            background: rgba(255, 255, 255, 0.15);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .icebreaker-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .icebreaker-text {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 16px;
+            border-radius: 12px;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 18px 24px;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: white;
+            color: #8B5CF6;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 16px;
+            }
+
+            .match-title {
+                font-size: 36px;
+            }
+
+            .profiles-container {
+                gap: 12px;
+            }
+
+            .profile-card {
+                padding: 16px;
+            }
+
+            .profile-avatar {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+
+            .score-number {
+                font-size: 36px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Confetti Animation -->
+        <div class="celebration" id="celebration"></div>
+
+        <div class="match-content">
+            <h1 class="match-title">🎉 It's a Match!</h1>
+            <p class="match-subtitle">You and Taylor have connected!</p>
+
+            <!-- Profile Cards -->
+            <div class="profiles-container">
+                <div class="profile-card">
+                    <div class="profile-avatar">👤</div>
+                    <div class="profile-name">You</div>
+                    <div class="profile-vibe">🌍 Explorer</div>
+                </div>
+
+                <div class="heart-icon">💖</div>
+
+                <div class="profile-card">
+                    <div class="profile-avatar">👩</div>
+                    <div class="profile-name">Taylor</div>
+                    <div class="profile-vibe">🌍 Explorer</div>
+                </div>
+            </div>
+
+            <!-- Compatibility Score -->
+            <div class="compatibility-score">
+                <div class="score-number">87%</div>
+                <div class="score-text">Compatible</div>
+            </div>
+
+            <!-- Vibe Summary -->
+            <div class="vibe-summary">
+                <div class="vibe-title">🧠 Why You Match</div>
+
+                <div class="vibe-match">
+                    <div class="vibe-icon">🌍</div>
+                    <div class="vibe-info">
+                        <div class="vibe-name">Both Explorers</div>
+                        <div class="vibe-desc">Love adventure & new experiences</div>
+                    </div>
+                </div>
+
+                <div class="vibe-match">
+                    <div class="vibe-icon">☕</div>
+                    <div class="vibe-info">
+                        <div class="vibe-name">Shared Interests</div>
+                        <div class="vibe-desc">Coffee, hiking, photography</div>
+                    </div>
+                </div>
+
+                <div class="vibe-match">
+                    <div class="vibe-icon">⭐</div>
+                    <div class="vibe-info">
+                        <div class="vibe-name">High Energy Match</div>
+                        <div class="vibe-desc">Similar social & activity levels</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Icebreaker -->
+            <div class="icebreaker">
+                <div class="icebreaker-title">
+                    🤖 AI Conversation Starter
+                </div>
+                <div class="icebreaker-text">
+                    "I noticed you love discovering hidden coffee shops too! What's the most interesting place you've
+                    found recently? ☕✨"
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="startChatting()">
+                    💬 Start Chatting
+                </button>
+                <button class="btn btn-secondary" onclick="keepSwiping()">
+                    🔥 Keep Swiping
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create confetti animation
+        function createConfetti() {
+            const celebration = document.getElementById('celebration');
+            const confettiEmojis = ['🎉', '✨', '💖', '🎊', '⭐', '💫', '🌟'];
+
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.textContent = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.animationDelay = Math.random() * 3 + 's';
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+
+                    celebration.appendChild(confetti);
+
+                    // Remove confetti after animation
+                    setTimeout(() => {
+                        if (confetti.parentNode) {
+                            confetti.parentNode.removeChild(confetti);
+                        }
+                    }, 5000);
+                }, i * 100);
+            }
+        }
+
+        function startChatting() {
+            // Show loading state
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = 'Opening chat...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                window.location.href = 'demo-chat.html';
+            }, 1000);
+        }
+
+        function keepSwiping() {
+            // Animate back to swiping
+            const btn = event.target;
+            btn.textContent = 'Back to swiping...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                window.location.href = 'demo-swipe.html';
+            }, 800);
+        }
+
+        // Auto-create confetti on page load
+        window.addEventListener('load', () => {
+            createConfetti();
+
+            // Continue creating confetti periodically
+            setInterval(createConfetti, 3000);
+        });
+
+        // Add celebration sound effect simulation
+        function playCelebrationSound() {
+            // In a real app, you would play an actual sound file
+            console.log('🎵 Playing celebration sound!');
+        }
+
+        // Trigger celebration sound on load
+        window.addEventListener('load', playCelebrationSound);
+    </script>
+</body>
+
+</html>

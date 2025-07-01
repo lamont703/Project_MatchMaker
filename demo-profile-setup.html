@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeMatch - Profile Setup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            background: #8B5CF6 !important;
+            /* Fallback color */
+            background: -webkit-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: -moz-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: -o-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #8B5CF6 !important;
+            /* Fallback color */
+            background: -webkit-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: -moz-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: -o-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #1F2937;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 420px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #F3F4F6;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .progress-indicator {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8B5CF6, #EC4899);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .content {
+            padding: 24px;
+            padding-bottom: 100px;
+        }
+
+        .step-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .step-subtitle {
+            color: #6B7280;
+            text-align: center;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .video-upload {
+            background: #F9FAFB;
+            border: 2px dashed #D1D5DB;
+            border-radius: 16px;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 32px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .video-upload:hover {
+            border-color: #8B5CF6;
+            background: #F3F4F6;
+        }
+
+        .video-upload.has-video {
+            padding: 0;
+            border: none;
+            background: transparent;
+        }
+
+        .video-preview {
+            width: 100%;
+            height: 200px;
+            border-radius: 16px;
+            object-fit: cover;
+            background: #000;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: #8B5CF6;
+        }
+
+        .upload-text {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .upload-hint {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #8B5CF6;
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .personality-display {
+            background: linear-gradient(135deg, #F97316, #EA580C);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .personality-emoji {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .personality-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .personality-desc {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .interest-tag {
+            padding: 12px 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .interest-tag.selected {
+            background: linear-gradient(135deg, #8B5CF6, #EC4899);
+            color: white;
+            border-color: transparent;
+        }
+
+        .continue-btn {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 48px);
+            max-width: 372px;
+            background: linear-gradient(135deg, #8B5CF6, #EC4899);
+            color: white;
+            border: none;
+            padding: 18px 24px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .continue-btn:hover {
+            transform: translateX(-50%) translateY(-2px);
+        }
+
+        .continue-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+            .content {
+                padding: 20px;
+            }
+
+            .interests-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-btn" onclick="goBack()">←</button>
+            <div class="header-title">Profile Setup</div>
+            <div class="progress-indicator">3/3</div>
+        </div>
+
+        <div class="content">
+            <h1 class="step-title">Create Your Profile</h1>
+            <p class="step-subtitle">Show your authentic self! Upload a short video and tell us about yourself.</p>
+
+            <!-- Video Upload Section -->
+            <div class="video-upload" onclick="document.getElementById('videoInput').click()">
+                <div id="uploadPrompt">
+                    <div class="upload-icon">📹</div>
+                    <div class="upload-text">Upload Your Video</div>
+                    <div class="upload-hint">15-30 seconds • Show your personality!</div>
+                </div>
+                <video id="videoPreview" class="video-preview hidden" controls></video>
+                <input type="file" id="videoInput" accept="video/*" style="display: none;"
+                    onchange="handleVideoUpload(event)">
+            </div>
+
+            <!-- Profile Form -->
+            <form id="profileForm">
+                <div class="form-group">
+                    <label class="form-label" for="name">Name</label>
+                    <input type="text" id="name" class="form-input" placeholder="Enter your first name" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="age">Age</label>
+                    <input type="number" id="age" class="form-input" placeholder="25" min="18" max="99" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="location">Location</label>
+                    <input type="text" id="location" class="form-input" placeholder="San Francisco, CA" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="bio">Bio</label>
+                    <textarea id="bio" class="form-input form-textarea"
+                        placeholder="Tell us about yourself... What makes you unique? What are you passionate about?"
+                        required></textarea>
+                </div>
+
+                <!-- Personality Type Display -->
+                <div class="personality-display">
+                    <div class="personality-emoji">🌍</div>
+                    <div class="personality-name">The Explorer</div>
+                    <div class="personality-desc">Adventurous • Curious • Spontaneous</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Interests (Select up to 8)</label>
+                    <div class="interests-grid">
+                        <div class="interest-tag" onclick="toggleInterest(this)">🎵 Music</div>
+                        <div class="interest-tag" onclick="toggleInterest(this)">🏔️ Hiking</div>
+                        <div class="interest-tag" onclick="toggleInterest(this)">☕ Coffee</div>
+                        <div class="interest-tag" onclick="toggleInterest(this)">📸 Photography</div>
+                        <div class="interest-tag" onclick="toggleInterest(this)">✈️ Travel</div>
+                        <div class="interest-tag" onclick="toggleInterest(this)">🎨 Art</div>
+                        <div class="interest-tag" onclick="toggleInterest(this)">🍕 Food</div>
+                        <div class="interest-tag" onclick="toggleInterest(this)">🏃 Fitness</div>
+                        <div class="interest-tag" onclick="toggleInterest(this)">📚 Reading</div>
+                        <div class="interest-tag" onclick="toggleInterest(this)">🎮 Gaming</div>
+                        <div class="interest-tag" onclick="toggleInterest(this)">🎭 Theater</div>
+                        <div class="interest-tag" onclick="toggleInterest(this)">🌮 Cooking</div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <button class="continue-btn" onclick="saveProfile()" disabled id="continueBtn">
+            Save & Continue
+        </button>
+    </div>
+
+    <script>
+        let selectedInterests = [];
+        let hasVideo = false;
+
+        function handleVideoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const video = document.getElementById('videoPreview');
+                const uploadPrompt = document.getElementById('uploadPrompt');
+                const videoUpload = document.querySelector('.video-upload');
+
+                video.src = URL.createObjectURL(file);
+                video.classList.remove('hidden');
+                uploadPrompt.classList.add('hidden');
+                videoUpload.classList.add('has-video');
+
+                hasVideo = true;
+                checkFormCompletion();
+            }
+        }
+
+        function toggleInterest(element) {
+            const interest = element.textContent.trim();
+
+            if (element.classList.contains('selected')) {
+                element.classList.remove('selected');
+                selectedInterests = selectedInterests.filter(i => i !== interest);
+            } else {
+                if (selectedInterests.length < 8) {
+                    element.classList.add('selected');
+                    selectedInterests.push(interest);
+                } else {
+                    alert('You can select up to 8 interests');
+                }
+            }
+
+            checkFormCompletion();
+        }
+
+        function checkFormCompletion() {
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const location = document.getElementById('location').value;
+            const bio = document.getElementById('bio').value;
+
+            const isComplete = hasVideo && name && age && location && bio && selectedInterests.length >= 3;
+
+            document.getElementById('continueBtn').disabled = !isComplete;
+        }
+
+        function saveProfile() {
+            const profileData = {
+                name: document.getElementById('name').value,
+                age: document.getElementById('age').value,
+                location: document.getElementById('location').value,
+                bio: document.getElementById('bio').value,
+                interests: selectedInterests,
+                personalityType: 'The Explorer'
+            };
+
+            // Simulate save process
+            const btn = document.getElementById('continueBtn');
+            btn.textContent = 'Saving...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                alert('🎉 Profile created successfully!\n\nYou\'re ready to start finding your vibe matches!');
+                // In real app, navigate to main app
+                window.location.href = 'demo-swipe.html';
+            }, 1500);
+        }
+
+        function goBack() {
+            if (confirm('Are you sure you want to go back? Your progress will be saved.')) {
+                window.location.href = 'demo-quiz.html';
+            }
+        }
+
+        // Add event listeners to form inputs
+        document.getElementById('name').addEventListener('input', checkFormCompletion);
+        document.getElementById('age').addEventListener('input', checkFormCompletion);
+        document.getElementById('location').addEventListener('input', checkFormCompletion);
+        document.getElementById('bio').addEventListener('input', checkFormCompletion);
+    </script>
+</body>
+
+</html>

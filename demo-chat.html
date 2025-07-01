@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeMatch - Chat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #F9FAFB;
+            color: #1F2937;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 420px;
+            margin: 0 auto;
+            height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Chat List View */
+        .chat-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #8B5CF6, #EC4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .notifications-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #F3F4F6;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .conversations {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 20px;
+        }
+
+        .conversation-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #F3F4F6;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .conversation-item:hover {
+            background: #F9FAFB;
+            margin: 0 -20px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .conversation-item:last-child {
+            border-bottom: none;
+        }
+
+        .avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #F97316, #EA580C);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 12px;
+            position: relative;
+        }
+
+        .online-indicator {
+            width: 16px;
+            height: 16px;
+            background: #10B981;
+            border: 2px solid white;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
+        .conversation-info {
+            flex: 1;
+        }
+
+        .conversation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .name {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .time {
+            font-size: 12px;
+            color: #6B7280;
+        }
+
+        .last-message {
+            color: #6B7280;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .match-badge {
+            background: linear-gradient(135deg, #8B5CF6, #EC4899);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .unread-count {
+            background: #EF4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Chat Window View */
+        .chat-window {
+            flex: 1;
+            display: none;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background: white;
+            padding: 16px 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #F3F4F6;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .chat-user-info {
+            flex: 1;
+        }
+
+        .chat-user-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .chat-user-status {
+            font-size: 12px;
+            color: #10B981;
+        }
+
+        .video-call-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8B5CF6, #EC4899);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #F9FAFB;
+        }
+
+        .message {
+            margin-bottom: 16px;
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+        }
+
+        .message.sent {
+            flex-direction: row-reverse;
+        }
+
+        .message-bubble {
+            max-width: 280px;
+            padding: 12px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .message.received .message-bubble {
+            background: white;
+            border-bottom-left-radius: 8px;
+        }
+
+        .message.sent .message-bubble {
+            background: linear-gradient(135deg, #8B5CF6, #EC4899);
+            color: white;
+            border-bottom-right-radius: 8px;
+        }
+
+        .message-time {
+            font-size: 11px;
+            color: #6B7280;
+            margin-top: 4px;
+        }
+
+        .icebreaker-suggestion {
+            background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+            border: 1px solid #F59E0B;
+            border-radius: 16px;
+            padding: 16px;
+            margin: 16px 0;
+            text-align: center;
+        }
+
+        .icebreaker-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #92400E;
+            margin-bottom: 8px;
+        }
+
+        .icebreaker-text {
+            font-size: 14px;
+            color: #78350F;
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+
+        .icebreaker-btn {
+            background: #F59E0B;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .message-input-container {
+            background: white;
+            padding: 16px 20px;
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .message-input {
+            flex: 1;
+            border: 2px solid #E5E7EB;
+            border-radius: 20px;
+            padding: 12px 16px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .message-input:focus {
+            border-color: #8B5CF6;
+        }
+
+        .send-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8B5CF6, #EC4899);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .empty-state {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .empty-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .empty-desc {
+            color: #6B7280;
+            font-size: 14px;
+        }
+
+        @media (max-width: 480px) {
+            .message-bubble {
+                max-width: 240px;
+            }
+
+            .conversations {
+                padding: 0 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Chat List View -->
+        <div class="chat-list" id="chatList">
+            <div class="header">
+                <div class="header-title">Messages</div>
+                <button class="notifications-btn" onclick="alert('Notifications settings')">🔔</button>
+            </div>
+
+            <div class="conversations" id="conversations">
+                <!-- Active Conversations -->
+                <div class="conversation-item" onclick="openChat('taylor')">
+                    <div class="avatar">
+                        👩
+                        <div class="online-indicator"></div>
+                    </div>
+                    <div class="conversation-info">
+                        <div class="conversation-header">
+                            <div class="name">Taylor</div>
+                            <div class="time">2m ago</div>
+                        </div>
+                        <div class="last-message">That sounds like an adventure! ✨</div>
+                        <div class="match-badge">87% Match</div>
+                    </div>
+                    <div class="unread-count">2</div>
+                </div>
+
+                <div class="conversation-item" onclick="openChat('alex')">
+                    <div class="avatar" style="background: linear-gradient(135deg, #6366F1, #4F46E5);">
+                        👨
+                    </div>
+                    <div class="conversation-info">
+                        <div class="conversation-header">
+                            <div class="name">Alex</div>
+                            <div class="time">1h ago</div>
+                        </div>
+                        <div class="last-message">The gallery opening was incredible!</div>
+                        <div class="match-badge">92% Match</div>
+                    </div>
+                </div>
+
+                <div class="conversation-item" onclick="openChat('jordan')">
+                    <div class="avatar" style="background: linear-gradient(135deg, #EF4444, #DC2626);">
+                        🧗
+                    </div>
+                    <div class="conversation-info">
+                        <div class="conversation-header">
+                            <div class="name">Jordan</div>
+                            <div class="time">Yesterday</div>
+                        </div>
+                        <div class="last-message">Rock climbing this weekend?</div>
+                        <div class="match-badge">79% Match</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty State (hidden when there are conversations) -->
+            <div class="empty-state" style="display: none;">
+                <div class="empty-icon">💬</div>
+                <div class="empty-title">No conversations yet</div>
+                <div class="empty-desc">Start swiping to find your vibe matches!</div>
+            </div>
+        </div>
+
+        <!-- Chat Window View -->
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <button class="back-btn" onclick="backToList()">←</button>
+                <div class="avatar" id="chatAvatar">👩</div>
+                <div class="chat-user-info">
+                    <div class="chat-user-name" id="chatUserName">Taylor</div>
+                    <div class="chat-user-status">Online now</div>
+                </div>
+                <button class="video-call-btn" onclick="startVideoCall()">📹</button>
+            </div>
+
+            <div class="messages-container" id="messagesContainer">
+                <!-- AI Icebreaker Suggestion -->
+                <div class="icebreaker-suggestion" id="icebreakerSuggestion">
+                    <div class="icebreaker-title">🤖 AI Conversation Starter</div>
+                    <div class="icebreaker-text">"I noticed you love discovering hidden coffee shops too! What's the
+                        most interesting place you've found recently? ☕✨"</div>
+                    <button class="icebreaker-btn" onclick="useIcebreaker()">Use This Message</button>
+                </div>
+
+                <!-- Sample Messages -->
+                <div class="message received">
+                    <div class="message-bubble">
+                        Hey! Thanks for the match! I saw your video and you seem like such a fun person to explore with!
+                        😊
+                        <div class="message-time">2:30 PM</div>
+                    </div>
+                </div>
+
+                <div class="message sent">
+                    <div class="message-bubble">
+                        Thanks! I loved your adventure video too! That hiking spot looked amazing 🏔️
+                        <div class="message-time">2:32 PM</div>
+                    </div>
+                </div>
+
+                <div class="message received">
+                    <div class="message-bubble">
+                        That sounds like an adventure! ✨
+                        <div class="message-time">2:35 PM</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="message-input-container">
+                <input type="text" class="message-input" id="messageInput" placeholder="Type a message..."
+                    onkeypress="handleKeyPress(event)">
+                <button class="send-btn" id="sendBtn" onclick="sendMessage()" disabled>📤</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const conversations = {
+            taylor: {
+                name: 'Taylor',
+                avatar: '👩',
+                gradient: 'linear-gradient(135deg, #F97316, #EA580C)',
+                status: 'Online now'
+            },
+            alex: {
+                name: 'Alex',
+                avatar: '👨',
+                gradient: 'linear-gradient(135deg, #6366F1, #4F46E5)',
+                status: 'Active 5m ago'
+            },
+            jordan: {
+                name: 'Jordan',
+                avatar: '🧗',
+                gradient: 'linear-gradient(135deg, #EF4444, #DC2626)',
+                status: 'Active 1h ago'
+            }
+        };
+
+        function openChat(userId) {
+            const user = conversations[userId];
+            if (!user) return;
+
+            // Update chat header
+            document.getElementById('chatUserName').textContent = user.name;
+            document.getElementById('chatAvatar').textContent = user.avatar;
+            document.getElementById('chatAvatar').style.background = user.gradient;
+            document.querySelector('.chat-user-status').textContent = user.status;
+
+            // Show chat window, hide list
+            document.getElementById('chatList').style.display = 'none';
+            document.getElementById('chatWindow').style.display = 'flex';
+
+            // Clear any unread indicators
+            // In real app, mark messages as read
+        }
+
+        function backToList() {
+            document.getElementById('chatWindow').style.display = 'none';
+            document.getElementById('chatList').style.display = 'flex';
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+
+            if (message) {
+                // Add message to chat
+                addMessage(message, 'sent');
+                input.value = '';
+                updateSendButton();
+
+                // Simulate response after delay
+                setTimeout(() => {
+                    const responses = [
+                        "That sounds great! 😊",
+                        "I'd love to hear more about that!",
+                        "Totally! When are you free?",
+                        "That's exactly what I was thinking!",
+                        "Count me in! 🎉"
+                    ];
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    addMessage(randomResponse, 'received');
+                }, 1000 + Math.random() * 2000);
+            }
+        }
+
+        function addMessage(text, type) {
+            const container = document.getElementById('messagesContainer');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            messageDiv.innerHTML = `
+                <div class="message-bubble">
+                    ${text}
+                    <div class="message-time">${timeString}</div>
+                </div>
+            `;
+
+            container.appendChild(messageDiv);
+            container.scrollTop = container.scrollHeight;
+
+            // Hide icebreaker after first message
+            const icebreaker = document.getElementById('icebreakerSuggestion');
+            if (icebreaker) {
+                icebreaker.style.display = 'none';
+            }
+        }
+
+        function useIcebreaker() {
+            const icebreakerText = "I noticed you love discovering hidden coffee shops too! What's the most interesting place you've found recently? ☕✨";
+            document.getElementById('messageInput').value = icebreakerText;
+            updateSendButton();
+        }
+
+        function updateSendButton() {
+            const input = document.getElementById('messageInput');
+            const sendBtn = document.getElementById('sendBtn');
+            sendBtn.disabled = input.value.trim() === '';
+        }
+
+        function handleKeyPress(event) {
+            updateSendButton();
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function startVideoCall() {
+            alert('📹 Video call feature coming soon!\n\nUpgrade to Premium for video calls and voice messages.');
+        }
+
+        // Initialize
+        document.getElementById('messageInput').addEventListener('input', updateSendButton);
+    </script>
+</body>
+
+</html>

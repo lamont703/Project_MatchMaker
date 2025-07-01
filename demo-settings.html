@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeMatch - Settings</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #F9FAFB;
+            color: #1F2937;
+        }
+
+        .container {
+            max-width: 420px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #F3F4F6;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .save-btn {
+            background: linear-gradient(135deg, #8B5CF6, #EC4899);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .profile-section {
+            padding: 24px;
+            border-bottom: 8px solid #F3F4F6;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #F97316, #EA580C);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            position: relative;
+        }
+
+        .avatar-edit {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 24px;
+            height: 24px;
+            background: #8B5CF6;
+            border: 2px solid white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .profile-vibe {
+            background: linear-gradient(135deg, #F97316, #EA580C);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .profile-stats {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .video-preview {
+            width: 100%;
+            height: 200px;
+            background: #000;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            margin-bottom: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-overlay {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .section {
+            border-bottom: 8px solid #F3F4F6;
+        }
+
+        .section-header {
+            padding: 20px 24px 16px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #1F2937;
+        }
+
+        .setting-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 24px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .setting-item:hover {
+            background: #F9FAFB;
+        }
+
+        .setting-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-right: 12px;
+        }
+
+        .setting-icon.profile {
+            background: #FEF3C7;
+        }
+
+        .setting-icon.quiz {
+            background: #DBEAFE;
+        }
+
+        .setting-icon.notifications {
+            background: #FEE2E2;
+        }
+
+        .setting-icon.privacy {
+            background: #F0FDF4;
+        }
+
+        .setting-icon.premium {
+            background: #FAE8FF;
+        }
+
+        .setting-icon.help {
+            background: #E0F2FE;
+        }
+
+        .setting-icon.logout {
+            background: #FEF2F2;
+        }
+
+        .setting-content {
+            flex: 1;
+        }
+
+        .setting-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .setting-desc {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .setting-action {
+            color: #6B7280;
+            font-size: 14px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 48px;
+            height: 28px;
+            background: #E5E7EB;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: #8B5CF6;
+        }
+
+        .toggle-knob {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-switch.active .toggle-knob {
+            transform: translateX(20px);
+        }
+
+        .premium-badge {
+            background: linear-gradient(135deg, #8B5CF6, #EC4899);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .form-group {
+            padding: 16px 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #8B5CF6;
+        }
+
+        .form-textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .interest-tag {
+            padding: 8px 12px;
+            border: 2px solid #E5E7EB;
+            border-radius: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 12px;
+        }
+
+        .interest-tag.selected {
+            background: linear-gradient(135deg, #8B5CF6, #EC4899);
+            color: white;
+            border-color: transparent;
+        }
+
+        .danger-zone {
+            background: #FEF2F2;
+            border-top: 8px solid #F3F4F6;
+        }
+
+        .logout-btn {
+            width: 100%;
+            background: #EF4444;
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #DC2626;
+        }
+
+        @media (max-width: 480px) {
+            .profile-section {
+                padding: 20px 16px;
+            }
+
+            .section-header {
+                padding: 16px 16px 12px;
+            }
+
+            .setting-item {
+                padding: 16px;
+            }
+
+            .form-group {
+                padding: 16px;
+            }
+
+            .interests-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-btn" onclick="goBack()">←</button>
+            <div class="header-title">Settings</div>
+            <button class="save-btn" onclick="saveChanges()">Save</button>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    🌍
+                    <div class="avatar-edit" onclick="editAvatar()">📷</div>
+                </div>
+                <div class="profile-info">
+                    <div class="profile-name">Taylor, 24</div>
+                    <div class="profile-vibe">🌍 The Explorer</div>
+                    <div class="profile-stats">87% avg compatibility • 15 matches</div>
+                </div>
+            </div>
+
+            <div class="video-preview" onclick="updateVideo()">
+                📹 Your Adventure Video
+                <div class="video-overlay">Update Video</div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="bio">Bio</label>
+                <textarea id="bio" class="form-input form-textarea"
+                    placeholder="Tell us about yourself...">Love hiking and discovering hidden coffee shops! Always up for spontaneous weekend adventures. Looking for someone who shares my curiosity about the world and isn't afraid to try new things. Let's explore together! 🏔️☕✨</textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Interests</label>
+                <div class="interests-grid">
+                    <div class="interest-tag selected">🎵 Music</div>
+                    <div class="interest-tag selected">🏔️ Hiking</div>
+                    <div class="interest-tag selected">☕ Coffee</div>
+                    <div class="interest-tag selected">📸 Photography</div>
+                    <div class="interest-tag">✈️ Travel</div>
+                    <div class="interest-tag">🎨 Art</div>
+                    <div class="interest-tag">🍕 Food</div>
+                    <div class="interest-tag">🏃 Fitness</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Settings -->
+        <div class="section">
+            <div class="section-header">Account</div>
+
+            <div class="setting-item" onclick="retakeQuiz()">
+                <div class="setting-icon quiz">🧠</div>
+                <div class="setting-content">
+                    <div class="setting-title">Retake Personality Quiz</div>
+                    <div class="setting-desc">Update your vibe type and matching preferences</div>
+                </div>
+                <div class="setting-action">→</div>
+            </div>
+
+            <div class="setting-item" onclick="editProfile()">
+                <div class="setting-icon profile">👤</div>
+                <div class="setting-content">
+                    <div class="setting-title">Edit Profile Details</div>
+                    <div class="setting-desc">Update your name, age, and location</div>
+                </div>
+                <div class="setting-action">→</div>
+            </div>
+
+            <div class="setting-item" onclick="upgradeToPremium()">
+                <div class="setting-icon premium">💎</div>
+                <div class="setting-content">
+                    <div class="setting-title">
+                        VibeMatch Premium
+                        <span class="premium-badge">UPGRADE</span>
+                    </div>
+                    <div class="setting-desc">Unlimited likes, see who liked you, and more</div>
+                </div>
+                <div class="setting-action">→</div>
+            </div>
+        </div>
+
+        <!-- Preferences -->
+        <div class="section">
+            <div class="section-header">Preferences</div>
+
+            <div class="setting-item">
+                <div class="setting-icon notifications">🔔</div>
+                <div class="setting-content">
+                    <div class="setting-title">Push Notifications</div>
+                    <div class="setting-desc">Get notified about new matches and messages</div>
+                </div>
+                <div class="toggle-switch active" onclick="toggleSetting(this)">
+                    <div class="toggle-knob"></div>
+                </div>
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-icon notifications">💬</div>
+                <div class="setting-content">
+                    <div class="setting-title">Message Notifications</div>
+                    <div class="setting-desc">Get alerts for new chat messages</div>
+                </div>
+                <div class="toggle-switch active" onclick="toggleSetting(this)">
+                    <div class="toggle-knob"></div>
+                </div>
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-icon privacy">🔒</div>
+                <div class="setting-content">
+                    <div class="setting-title">Private Mode</div>
+                    <div class="setting-desc">Only show your profile to mutual interests</div>
+                </div>
+                <div class="toggle-switch" onclick="toggleSetting(this)">
+                    <div class="toggle-knob"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Support -->
+        <div class="section">
+            <div class="section-header">Support</div>
+
+            <div class="setting-item" onclick="openHelp()">
+                <div class="setting-icon help">❓</div>
+                <div class="setting-content">
+                    <div class="setting-title">Help & Support</div>
+                    <div class="setting-desc">FAQs, contact us, and troubleshooting</div>
+                </div>
+                <div class="setting-action">→</div>
+            </div>
+
+            <div class="setting-item" onclick="openPrivacy()">
+                <div class="setting-icon privacy">📋</div>
+                <div class="setting-content">
+                    <div class="setting-title">Privacy Policy</div>
+                    <div class="setting-desc">How we protect and use your data</div>
+                </div>
+                <div class="setting-action">→</div>
+            </div>
+
+            <div class="setting-item" onclick="openTerms()">
+                <div class="setting-icon help">📄</div>
+                <div class="setting-content">
+                    <div class="setting-title">Terms of Service</div>
+                    <div class="setting-desc">Our terms and conditions</div>
+                </div>
+                <div class="setting-action">→</div>
+            </div>
+        </div>
+
+        <!-- Danger Zone -->
+        <div class="danger-zone">
+            <div class="section-header" style="color: #EF4444;">Account Actions</div>
+
+            <div class="setting-item" onclick="logout()">
+                <div class="setting-icon logout">🚪</div>
+                <div class="setting-content">
+                    <div class="setting-title" style="color: #EF4444;">Log Out</div>
+                    <div class="setting-desc">Sign out of your VibeMatch account</div>
+                </div>
+                <div class="setting-action">→</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let unsavedChanges = false;
+
+        function toggleSetting(element) {
+            element.classList.toggle('active');
+            unsavedChanges = true;
+        }
+
+        function toggleInterest(element) {
+            element.classList.toggle('selected');
+            unsavedChanges = true;
+        }
+
+        function saveChanges() {
+            if (!unsavedChanges) {
+                return;
+            }
+
+            const btn = event.target;
+            btn.textContent = 'Saving...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.textContent = 'Saved!';
+                setTimeout(() => {
+                    btn.textContent = 'Save';
+                    btn.disabled = false;
+                    unsavedChanges = false;
+                }, 1000);
+            }, 1000);
+        }
+
+        function goBack() {
+            if (unsavedChanges) {
+                if (confirm('You have unsaved changes. Are you sure you want to go back?')) {
+                    window.location.href = 'demo-swipe.html';
+                }
+            } else {
+                window.location.href = 'demo-swipe.html';
+            }
+        }
+
+        function editAvatar() {
+            alert('📷 Camera feature coming soon!\n\nYou\'ll be able to upload new photos and update your avatar.');
+        }
+
+        function updateVideo() {
+            alert('📹 Video update feature!\n\nRecord a new 15-30 second video to show your personality.');
+        }
+
+        function retakeQuiz() {
+            if (confirm('Retaking the quiz will update your personality type and may change your matches. Continue?')) {
+                window.location.href = 'demo-quiz.html';
+            }
+        }
+
+        function editProfile() {
+            alert('👤 Profile editor coming soon!\n\nYou\'ll be able to update your name, age, location, and other basic info.');
+        }
+
+        function upgradeToPremium() {
+            window.location.href = 'demo-premium.html';
+        }
+
+        function openHelp() {
+            alert('❓ Help Center\n\n• How to use VibeMatch\n• Troubleshooting\n• Contact support\n• Safety tips\n\nEmail: help@vibematch.app');
+        }
+
+        function openPrivacy() {
+            alert('📋 Privacy Policy\n\nWe protect your privacy with:\n• End-to-end encryption\n• No data selling\n• GDPR compliance\n• User control over data\n\nView full policy at vibematch.app/privacy');
+        }
+
+        function openTerms() {
+            alert('📄 Terms of Service\n\nKey points:\n• Must be 18+ to use\n• Respectful community guidelines\n• Profile authenticity required\n• Premium subscription terms\n\nView full terms at vibematch.app/terms');
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to log out?')) {
+                // Show loading state
+                const logoutItem = event.currentTarget;
+                logoutItem.style.opacity = '0.5';
+
+                setTimeout(() => {
+                    alert('👋 Logged out successfully!\n\nThanks for using VibeMatch. See you soon!');
+                    window.location.href = 'demo-welcome.html';
+                }, 1000);
+            }
+        }
+
+        // Track changes in form inputs
+        document.getElementById('bio').addEventListener('input', () => {
+            unsavedChanges = true;
+        });
+
+        // Add click handlers to interest tags
+        document.querySelectorAll('.interest-tag').forEach(tag => {
+            tag.addEventListener('click', () => toggleInterest(tag));
+        });
+    </script>
+</body>
+
+</html>

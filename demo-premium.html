@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeMatch Premium - Upgrade</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            background: #8B5CF6 !important;
+            /* Fallback color */
+            background: -webkit-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: -moz-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: -o-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #8B5CF6 !important;
+            /* Fallback color */
+            background: -webkit-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: -moz-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: -o-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background-attachment: fixed;
+            color: white;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 420px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+            background: transparent;
+        }
+
+        .header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(139, 92, 246, 0.9);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+        }
+
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .close-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .content {
+            padding: 0 24px 24px;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 20px 0 40px;
+        }
+
+        .premium-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .hero-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 32px;
+        }
+
+        .plan-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 4px;
+            display: flex;
+            margin-bottom: 32px;
+        }
+
+        .plan-option {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .plan-option.active {
+            background: white;
+            color: #8B5CF6;
+        }
+
+        .features-section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.15);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+        }
+
+        .feature-item.locked {
+            opacity: 0.6;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .feature-content {
+            flex: 1;
+        }
+
+        .feature-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .feature-badge {
+            position: absolute;
+            top: -8px;
+            right: 12px;
+            background: #F59E0B;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .feature-badge.premium {
+            background: linear-gradient(135deg, #F97316, #EA580C);
+        }
+
+        .feature-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toggle-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-dot.free {
+            background: #EF4444;
+        }
+
+        .toggle-dot.premium {
+            background: #10B981;
+        }
+
+        .toggle-text {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .comparison-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .comparison-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .comparison-column {
+            text-align: center;
+            flex: 1;
+        }
+
+        .comparison-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .comparison-price {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .comparison-row {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-feature {
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .comparison-value {
+            width: 80px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .check-icon {
+            color: #10B981;
+        }
+
+        .x-icon {
+            color: #EF4444;
+        }
+
+        .pricing-section {
+            margin-bottom: 32px;
+        }
+
+        .pricing-cards {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .pricing-card {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.15);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .pricing-card.recommended {
+            border-color: #F59E0B;
+        }
+
+        .pricing-card.selected {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.02);
+        }
+
+        .recommended-badge {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #F59E0B;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .pricing-period {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .pricing-amount {
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+
+        .pricing-detail {
+            font-size: 12px;
+            opacity: 0.8;
+            text-align: center;
+        }
+
+        .pricing-savings {
+            background: #10B981;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .cta-section {
+            position: sticky;
+            bottom: 0;
+            background: rgba(139, 92, 246, 0.95);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            padding: 20px 24px;
+            margin: 0 -24px;
+        }
+
+        .cta-btn {
+            width: 100%;
+            background: white;
+            color: #8B5CF6;
+            border: none;
+            padding: 18px 24px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: transform 0.2s ease;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .cta-subtitle {
+            text-align: center;
+            font-size: 12px;
+            opacity: 0.8;
+            line-height: 1.4;
+        }
+
+        .testimonials {
+            margin-bottom: 32px;
+        }
+
+        .testimonial {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 12px;
+        }
+
+        .testimonial-text {
+            font-size: 14px;
+            font-style: italic;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .testimonial-author {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 480px) {
+            .content {
+                padding: 0 16px 16px;
+            }
+
+            .hero-title {
+                font-size: 28px;
+            }
+
+            .pricing-cards {
+                flex-direction: column;
+            }
+
+            .comparison-section {
+                padding: 20px 16px;
+            }
+
+            .cta-section {
+                padding: 16px 20px;
+                margin: 0 -16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-btn" onclick="goBack()">←</button>
+            <button class="close-btn" onclick="goBack()">✕</button>
+        </div>
+
+        <div class="content">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="premium-icon">💎</div>
+                <h1 class="hero-title">VibeMatch Premium</h1>
+                <p class="hero-subtitle">Unlock your full matching potential</p>
+            </div>
+
+            <!-- Plan Toggle -->
+            <div class="plan-toggle">
+                <div class="plan-option active" onclick="showPlan('features')">Features</div>
+                <div class="plan-option" onclick="showPlan('comparison')">Compare Plans</div>
+            </div>
+
+            <!-- Features View -->
+            <div id="featuresView">
+                <div class="features-section">
+                    <h2 class="section-title">🚀 Premium Features</h2>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">❤️</div>
+                        <div class="feature-content">
+                            <div class="feature-title">Unlimited Likes</div>
+                            <div class="feature-desc">Like as many profiles as you want without daily limits</div>
+                        </div>
+                        <div class="feature-badge premium">Premium</div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">👀</div>
+                        <div class="feature-content">
+                            <div class="feature-title">See Who Liked You</div>
+                            <div class="feature-desc">Skip the guessing game and see all your admirers</div>
+                        </div>
+                        <div class="feature-badge premium">Premium</div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-content">
+                            <div class="feature-title">Advanced Filters</div>
+                            <div class="feature-desc">Filter by age, vibe type, interests, and location</div>
+                        </div>
+                        <div class="feature-badge premium">Premium</div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-content">
+                            <div class="feature-title">Priority Matching</div>
+                            <div class="feature-desc">Your profile gets shown to more potential matches</div>
+                        </div>
+                        <div class="feature-badge premium">Premium</div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">📹</div>
+                        <div class="feature-content">
+                            <div class="feature-title">Video Calls & Voice Messages</div>
+                            <div class="feature-desc">Connect deeper with high-quality video calls</div>
+                        </div>
+                        <div class="feature-badge premium">Premium</div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">↩️</div>
+                        <div class="feature-content">
+                            <div class="feature-title">Rewind Super Likes</div>
+                            <div class="feature-desc">Undo accidental swipes and get second chances</div>
+                        </div>
+                        <div class="feature-badge premium">Premium</div>
+                    </div>
+                </div>
+
+                <!-- Testimonials -->
+                <div class="testimonials">
+                    <h2 class="section-title">💬 What Users Say</h2>
+
+                    <div class="testimonial">
+                        <div class="testimonial-text">"Premium changed everything! I found my perfect match in just 2
+                            weeks. The advanced filters helped me find exactly what I was looking for."</div>
+                        <div class="testimonial-author">- Sarah, Explorer</div>
+                    </div>
+
+                    <div class="testimonial">
+                        <div class="testimonial-text">"Being able to see who liked me saved so much time. No more
+                            guessing games - just real connections!"</div>
+                        <div class="testimonial-author">- Mike, Adventurer</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison View -->
+            <div id="comparisonView" style="display: none;">
+                <div class="comparison-section">
+                    <div class="comparison-header">
+                        <div class="comparison-column">
+                            <div class="comparison-title">Free</div>
+                            <div class="comparison-price">$0/month</div>
+                        </div>
+                        <div class="comparison-column">
+                            <div class="comparison-title">Premium</div>
+                            <div class="comparison-price">From $9.99/month</div>
+                        </div>
+                    </div>
+
+                    <div class="comparison-row">
+                        <div class="comparison-feature">Daily Likes</div>
+                        <div class="comparison-value">10 per day</div>
+                        <div class="comparison-value">Unlimited</div>
+                    </div>
+
+                    <div class="comparison-row">
+                        <div class="comparison-feature">See Who Liked You</div>
+                        <div class="comparison-value"><span class="x-icon">✗</span></div>
+                        <div class="comparison-value"><span class="check-icon">✓</span></div>
+                    </div>
+
+                    <div class="comparison-row">
+                        <div class="comparison-feature">Advanced Filters</div>
+                        <div class="comparison-value"><span class="x-icon">✗</span></div>
+                        <div class="comparison-value"><span class="check-icon">✓</span></div>
+                    </div>
+
+                    <div class="comparison-row">
+                        <div class="comparison-feature">Priority Matching</div>
+                        <div class="comparison-value"><span class="x-icon">✗</span></div>
+                        <div class="comparison-value"><span class="check-icon">✓</span></div>
+                    </div>
+
+                    <div class="comparison-row">
+                        <div class="comparison-feature">Video Calls</div>
+                        <div class="comparison-value"><span class="x-icon">✗</span></div>
+                        <div class="comparison-value"><span class="check-icon">✓</span></div>
+                    </div>
+
+                    <div class="comparison-row">
+                        <div class="comparison-feature">Rewind Swipes</div>
+                        <div class="comparison-value">1 per day</div>
+                        <div class="comparison-value">Unlimited</div>
+                    </div>
+
+                    <div class="comparison-row">
+                        <div class="comparison-feature">AI Insights</div>
+                        <div class="comparison-value">Basic</div>
+                        <div class="comparison-value">Advanced</div>
+                    </div>
+
+                    <div class="comparison-row">
+                        <div class="comparison-feature">Profile Boost</div>
+                        <div class="comparison-value"><span class="x-icon">✗</span></div>
+                        <div class="comparison-value">Weekly</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pricing Section -->
+            <div class="pricing-section">
+                <h2 class="section-title">💰 Choose Your Plan</h2>
+
+                <div class="pricing-cards">
+                    <div class="pricing-card" onclick="selectPlan('monthly')">
+                        <div class="pricing-period">Monthly</div>
+                        <div class="pricing-amount">$19.99</div>
+                        <div class="pricing-detail">per month</div>
+                    </div>
+
+                    <div class="pricing-card recommended selected" onclick="selectPlan('yearly')">
+                        <div class="recommended-badge">Best Value</div>
+                        <div class="pricing-period">Yearly</div>
+                        <div class="pricing-amount">$9.99</div>
+                        <div class="pricing-detail">per month</div>
+                        <div class="pricing-savings">Save 50%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <button class="cta-btn" onclick="upgradeNow()">
+                Start Premium - $9.99/month
+            </button>
+            <div class="cta-subtitle">
+                Cancel anytime • 7-day free trial • No commitment
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedPlan = 'yearly';
+
+        function showPlan(planType) {
+            // Update toggle buttons
+            document.querySelectorAll('.plan-option').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Show/hide content
+            if (planType === 'features') {
+                document.getElementById('featuresView').style.display = 'block';
+                document.getElementById('comparisonView').style.display = 'none';
+            } else {
+                document.getElementById('featuresView').style.display = 'none';
+                document.getElementById('comparisonView').style.display = 'block';
+            }
+        }
+
+        function selectPlan(planType) {
+            // Update selected plan
+            selectedPlan = planType;
+
+            // Update visual selection
+            document.querySelectorAll('.pricing-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+
+            // Update CTA button
+            const ctaBtn = document.querySelector('.cta-btn');
+            if (planType === 'monthly') {
+                ctaBtn.textContent = 'Start Premium - $19.99/month';
+            } else {
+                ctaBtn.textContent = 'Start Premium - $9.99/month';
+            }
+        }
+
+        function upgradeNow() {
+            const btn = event.target;
+            const originalText = btn.textContent;
+
+            btn.textContent = 'Processing...';
+            btn.disabled = true;
+
+            // Simulate payment processing
+            setTimeout(() => {
+                btn.textContent = 'Success! 🎉';
+
+                setTimeout(() => {
+                    alert(`🎉 Welcome to VibeMatch Premium!\n\n✓ ${selectedPlan === 'yearly' ? 'Yearly' : 'Monthly'} plan activated\n✓ 7-day free trial started\n✓ All premium features unlocked\n\nEnjoy unlimited likes and advanced matching!`);
+
+                    // In real app, would redirect to premium dashboard
+                    window.location.href = 'demo-swipe.html';
+                }, 1500);
+            }, 2000);
+        }
+
+        function goBack() {
+            window.location.href = 'demo-settings.html';
+        }
+
+        // Add premium feature interactions
+        document.querySelectorAll('.feature-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const title = item.querySelector('.feature-title').textContent;
+                const desc = item.querySelector('.feature-desc').textContent;
+
+                alert(`💎 ${title}\n\n${desc}\n\nUpgrade to Premium to unlock this feature!`);
+            });
+        });
+
+        // Animate premium icon on load
+        window.addEventListener('load', () => {
+            const icon = document.querySelector('.premium-icon');
+            icon.style.animation = 'float 3s ease-in-out infinite';
+        });
+    </script>
+</body>
+
+</html>
