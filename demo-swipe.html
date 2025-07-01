@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeMatch - Swipe Demo</title>
+    <style>
+        body {
+            font-family: -apple-system, sans-serif;
+            margin: 0;
+            background: #f8f9fa;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #8B5CF6, #EC4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .card-stack {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        .card {
+            width: 350px;
+            height: 500px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, opacity 0.3s, border 0.3s;
+            cursor: pointer;
+            perspective: 1000px;
+            flex-shrink: 0;
+            border: 3px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.3);
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: left;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        .video-area {
+            height: 300px;
+            background: linear-gradient(135deg, #8B5CF6, #EC4899);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .card-info {
+            padding: 20px;
+        }
+
+        .name {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .badge {
+            background: linear-gradient(135deg, #F97316, #EA580C);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 14px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .match-info {
+            background: #F0F9FF;
+            color: #0369A1;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .bio {
+            color: #4B5563;
+            margin-bottom: 12px;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            padding: 20px;
+        }
+
+        .btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+        }
+
+        .pass {
+            background: #FEE2E2;
+            color: #DC2626;
+        }
+
+        .like {
+            background: #DCFCE7;
+            color: #16A34A;
+        }
+
+        .super {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+
+        .insight-btn {
+            background: #FEF3C7;
+            color: #92400E;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .demo-note {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo-note">🎮 Interactive Demo - Click buttons!</div>
+
+    <div class="header">
+        <div style="font-size: 24px;">🔥</div>
+        <div class="logo">VibeMatch</div>
+        <div style="font-size: 24px; cursor: pointer;" onclick="alert('Settings menu')">⚙️</div>
+    </div>
+
+    <div class="container">
+        <div class="card-stack" id="cardStack">
+            <!-- Card 1 - Taylor -->
+            <div class="card" onclick="selectCard(this); flipCard(this);">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="video-area">📹 Video Preview<br><small>Taylor's Adventure</small></div>
+                        <div class="card-info">
+                            <div class="name">Taylor, 24 📍 2 miles</div>
+                            <div class="badge">🌍 The Explorer</div>
+                            <div class="match-info">87% Match • 3 mutual friends</div>
+                            <div style="text-align: center; margin-top: 20px; color: #6B7280; font-size: 14px;">
+                                💡 Click to select & flip profile
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-info" style="padding: 30px 20px; height: 100%;">
+                            <div class="name" style="margin-bottom: 15px;">Taylor, 24 📍 2 miles away</div>
+                            <div class="badge" style="margin-bottom: 15px;">🌍 The Explorer</div>
+                            <div class="match-info" style="margin-bottom: 20px;">87% Match • 3 mutual friends</div>
+                            <div class="bio" style="margin-bottom: 20px; line-height: 1.5;">
+                                "Love hiking and discovering hidden coffee shops! Always up for spontaneous weekend
+                                adventures.
+                                Looking for someone who shares my curiosity about the world and isn't afraid to try new
+                                things.
+                                Let's explore together! 🏔️☕✨"
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: #1F2937;">Interests:</strong><br>
+                                🎵 Music 🏔️ Hiking ☕ Coffee 📸 Photography ✈️ Travel 🎨 Art
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: #1F2937;">Looking for:</strong> Ages 22-30, within 10 miles
+                            </div>
+                            <div style="text-align: center; color: #6B7280; font-size: 14px;">
+                                💡 Tap to flip back
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 - Alex -->
+            <div class="card" onclick="selectCard(this); flipCard(this);">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="video-area" style="background: linear-gradient(135deg, #F97316, #EA580C);">📹 Video
+                            Preview<br><small>Alex's Art Studio</small></div>
+                        <div class="card-info">
+                            <div class="name">Alex, 27 📍 1.5 miles</div>
+                            <div class="badge" style="background: linear-gradient(135deg, #6366F1, #4F46E5);">🎨 The
+                                Creative</div>
+                            <div class="match-info">92% Match • 5 mutual friends</div>
+                            <div style="text-align: center; margin-top: 20px; color: #6B7280; font-size: 14px;">
+                                💡 Click to select & flip profile
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-info" style="padding: 30px 20px; height: 100%;">
+                            <div class="name" style="margin-bottom: 15px;">Alex, 27 📍 1.5 miles away</div>
+                            <div class="badge"
+                                style="background: linear-gradient(135deg, #6366F1, #4F46E5); margin-bottom: 15px;">🎨
+                                The Creative</div>
+                            <div class="match-info" style="margin-bottom: 20px;">92% Match • 5 mutual friends</div>
+                            <div class="bio" style="margin-bottom: 20px; line-height: 1.5;">
+                                "Artist by day, stargazer by night. I find inspiration in everything from street art to
+                                classical music.
+                                My studio is my sanctuary, but I love sharing creative adventures with someone special.
+                                Looking for a muse who appreciates beauty in all its forms! 🎨✨🌙"
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: #1F2937;">Interests:</strong><br>
+                                🎨 Painting 🎵 Classical Music ⭐ Astronomy 🍷 Wine 📚 Poetry 🌃 Night Walks
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: #1F2937;">Looking for:</strong> Ages 24-32, within 15 miles
+                            </div>
+                            <div style="text-align: center; color: #6B7280; font-size: 14px;">
+                                💡 Tap to flip back
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 - Jordan -->
+            <div class="card" onclick="selectCard(this); flipCard(this);">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="video-area" style="background: linear-gradient(135deg, #10B981, #059669);">📹 Video
+                            Preview<br><small>Jordan's Climb</small></div>
+                        <div class="card-info">
+                            <div class="name">Jordan, 26 📍 3 miles</div>
+                            <div class="badge" style="background: linear-gradient(135deg, #EF4444, #DC2626);">🚀 The
+                                Adventurer</div>
+                            <div class="match-info">79% Match • 2 mutual friends</div>
+                            <div style="text-align: center; margin-top: 20px; color: #6B7280; font-size: 14px;">
+                                💡 Click to select & flip profile
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-info" style="padding: 30px 20px; height: 100%;">
+                            <div class="name" style="margin-bottom: 15px;">Jordan, 26 📍 3 miles away</div>
+                            <div class="badge"
+                                style="background: linear-gradient(135deg, #EF4444, #DC2626); margin-bottom: 15px;">🚀
+                                The Adventurer</div>
+                            <div class="match-info" style="margin-bottom: 20px;">79% Match • 2 mutual friends</div>
+                            <div class="bio" style="margin-bottom: 20px; line-height: 1.5;">
+                                "Life's too short for boring! Rock climber by passion, foodie by nature.
+                                I believe the best stories come from saying 'yes' to adventure.
+                                Whether it's scaling a cliff or trying that hole-in-the-wall restaurant, count me in!
+                                🧗‍♂️🍕"
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: #1F2937;">Interests:</strong><br>
+                                🧗 Rock Climbing 🍕 Food Adventures 🎯 Archery 🏃 Running 🏕️ Camping 🌮 Tacos
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: #1F2937;">Looking for:</strong> Ages 23-30, within 20 miles
+                            </div>
+                            <div style="text-align: center; color: #6B7280; font-size: 14px;">
+                                💡 Tap to flip back
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 20px 0; color: #6B7280; font-size: 14px;">
+            💡 Click on a profile card to select it, then use the buttons below
+        </div>
+
+        <button class="insight-btn" onclick="showInsight()">💡 See Why We Think You Match</button>
+
+        <div class="actions">
+            <button class="btn pass" onclick="passCard()" title="Pass on selected profile">👎</button>
+            <button class="btn like" onclick="likeCard()" title="Like selected profile">❤️</button>
+            <button class="btn super" onclick="superLike()" title="Super like selected profile">⭐</button>
+        </div>
+    </div>
+
+    <script>
+        const profiles = [
+            { name: "Taylor, 24", badge: "🌍 The Explorer", match: "87% Match" },
+            { name: "Alex, 27", badge: "🎨 The Creative", match: "92% Match" },
+            { name: "Jordan, 26", badge: "🚀 The Adventurer", match: "79% Match" }
+        ];
+
+
+
+        function flipCard(cardElement) {
+            // Prevent flip if card is being swiped
+            if (cardElement.style.transform.includes('translateX')) return;
+
+            cardElement.classList.toggle('flipped');
+        }
+
+
+
+        function removeCard(cardElement, direction) {
+            if (!cardElement) return;
+
+            // Reset flip state before animating out
+            cardElement.classList.remove('flipped');
+
+            let transform;
+            switch (direction) {
+                case 'left':
+                    transform = 'translateX(-120%) rotate(-15deg)';
+                    break;
+                case 'right':
+                    transform = 'translateX(120%) rotate(15deg)';
+                    break;
+                case 'up':
+                    transform = 'translateY(-120%) scale(1.1)';
+                    break;
+            }
+
+            cardElement.style.transform = transform;
+            cardElement.style.opacity = '0';
+
+            setTimeout(() => {
+                cardElement.remove();
+
+                const remainingCards = document.querySelectorAll('.card');
+                if (remainingCards.length === 0) {
+                    showEndMessage();
+                }
+            }, 300);
+        }
+
+        // Global variables for card interactions
+        let selectedCard = null;
+
+        function selectCard(cardElement) {
+            // Remove selection from all cards
+            document.querySelectorAll('.card').forEach(card => {
+                card.style.border = 'none';
+            });
+
+            // Select the clicked card
+            selectedCard = cardElement;
+            cardElement.style.border = '3px solid #8B5CF6';
+        }
+
+        function getSelectedCard() {
+            return selectedCard || document.querySelector('.card');
+        }
+
+        function passCard() {
+            const card = getSelectedCard();
+            if (card) {
+                removeCard(card, 'left');
+                selectedCard = null;
+            }
+        }
+
+        function likeCard() {
+            const card = getSelectedCard();
+            if (!card) return;
+
+            // Get profile info from card
+            const nameElement = card.querySelector('.name');
+            const profileName = nameElement ? nameElement.textContent.split(',')[0] : 'Someone';
+
+            removeCard(card, 'right');
+            selectedCard = null;
+
+            // 30% chance of match for demo
+            if (Math.random() < 0.3) {
+                setTimeout(() => {
+                    alert(`🎉 It's a Match!\n\nYou and ${profileName} are highly compatible!\n\n💡 Icebreaker: "I love your vibe! What's your favorite adventure so far?"`);
+                }, 500);
+            }
+        }
+
+        function superLike() {
+            const card = getSelectedCard();
+            if (!card) return;
+
+            // Get profile info from card
+            const nameElement = card.querySelector('.name');
+            const profileName = nameElement ? nameElement.textContent.split(',')[0] : 'Someone';
+
+            removeCard(card, 'up');
+            selectedCard = null;
+
+            setTimeout(() => {
+                alert(`⭐ Super Like Sent!\n\n${profileName} will see that you're really interested!\n\n🎯 60% higher chance of matching!`);
+            }, 300);
+        }
+
+        function showInsight() {
+            const card = getSelectedCard();
+            if (!card) return;
+
+            const nameElement = card.querySelector('.name');
+            const badgeElement = card.querySelector('.badge');
+            const matchElement = card.querySelector('.match-info');
+
+            const profileName = nameElement ? nameElement.textContent.split(',')[0] : 'This person';
+            const badge = badgeElement ? badgeElement.textContent : 'Their personality type';
+            const match = matchElement ? matchElement.textContent.split(' ')[0] : '85%';
+
+            alert(`🤖 AI Match Insights for ${profileName}:\n\nWhy we think you'll connect:\n\n✓ Both love outdoor adventures\n✓ Creative and spontaneous personalities\n✓ Similar energy levels\n✓ Shared values around authenticity\n\n🧠 Personality Analysis:\n${badge} pairs well with your type!\n\nCompatibility: ${match}`);
+        }
+
+        function showEndMessage() {
+            const cardStack = document.getElementById('cardStack');
+            cardStack.innerHTML = `
+                <div style="height: 500px; display: flex; align-items: center; justify-content: center; text-align: center; color: #6B7280;">
+                    <div>
+                        <h3 style="margin-bottom: 10px; color: #8B5CF6;">🎯 No more profiles!</h3>
+                        <p style="margin: 0; font-size: 14px;">Check back later for new matches</p>
+                        <p style="margin-top: 20px; font-size: 14px;">💎 Upgrade to Premium for unlimited profiles!</p>
+                        <button onclick="location.reload()" style="
+                            margin-top: 20px; 
+                            padding: 10px 20px; 
+                            background: linear-gradient(135deg, #8B5CF6, #EC4899); 
+                            color: white; 
+                            border: none; 
+                            border-radius: 20px; 
+                            cursor: pointer;
+                            font-size: 14px;
+                        ">🔄 Restart Demo</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Add touch support for card flipping
+        document.addEventListener('DOMContentLoaded', function () {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                let startY = 0;
+                let isTouching = false;
+
+                card.addEventListener('touchstart', function (e) {
+                    startY = e.touches[0].clientY;
+                    isTouching = true;
+                    e.preventDefault();
+                });
+
+                card.addEventListener('touchend', function (e) {
+                    if (isTouching) {
+                        const endY = e.changedTouches[0].clientY;
+                        const deltaY = Math.abs(endY - startY);
+
+                        // If it's a small movement, treat as a tap to select and flip
+                        if (deltaY < 15) {
+                            selectCard(this);
+                            flipCard(this);
+                        }
+                    }
+                    isTouching = false;
+                    e.preventDefault();
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

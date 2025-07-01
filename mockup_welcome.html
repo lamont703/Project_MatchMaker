@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeMatch - Find Your Vibe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 48px 40px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            color: #1F2937;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .tagline {
+            font-size: 18px;
+            color: #6B7280;
+            margin-bottom: 40px;
+            line-height: 1.4;
+        }
+
+        .features {
+            margin-bottom: 40px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            font-size: 16px;
+            color: #4B5563;
+        }
+
+        .feature-icon {
+            font-size: 24px;
+            margin-right: 12px;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+        }
+
+        .secondary-link {
+            color: #8B5CF6;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .secondary-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 32px 24px;
+                margin: 20px;
+            }
+
+            .logo {
+                font-size: 28px;
+            }
+
+            .tagline {
+                font-size: 16px;
+            }
+        }
+
+        /* Animation for demo */
+        .container {
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .demo-note {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo-note">
+        🎨 Interactive Mockup - Click to Experience
+    </div>
+
+    <div class="container">
+        <div class="logo">VibeMatch</div>
+        <div class="tagline">
+            Find your vibe.<br>
+            Not just a match.
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <span class="feature-icon">🎭</span>
+                <span>Personality-Based Matching</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">📹</span>
+                <span>Video Profiles</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🔥</span>
+                <span>Smart AI Matching</span>
+            </div>
+        </div>
+
+        <button class="cta-button" onclick="startJourney()">
+            Get Started
+        </button>
+
+        <div>
+            <a href="#" class="secondary-link" onclick="showSignIn()">
+                Already have an account? Sign In
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function startJourney() {
+            // Demo interaction
+            const button = event.target;
+            button.innerHTML = '✨ Starting Your Journey...';
+            button.style.background = 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
+
+            setTimeout(() => {
+                alert('🎯 Next: Personality Quiz\n\nIn the full app, this would navigate to the 8-question personality assessment to discover your unique "vibe" type!');
+                button.innerHTML = 'Get Started';
+                button.style.background = 'linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%)';
+            }, 1500);
+        }
+
+        function showSignIn() {
+            alert('🔐 Sign In Flow\n\nThis would show the login form with options for:\n• Email/Password\n• Google OAuth\n• Facebook OAuth\n• Azure AD B2C integration');
+        }
+
+        // Add some interactive flair
+        document.addEventListener('DOMContentLoaded', function () {
+            const features = document.querySelectorAll('.feature');
+            features.forEach((feature, index) => {
+                feature.style.opacity = '0';
+                feature.style.transform = 'translateX(-20px)';
+
+                setTimeout(() => {
+                    feature.style.transition = 'all 0.5s ease';
+                    feature.style.opacity = '1';
+                    feature.style.transform = 'translateX(0)';
+                }, 300 + (index * 150));
+            });
+        });
+    </script>
+</body>
+
+</html>

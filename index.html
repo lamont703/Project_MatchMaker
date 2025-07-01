@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeMatch - Interactive Demos</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 48px 40px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            color: #1F2937;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .tagline {
+            font-size: 20px;
+            color: #6B7280;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #9CA3AF;
+            margin-bottom: 40px;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .demo-card {
+            background: white;
+            border: 2px solid #E5E7EB;
+            border-radius: 16px;
+            padding: 24px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .demo-card:hover {
+            border-color: #8B5CF6;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.15);
+        }
+
+        .demo-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .demo-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1F2937;
+        }
+
+        .demo-desc {
+            font-size: 14px;
+            color: #6B7280;
+            line-height: 1.4;
+        }
+
+        .info-section {
+            background: #F9FAFB;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .info-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1F2937;
+        }
+
+        .info-text {
+            font-size: 14px;
+            color: #4B5563;
+            line-height: 1.5;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0 0 0;
+        }
+
+        .feature-list li {
+            padding: 4px 0;
+            font-size: 14px;
+            color: #4B5563;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .tech-tag {
+            background: #8B5CF6;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .note {
+            background: #FEF3C7;
+            color: #92400E;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 32px 24px;
+                margin: 20px;
+            }
+
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">VibeMatch</div>
+        <div class="tagline">"Find your vibe. Not just a match."</div>
+        <div class="subtitle">Interactive Wireframe Demos</div>
+
+        <div class="info-section">
+            <div class="info-title">🎯 Project Overview</div>
+            <div class="info-text">
+                A modern dating web application that combines personality-based matching,
+                video profiles, and AI-enhanced features to create meaningful connections.
+            </div>
+            <ul class="feature-list">
+                <li>• 🧠 Myers-Briggs inspired personality assessment</li>
+                <li>• 📹 Short-form video profiles (15-30 seconds)</li>
+                <li>• 🤖 AI-powered match insights and conversation starters</li>
+                <li>• 💬 Smart messaging with icebreaker suggestions</li>
+                <li>• 💎 Premium features and subscription tiers</li>
+            </ul>
+            <div class="tech-stack">
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">Azure Cosmos DB</span>
+                <span class="tech-tag">Azure Blob Storage</span>
+                <span class="tech-tag">Gemini API</span>
+            </div>
+        </div>
+
+        <div class="demo-grid">
+            <a href="https://xrwebsites.io/demo-welcome" class="demo-card" target="_blank" rel="noopener">
+                <div class="demo-icon">🎯</div>
+                <div class="demo-title">Welcome Screen</div>
+                <div class="demo-desc">
+                    App introduction with value proposition and onboarding flow
+                </div>
+            </a>
+
+            <a href="https://xrwebsites.io/quiz" class="demo-card" target="_blank" rel="noopener">
+                <div class="demo-icon">🧠</div>
+                <div class="demo-title">Personality Quiz</div>
+                <div class="demo-desc">
+                    8-question assessment to discover user's unique "vibe" type
+                </div>
+            </a>
+
+            <a href="https://xrwebsites.io/demo-swipe" class="demo-card" target="_blank" rel="noopener">
+                <div class="demo-icon">🔥</div>
+                <div class="demo-title">Swipe Deck</div>
+                <div class="demo-desc">
+                    Main matching interface with video profiles and AI insights
+                </div>
+            </a>
+        </div>
+
+        <div class="info-section">
+            <div class="info-title">📋 How to Use These Demos</div>
+            <div class="info-text">
+                <strong>For Client Presentations:</strong> Show the interactive flow and explain the user journey from
+                onboarding through matching.
+                <br><br>
+                <strong>For Development Teams:</strong> Use as reference for UI components, interactions, and responsive
+                design patterns.
+                <br><br>
+                <strong>For Stakeholders:</strong> Demonstrate the personality-first approach and AI-enhanced features
+                that differentiate VibeMatch.
+            </div>
+        </div>
+
+        <div class="note">
+            💡 <strong>Pro Tip:</strong> These demos work on desktop, tablet, and mobile browsers.
+            Try resizing your browser window to see the responsive design in action!
+        </div>
+    </div>
+</body>
+
+</html>
