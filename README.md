@@ -18,6 +18,9 @@ A comprehensive wireframing package for a modern dating app that combines short-
 - **`demo-welcome.html`** - Interactive welcome screen with onboarding flow
 - **`demo-quiz.html`** - Fully functional personality quiz with 8 questions and results
 - **`demo-swipe.html`** - Interactive swipe deck with match functionality and AI insights
+- **`demo-communities.html`** - Community discovery with trending and suggested groups
+- **`demo-community-details.html`** - Individual community view with posts and member interactions
+- **`demo-my-communities.html`** - Personal community dashboard for managing joined groups
 
 ### 📊 Visual Flow Diagrams
 
@@ -34,6 +37,8 @@ A comprehensive wireframing package for a modern dating app that combines short-
 - **Smart Swipe Interface** - Cards with AI-powered match insights
 - **Intelligent Messaging** - AI-generated icebreakers and conversation tips
 - **Match Celebration** - Engaging match result screens with compatibility scores
+- **Community Platform** - Interest-based groups with posts, events, and discussions
+- **Enhanced Social Discovery** - Find matches through shared community activities
 
 ### 🤖 AI Enhancement Features
 
@@ -90,7 +95,7 @@ A comprehensive wireframing package for a modern dating app that combines short-
 
 ## 📱 Screen Coverage
 
-### Primary Screens (8 Total)
+### Primary Screens (11 Total)
 
 1. **Welcome/Onboarding** - App introduction and value proposition
 2. **Personality Quiz** - 8-question assessment with progress tracking
@@ -100,6 +105,9 @@ A comprehensive wireframing package for a modern dating app that combines short-
 6. **Messaging Interface** - Chat list and individual conversations
 7. **Individual Chat** - 1:1 messaging with AI suggestions
 8. **Settings/Profile** - Account management and premium upgrades
+9. **Community Discovery** - Browse trending communities and interest-based groups
+10. **Community Details** - Individual community posts, events, and member interactions
+11. **My Communities** - Personal dashboard for managing joined and created communities
 
 ### Supporting Features
 
@@ -125,7 +133,15 @@ A comprehensive wireframing package for a modern dating app that combines short-
 - Icebreaker generation and conversation tips
 - Push notification system
 
-### Phase 3: Polish & Premium (4 weeks)
+### Phase 3: Community Platform (4 weeks)
+
+- Community creation and discovery interface
+- Post creation and interaction system
+- Event planning and management features
+- Community-based matching enhancements
+- Moderation tools and safety features
+
+### Phase 4: Polish & Premium (4 weeks)
 
 - Premium feature implementation
 - Advanced animations and micro-interactions
@@ -139,6 +155,8 @@ A comprehensive wireframing package for a modern dating app that combines short-
 
 - **User Engagement:** Daily active users, session duration
 - **Matching Quality:** Match-to-conversation rate, message response rates
+- **Community Activity:** Posts per user, event attendance, community growth rates
+- **Social Discovery:** Community-to-match conversion, cross-community interactions
 - **Retention:** Day 1, 7, and 30 retention percentages
 - **Monetization:** Free-to-premium conversion rates
 
@@ -147,16 +165,20 @@ A comprehensive wireframing package for a modern dating app that combines short-
 1. **Personality-First Matching** - Deeper compatibility than appearance-based apps
 2. **Video Profiles** - More authentic representation than static photos
 3. **AI-Enhanced Experience** - Smart suggestions without feeling algorithmic
-4. **Thoughtful Design** - Dating game aesthetics with meaningful connection focus
+4. **Community-Driven Discovery** - Find matches through shared interests and activities
+5. **Thoughtful Design** - Dating game aesthetics with meaningful connection focus
 
 ## 🎮 Interactive HTML Demos
 
-The project includes 4 fully interactive HTML mockups that bring the wireframes to life:
+The project includes 7 fully interactive HTML mockups that bring the wireframes to life:
 
 1. **Welcome Screen** - Shows the onboarding flow and value proposition
 2. **Personality Quiz** - Complete 8-question assessment with personality results
 3. **Swipe Deck** - Main matching interface with video profiles and AI insights
-4. **Demo Hub** - Central navigation with project overview
+4. **Community Discovery** - Browse and join interest-based communities
+5. **Community Details** - Interact with posts and members in specific communities
+6. **My Communities** - Manage your community memberships and created groups
+7. **Demo Hub** - Central navigation with project overview
 
 **Perfect for:**
 
