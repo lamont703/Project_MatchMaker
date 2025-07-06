@@ -42,6 +42,7 @@
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.95);
             min-height: 100vh;
+            width: 100%;
         }
 
         .header {
@@ -376,13 +377,82 @@
             background: #DC2626;
         }
 
+        @media (max-width: 768px) {
+            .container {
+                max-width: 100vw;
+                margin: 0;
+                padding: 0;
+            }
+
+            .header {
+                padding: 16px 20px;
+            }
+
+            .profile-section {
+                padding: 20px;
+            }
+
+            .section-header {
+                padding: 16px 20px 12px;
+            }
+
+            .setting-item {
+                padding: 16px 20px;
+            }
+
+            .form-group {
+                padding: 16px 20px;
+            }
+
+            .interests-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+
+            .interest-tag {
+                font-size: 13px;
+                padding: 8px 12px;
+            }
+
+            .video-preview {
+                height: 180px;
+            }
+
+            .profile-avatar {
+                width: 70px;
+                height: 70px;
+                font-size: 28px;
+            }
+        }
+
         @media (max-width: 480px) {
+            .container {
+                max-width: 100vw;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+            }
+
+            .header {
+                padding: 16px;
+            }
+
+            .header-title {
+                font-size: 16px;
+            }
+
+            .save-btn {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+
             .profile-section {
                 padding: 20px 16px;
             }
 
             .section-header {
                 padding: 16px 16px 12px;
+                font-size: 16px;
             }
 
             .setting-item {
@@ -395,6 +465,108 @@
 
             .interests-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 6px;
+            }
+
+            .interest-tag {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            .video-preview {
+                height: 160px;
+                font-size: 14px;
+            }
+
+            .profile-avatar {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+
+            .profile-name {
+                font-size: 18px;
+            }
+
+            .profile-stats {
+                font-size: 12px;
+            }
+
+            .setting-title {
+                font-size: 15px;
+            }
+
+            .setting-desc {
+                font-size: 13px;
+            }
+
+            .form-input {
+                font-size: 14px;
+            }
+
+            .form-textarea {
+                height: 80px;
+            }
+
+            .logout-btn {
+                padding: 12px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .container {
+                max-width: 100vw;
+                width: 100vw;
+                margin: 0;
+                padding: 0;
+            }
+
+            .header {
+                padding: 12px;
+            }
+
+            .profile-section {
+                padding: 16px 12px;
+            }
+
+            .section-header {
+                padding: 12px 12px 8px;
+            }
+
+            .setting-item {
+                padding: 12px;
+            }
+
+            .form-group {
+                padding: 12px;
+            }
+
+            .interests-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .interest-tag {
+                text-align: center;
+            }
+
+            .video-preview {
+                height: 140px;
+            }
+
+            .profile-avatar {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+
+            .danger-zone {
+                padding: 16px 12px;
+            }
+
+            .logout-btn {
+                padding: 10px;
+                font-size: 13px;
             }
         }
     </style>
