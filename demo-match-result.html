@@ -547,6 +547,153 @@
         // Trigger celebration sound on load
         window.addEventListener('load', playCelebrationSound);
     </script>
+
+    <!-- GHL Tracking Pixel -->
+    <img src="https://api.leadconnectorhq.com/tracking/pixel.gif?account=ACCOUNT_ID&event=match_result_view"
+        style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;" alt="" />
+
+    <script>
+        // GHL Analytics Integration for Match Results
+        function ghlMatchTrack(event, data = {}) {
+            // Google Analytics / GTM tracking
+            if (typeof gtag !== 'undefined') {
+                gtag('event', event, {
+                    event_category: 'VibeMatch_Match_Success',
+                    event_label: event,
+                    ...data
+                });
+            }
+
+            // Send to GHL webhook for celebration automation
+            fetch('https://api.leadconnectorhq.com/webhook/vibematch-match-tracking', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    event: event,
+                    timestamp: new Date().toISOString(),
+                    page: 'match_result',
+                    data: data
+                })
+            }).catch(console.error);
+        }
+
+        // Track match success - this is a key conversion event
+        window.addEventListener('load', function () {
+            const userMode = localStorage.getItem('vibematch_mode') || 'both';
+
+            ghlMatchTrack('match_success', {
+                userMode: userMode,
+                matchType: userMode === 'friends' ? 'friend_match' :
+                    userMode === 'dating' ? 'dating_match' : 'open_match',
+                compatibilityScore: 87,
+                matchedProfile: 'Taylor',
+                personalityType: 'Explorer',
+                source: 'demo',
+                conversionStage: 'match_achieved'
+            });
+
+            // This is a high-value event - user has successfully matched!
+            ghlMatchTrack('high_engagement_user', {
+                source: 'match_result',
+                userMode: userMode,
+                engagementLevel: 'very_high'
+            });
+        });
+
+        // Override the startChatting function to add GHL tracking
+        const originalStartChatting = startChatting;
+        startChatting = function () {
+            const userMode = localStorage.getItem('vibematch_mode') || 'both';
+
+            ghlMatchTrack('chat_initiated', {
+                source: 'match_result',
+                userMode: userMode,
+                matchType: userMode === 'friends' ? 'friend_match' :
+                    userMode === 'dating' ? 'dating_match' : 'open_match',
+                conversionStage: 'chat_start'
+            });
+
+            originalStartChatting();
+        };
+
+        // Override the keepSwiping function to track continued engagement
+        const originalKeepSwiping = keepSwiping;
+        keepSwiping = function () {
+            const userMode = localStorage.getItem('vibematch_mode') || 'both';
+
+            ghlMatchTrack('continued_swiping', {
+                source: 'match_result',
+                userMode: userMode,
+                engagementLevel: 'high',
+                action: 'keep_swiping'
+            });
+
+            originalKeepSwiping();
+        };
+
+        // Track time spent celebrating (engagement metric)
+        let celebrationStartTime = Date.now();
+        window.addEventListener('beforeunload', function () {
+            const timeSpent = Math.round((Date.now() - celebrationStartTime) / 1000);
+            ghlMatchTrack('celebration_time', {
+                timeSpent: timeSpent,
+                engagementLevel: timeSpent > 30 ? 'high' : timeSpent > 10 ? 'medium' : 'low'
+            });
+        });
+
+        // Track confetti animation views (user enjoyed the experience)
+        let confettiViews = 0;
+        const originalCreateConfetti = createConfetti;
+        createConfetti = function () {
+            confettiViews++;
+            if (confettiViews === 1) {
+                ghlMatchTrack('celebration_animation_view', {
+                    animationType: 'confetti',
+                    userEngagement: 'positive'
+                });
+            }
+            originalCreateConfetti();
+        };
+
+        // Track AI icebreaker interaction
+        document.querySelector('.icebreaker').addEventListener('click', function () {
+            ghlMatchTrack('ai_icebreaker_viewed', {
+                source: 'match_result',
+                suggestion: 'coffee_shop_conversation',
+                engagementLevel: 'high'
+            });
+        });
+
+        // Track page visibility for engagement analysis
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden) {
+                ghlMatchTrack('match_page_hidden', {
+                    celebrationTime: Math.round((Date.now() - celebrationStartTime) / 1000)
+                });
+            } else {
+                ghlMatchTrack('match_page_visible', {
+                    returningUser: true
+                });
+            }
+        });
+
+        // Track successful match for A/B testing personality assessment effectiveness
+        const personalityData = {
+            personalityType: 'Explorer',
+            compatibilityScore: 87,
+            sharedInterests: ['coffee', 'hiking', 'photography'],
+            energyLevel: 'high'
+        };
+
+        ghlMatchTrack('personality_matching_success', {
+            ...personalityData,
+            source: 'personality_quiz',
+            matchingAlgorithm: 'personality_based',
+            success: true
+        });
+    </script>
 </body>
 
 </html>

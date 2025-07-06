@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's Your Dating Personality? - Free VibeMatch Quiz</title>
+    <meta name="description"
+        content="Discover your unique dating personality with our free 2-minute quiz. Join 50,000+ singles finding meaningful connections!">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vibematch.com/quiz">
+    <meta property="og:title" content="What's Your Dating Personality? - Free VibeMatch Quiz">
+    <meta property="og:description"
+        content="Discover your unique dating personality with our free 2-minute quiz. Join 50,000+ singles finding meaningful connections!">
+    <meta property="og:image" content="https://vibematch.com/images/quiz-social-preview.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://vibematch.com/quiz">
+    <meta property="twitter:title" content="What's Your Dating Personality? - Free VibeMatch Quiz">
+    <meta property="twitter:description"
+        content="Discover your unique dating personality with our free 2-minute quiz. Join 50,000+ singles finding meaningful connections!">
+    <meta property="twitter:image" content="https://vibematch.com/images/quiz-social-preview.jpg">
+
+    <!-- GHL Tracking -->
+    <script>
+        // GHL Analytics Tracking
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-VIBEMATCH');
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .quiz-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .quiz-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .quiz-subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .benefits {
+            display: grid;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .benefit {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: #f8f9ff;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .benefit-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .benefit-text {
+            font-size: 16px;
+            color: #333;
+            text-align: left;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 18px 32px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.3);
+        }
+
+        .cta-button:active {
+            transform: translateY(0);
+        }
+
+        .social-proof {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e1e5e9;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .testimonial {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 14px;
+        }
+
+        .rating {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .stars {
+            font-size: 20px;
+            color: #ffd700;
+        }
+
+        .rating-text {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .quiz-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .feature-badge {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .feature-text {
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .privacy-notice {
+            font-size: 12px;
+            color: #999;
+            margin-top: 20px;
+            line-height: 1.4;
+        }
+
+        .urgency-banner {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .loading-state {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .quiz-card {
+                padding: 30px 20px;
+            }
+
+            .quiz-title {
+                font-size: 28px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .quiz-features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- GHL NoScript Tracking -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-VIBEMATCH" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+    </noscript>
+
+    <div class="container">
+        <div class="quiz-card">
+            <div class="logo">💖 VibeMatch</div>
+
+            <div class="urgency-banner">
+                ⏰ 2,847 people took this quiz this week!
+            </div>
+
+            <h1 class="quiz-title">What's Your Dating Personality?</h1>
+            <p class="quiz-subtitle">Discover your unique dating style and find your perfect match type</p>
+
+            <div class="quiz-features">
+                <div class="feature-badge">
+                    <div class="feature-icon">🧠</div>
+                    <div class="feature-text">DISCOVER YOUR STYLE</div>
+                </div>
+                <div class="feature-badge">
+                    <div class="feature-icon">💕</div>
+                    <div class="feature-text">PERFECT MATCH TYPE</div>
+                </div>
+                <div class="feature-badge">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-text">PERSONALIZED TIPS</div>
+                </div>
+            </div>
+
+            <div class="benefits">
+                <div class="benefit">
+                    <div class="benefit-icon">🎭</div>
+                    <div class="benefit-text">Uncover your authentic dating personality</div>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon">🤝</div>
+                    <div class="benefit-text">Learn your ideal relationship compatibility</div>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon">💡</div>
+                    <div class="benefit-text">Get personalized dating advice & tips</div>
+                </div>
+            </div>
+
+            <form id="leadForm" class="form-section">
+                <div class="form-group">
+                    <label for="firstName">First Name *</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <select id="age" name="age">
+                        <option value="">Select your age range</option>
+                        <option value="18-24">18-24</option>
+                        <option value="25-29">25-29</option>
+                        <option value="30-34">30-34</option>
+                        <option value="35-39">35-39</option>
+                        <option value="40-44">40-44</option>
+                        <option value="45-49">45-49</option>
+                        <option value="50+">50+</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" name="location" placeholder="City, State">
+                </div>
+
+                <div class="form-group">
+                    <label for="relationshipGoal">What are you looking for?</label>
+                    <select id="relationshipGoal" name="relationshipGoal">
+                        <option value="">Select your goal</option>
+                        <option value="serious">Serious relationship</option>
+                        <option value="casual">Casual dating</option>
+                        <option value="friends">New friends</option>
+                        <option value="unsure">Not sure yet</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="cta-button">
+                    🚀 Start Free Quiz Now
+                </button>
+            </form>
+
+            <div class="loading-state" id="loadingState">
+                <div class="spinner"></div>
+                <p>Creating your personalized quiz...</p>
+            </div>
+
+            <div class="social-proof">
+                <div class="stats">
+                    <div class="stat">
+                        <span class="stat-number">52,347</span>
+                        <span class="stat-label">Successful Connections</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">4.9/5</span>
+                        <span class="stat-label">Average Rating</span>
+                    </div>
+                </div>
+
+                <div class="testimonial">
+                    <p class="testimonial-text">"This quiz completely changed how I approach dating. I finally
+                        understand my personality type and what I'm looking for!"</p>
+                    <p class="testimonial-author">- Sarah M., 28</p>
+                </div>
+
+                <div class="rating">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="rating-text">Based on 10,000+ user reviews</div>
+                </div>
+            </div>
+
+            <div class="privacy-notice">
+                🔒 Your information is 100% secure. We'll never share your email address. You can unsubscribe anytime.
+            </div>
+        </div>
+    </div>
+
+    <!-- GHL Tracking Pixel -->
+    <img src="https://api.leadconnectorhq.com/tracking/pixel.gif?account=ACCOUNT_ID&event=quiz_landing_page_view"
+        style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;" alt="" />
+
+    <script>
+        // GHL Integration Functions
+        function ghlTrack(event, data = {}) {
+            // Google Analytics 4 / GTM tracking
+            if (typeof gtag !== 'undefined') {
+                gtag('event', event, {
+                    event_category: 'VibeMatch_Quiz',
+                    event_label: event,
+                    ...data
+                });
+            }
+
+            // Send to GHL webhook
+            fetch('https://api.leadconnectorhq.com/webhook/vibematch-quiz-tracking', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    event: event,
+                    timestamp: new Date().toISOString(),
+                    page: 'quiz_landing_page',
+                    data: data
+                })
+            }).catch(console.error);
+        }
+
+        // Track page load
+        window.addEventListener('load', function () {
+            ghlTrack('quiz_landing_page_view', {
+                referrer: document.referrer,
+                utm_source: new URLSearchParams(window.location.search).get('utm_source'),
+                utm_medium: new URLSearchParams(window.location.search).get('utm_medium'),
+                utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign')
+            });
+        });
+
+        // Form submission handling
+        document.getElementById('leadForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+
+            // Validate required fields
+            if (!data.firstName || !data.email) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Show loading state
+            document.getElementById('leadForm').style.display = 'none';
+            document.getElementById('loadingState').style.display = 'block';
+
+            // Track form submission
+            ghlTrack('quiz_form_submitted', {
+                firstName: data.firstName,
+                email: data.email,
+                age: data.age,
+                location: data.location,
+                relationshipGoal: data.relationshipGoal
+            });
+
+            // Submit to GHL
+            submitToGHL(data);
+        });
+
+        function submitToGHL(data) {
+            // Submit to GoHighLevel
+            fetch('https://api.leadconnectorhq.com/webhook/vibematch-quiz-leads', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    firstName: data.firstName,
+                    email: data.email,
+                    age: data.age,
+                    location: data.location,
+                    relationshipGoal: data.relationshipGoal,
+                    source: 'quiz_landing_page',
+                    utm_source: new URLSearchParams(window.location.search).get('utm_source'),
+                    utm_medium: new URLSearchParams(window.location.search).get('utm_medium'),
+                    utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign'),
+                    timestamp: new Date().toISOString()
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Track successful submission
+                    ghlTrack('quiz_lead_captured', {
+                        contactId: data.contactId,
+                        success: true
+                    });
+
+                    // Redirect to quiz or thank you page
+                    window.location.href = 'demo-quiz.html?source=lead_magnet&email=' + encodeURIComponent(document.getElementById('email').value);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    ghlTrack('quiz_submission_error', {
+                        error: error.message
+                    });
+
+                    // Show error message
+                    alert('There was an error submitting your information. Please try again.');
+                    document.getElementById('leadForm').style.display = 'block';
+                    document.getElementById('loadingState').style.display = 'none';
+                });
+        }
+
+        // Track form field interactions
+        document.querySelectorAll('#leadForm input, #leadForm select').forEach(field => {
+            field.addEventListener('focus', function () {
+                ghlTrack('form_field_focused', {
+                    fieldName: this.name
+                });
+            });
+
+            field.addEventListener('blur', function () {
+                if (this.value) {
+                    ghlTrack('form_field_completed', {
+                        fieldName: this.name
+                    });
+                }
+            });
+        });
+
+        // Track time on page
+        let startTime = Date.now();
+        window.addEventListener('beforeunload', function () {
+            const timeSpent = Math.round((Date.now() - startTime) / 1000);
+            ghlTrack('quiz_page_time_spent', {
+                timeSpent: timeSpent
+            });
+        });
+
+        // Track scroll depth
+        let maxScrollDepth = 0;
+        window.addEventListener('scroll', function () {
+            const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+            if (scrollDepth > maxScrollDepth) {
+                maxScrollDepth = scrollDepth;
+                if (scrollDepth >= 50 && scrollDepth < 75) {
+                    ghlTrack('quiz_scroll_depth_50');
+                } else if (scrollDepth >= 75) {
+                    ghlTrack('quiz_scroll_depth_75');
+                }
+            }
+        });
+
+        // Exit intent tracking
+        let exitIntentShown = false;
+        document.addEventListener('mouseleave', function (e) {
+            if (e.clientY <= 0 && !exitIntentShown) {
+                exitIntentShown = true;
+                ghlTrack('quiz_exit_intent');
+
+                // Could trigger exit intent popup here
+                // showExitIntentPopup();
+            }
+        });
+    </script>
+</body>
+
+</html>

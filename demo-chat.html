@@ -3,7 +3,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VibeMatch - Chat</title>
+    <title>Plenty of Hearts - Chat</title>
     <style>
         * {
             margin: 0;
@@ -11,19 +11,38 @@
             box-sizing: border-box;
         }
 
+        html {
+            background: #8B5CF6 !important;
+            /* Fallback color */
+            background: -webkit-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: -moz-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: -o-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background-attachment: fixed;
+            height: 100vh;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #F9FAFB;
+            background: #8B5CF6 !important;
+            /* Fallback color */
+            background: -webkit-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: -moz-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: -o-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background-attachment: fixed;
             color: #1F2937;
             height: 100vh;
             overflow: hidden;
+            margin: 0;
+            padding: 0;
         }
 
         .container {
             max-width: 420px;
             margin: 0 auto;
             height: 100vh;
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
             display: flex;
             flex-direction: column;
         }
@@ -617,6 +636,162 @@
 
         // Initialize
         document.getElementById('messageInput').addEventListener('input', updateSendButton);
+    </script>
+
+    <!-- GHL Tracking Pixel -->
+    <img src="https://api.leadconnectorhq.com/tracking/pixel.gif?account=ACCOUNT_ID&event=chat_interface_view"
+        style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;" alt="" />
+
+    <script>
+        // GHL Analytics Integration for Chat Interface
+        function ghlChatTrack(event, data = {}) {
+            // Google Analytics / GTM tracking
+            if (typeof gtag !== 'undefined') {
+                gtag('event', event, {
+                    event_category: 'VibeMatch_Chat_Engagement',
+                    event_label: event,
+                    ...data
+                });
+            }
+
+            // Send to GHL webhook for messaging engagement tracking
+            fetch('https://api.leadconnectorhq.com/webhook/vibematch-chat-tracking', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    event: event,
+                    timestamp: new Date().toISOString(),
+                    page: 'chat_interface',
+                    data: data
+                })
+            }).catch(console.error);
+        }
+
+        // Track chat interface load
+        window.addEventListener('load', function () {
+            ghlChatTrack('chat_interface_view', {
+                source: 'demo',
+                userMode: localStorage.getItem('vibematch_mode') || 'both',
+                conversationCount: Object.keys(conversations).length
+            });
+        });
+
+        // Override the sendMessage function to track message sending
+        const originalSendMessage = sendMessage;
+        sendMessage = function () {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+
+            if (message) {
+                ghlChatTrack('message_sent', {
+                    messageLength: message.length,
+                    userMode: localStorage.getItem('vibematch_mode') || 'both',
+                    conversationStage: 'active_chat',
+                    engagementLevel: 'very_high'
+                });
+            }
+
+            originalSendMessage();
+        };
+
+        // Override the openChat function to track conversation opens
+        const originalOpenChat = openChat;
+        openChat = function (userId) {
+            const user = conversations[userId];
+            if (user) {
+                ghlChatTrack('conversation_opened', {
+                    matchName: user.name,
+                    matchStatus: user.status,
+                    userMode: localStorage.getItem('vibematch_mode') || 'both',
+                    engagementLevel: 'high'
+                });
+            }
+
+            originalOpenChat(userId);
+        };
+
+        // Override the useIcebreaker function to track AI feature usage
+        const originalUseIcebreaker = useIcebreaker;
+        useIcebreaker = function () {
+            ghlChatTrack('ai_icebreaker_used', {
+                source: 'chat_interface',
+                aiFeature: 'conversation_starter',
+                userMode: localStorage.getItem('vibematch_mode') || 'both',
+                engagementLevel: 'high'
+            });
+
+            originalUseIcebreaker();
+        };
+
+        // Override the startVideoCall function to track premium feature attempts
+        const originalStartVideoCall = startVideoCall;
+        startVideoCall = function () {
+            ghlChatTrack('video_call_attempted', {
+                source: 'chat_interface',
+                premiumFeature: true,
+                userMode: localStorage.getItem('vibematch_mode') || 'both',
+                conversionOpportunity: 'high'
+            });
+
+            ghlChatTrack('premium_upsell_shown', {
+                source: 'video_call',
+                feature: 'video_calling',
+                conversionStage: 'premium_consideration'
+            });
+
+            originalStartVideoCall();
+        };
+
+        // Track time spent in chat
+        let chatStartTime = Date.now();
+        let messagesSent = 0;
+        let conversationsViewed = 0;
+
+        // Count messages for session analytics
+        const originalSendMessageForCount = sendMessage;
+        sendMessage = function () {
+            messagesSent++;
+            originalSendMessageForCount();
+        };
+
+        // Count conversation views
+        const originalOpenChatForCount = openChat;
+        openChat = function (userId) {
+            conversationsViewed++;
+            originalOpenChatForCount(userId);
+        };
+
+        // Track session summary on page unload
+        window.addEventListener('beforeunload', function () {
+            const sessionTime = Math.round((Date.now() - chatStartTime) / 1000);
+
+            ghlChatTrack('chat_session_summary', {
+                sessionTime: sessionTime,
+                messagesSent: messagesSent,
+                conversationsViewed: conversationsViewed,
+                userMode: localStorage.getItem('vibematch_mode') || 'both',
+                engagementLevel: sessionTime > 180 ? 'very_high' :
+                    sessionTime > 60 ? 'high' :
+                        sessionTime > 30 ? 'medium' : 'low'
+            });
+        });
+
+        // Track page visibility for engagement analysis
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden) {
+                ghlChatTrack('chat_page_hidden', {
+                    sessionTime: Math.round((Date.now() - chatStartTime) / 1000),
+                    messagesSent: messagesSent
+                });
+            } else {
+                ghlChatTrack('chat_page_visible', {
+                    returningUser: true,
+                    userMode: localStorage.getItem('vibematch_mode') || 'both'
+                });
+            }
+        });
     </script>
 </body>
 

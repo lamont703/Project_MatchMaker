@@ -863,6 +863,178 @@
         // Don't auto-start quiz anymore - wait for game selection
         // updateQuestion();
     </script>
+
+    <!-- GHL Tracking Pixel -->
+    <img src="https://api.leadconnectorhq.com/tracking/pixel.gif?account=ACCOUNT_ID&event=personality_quiz_view"
+        style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;" alt="" />
+
+    <script>
+        // GHL Analytics Integration for Personality Quiz
+        function ghlQuizTrack(event, data = {}) {
+            // Google Analytics / GTM tracking
+            if (typeof gtag !== 'undefined') {
+                gtag('event', event, {
+                    event_category: 'VibeMatch_Personality_Quiz',
+                    event_label: event,
+                    ...data
+                });
+            }
+
+            // Send to GHL webhook for lead nurturing
+            fetch('https://api.leadconnectorhq.com/webhook/vibematch-quiz-tracking', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    event: event,
+                    timestamp: new Date().toISOString(),
+                    page: 'personality_quiz',
+                    data: data
+                })
+            }).catch(console.error);
+        }
+
+        // Track quiz page load
+        window.addEventListener('load', function () {
+            ghlQuizTrack('quiz_page_view', {
+                referrer: document.referrer,
+                utm_source: new URLSearchParams(window.location.search).get('utm_source'),
+                utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign')
+            });
+        });
+
+        // Override the showResult function to add GHL tracking
+        const originalShowResult = showResult;
+        showResult = function () {
+            // Call the original function
+            originalShowResult();
+
+            // Add GHL tracking for quiz completion
+            const completedCount = Object.keys(completedGames).length;
+            const currentResult = gameResults[currentGame];
+
+            ghlQuizTrack('quiz_completed', {
+                gameType: currentGame,
+                personalityType: currentResult.type.title,
+                completedGames: completedCount,
+                totalAnswers: answers.length,
+                completionRate: 100,
+                isFirstQuiz: completedCount === 1
+            });
+
+            // If this is their first quiz completion, they're now a qualified lead
+            if (completedCount === 1) {
+                ghlQuizTrack('lead_qualified', {
+                    source: 'personality_quiz',
+                    personalityType: currentResult.type.title,
+                    gameType: currentGame
+                });
+            }
+        };
+
+        // Override the selectGame function to track game selection
+        const originalSelectGame = selectGame;
+        selectGame = function (gameType) {
+            ghlQuizTrack('game_selected', {
+                gameType: gameType,
+                previousCompletedGames: Object.keys(completedGames).length
+            });
+            originalSelectGame(gameType);
+        };
+
+        // Override the continueToProfile function to track conversion intent
+        const originalContinueToProfile = continueToProfile;
+        continueToProfile = function () {
+            const completedCount = Object.keys(completedGames).length;
+
+            ghlQuizTrack('profile_setup_intent', {
+                completedGames: completedCount,
+                source: 'quiz_completion',
+                conversionStage: 'profile_setup'
+            });
+
+            originalContinueToProfile();
+        };
+
+        // Track time spent on quiz
+        let quizStartTime = Date.now();
+        window.addEventListener('beforeunload', function () {
+            const timeSpent = Math.round((Date.now() - quizStartTime) / 1000);
+            ghlQuizTrack('quiz_time_spent', {
+                timeSpent: timeSpent,
+                completedGames: Object.keys(completedGames).length
+            });
+        });
+
+        // Track question progress
+        const originalNextQuestion = nextQuestion;
+        nextQuestion = function () {
+            const questionNum = currentQuestion + 1;
+            const questionSet = window.gameQuestions || questions;
+            const progress = ((questionNum) / questionSet.length) * 100;
+
+            ghlQuizTrack('quiz_progress', {
+                questionNumber: questionNum,
+                totalQuestions: questionSet.length,
+                progress: Math.round(progress),
+                gameType: currentGame,
+                answer: selectedAnswer
+            });
+
+            originalNextQuestion();
+        };
+
+        // Track quiz abandonment points
+        const originalGoBack = goBack;
+        goBack = function () {
+            ghlQuizTrack('quiz_back_button', {
+                currentQuestion: currentQuestion,
+                gameType: currentGame,
+                progress: Math.round((currentQuestion / (window.gameQuestions || questions).length) * 100)
+            });
+            originalGoBack();
+        };
+
+        const originalCloseQuiz = closeQuiz;
+        closeQuiz = function () {
+            ghlQuizTrack('quiz_exit_attempt', {
+                currentQuestion: currentQuestion,
+                gameType: currentGame,
+                progress: Math.round((currentQuestion / (window.gameQuestions || questions).length) * 100)
+            });
+            originalCloseQuiz();
+        };
+
+        // Track multiple quiz completion (power users)
+        const originalShowAllResults = showAllResults;
+        showAllResults = function () {
+            const completedCount = Object.keys(completedGames).length;
+            ghlQuizTrack('multiple_quiz_review', {
+                completedGames: completedCount,
+                engagementLevel: 'high'
+            });
+            originalShowAllResults();
+        };
+
+        // Track page visibility for engagement analysis
+        let isPageVisible = true;
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden) {
+                isPageVisible = false;
+                ghlQuizTrack('quiz_page_hidden', {
+                    currentQuestion: currentQuestion,
+                    gameType: currentGame
+                });
+            } else {
+                isPageVisible = true;
+                ghlQuizTrack('quiz_page_visible', {
+                    currentQuestion: currentQuestion,
+                    gameType: currentGame
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

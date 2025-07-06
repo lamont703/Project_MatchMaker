@@ -3,7 +3,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VibeMatch - Swipe Demo</title>
+    <title>Plenty of Hearts - Swipe Demo</title>
     <style>
         html {
             background: #8B5CF6 !important;
@@ -131,6 +131,24 @@
             .demo-note {
                 display: none;
             }
+
+            .heartdeck-feature {
+                margin-bottom: 30px;
+                max-height: 150px;
+            }
+
+            .heartdeck-feature-image {
+                height: 150px;
+            }
+
+            .feature-overlay h3 {
+                font-size: 20px;
+                margin-bottom: 6px;
+            }
+
+            .feature-overlay p {
+                font-size: 14px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -183,6 +201,57 @@
                 font-size: 14px;
                 padding: 12px 16px;
             }
+        }
+
+        /* HeartDeck Feature Styles */
+        .heartdeck-feature {
+            position: relative;
+            margin-bottom: 40px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            max-height: 200px;
+        }
+
+        .heartdeck-feature-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            filter: brightness(0.8) saturate(1.2);
+        }
+
+        .heartdeck-feature:hover .heartdeck-feature-image {
+            transform: scale(1.05);
+        }
+
+        .feature-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.7), rgba(236, 72, 153, 0.7));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .feature-overlay h3 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 0 8px 0;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        .feature-overlay p {
+            font-size: 16px;
+            margin: 0;
+            opacity: 0.9;
         }
 
         /* Touch device optimizations */
@@ -392,6 +461,17 @@
     </div>
 
     <div class="container">
+        <!-- HeartDeck Feature Highlight -->
+        <div class="heartdeck-feature">
+            <img src="https://storage.googleapis.com/msgsndr/QLyYYRoOhCg65lKW9HDX/media/686aa788bf950687befa5c6c.jpeg"
+                alt="HeartDeck - Discover your perfect match through our card-based matching system"
+                class="heartdeck-feature-image">
+            <div class="feature-overlay">
+                <h3>🃏 Draw from the HeartDeck</h3>
+                <p>Every swipe reveals new possibilities</p>
+            </div>
+        </div>
+
         <div class="card-stack" id="cardStack">
             <!-- Card 1 - Taylor -->
             <div class="card" onclick="selectCard(this); flipCard(this);">
@@ -925,6 +1005,257 @@
             if ('ontouchstart' in window) {
                 document.body.classList.add('touch-device');
             }
+        });
+    </script>
+
+    <!-- GHL Tracking Pixel -->
+    <img src="https://api.leadconnectorhq.com/tracking/pixel.gif?account=ACCOUNT_ID&event=swipe_deck_view"
+        style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;" alt="" />
+
+    <script>
+        // GHL Analytics Integration for Swipe Deck
+        function ghlSwipeTrack(event, data = {}) {
+            // Google Analytics / GTM tracking
+            if (typeof gtag !== 'undefined') {
+                gtag('event', event, {
+                    event_category: 'VibeMatch_Swipe_Engagement',
+                    event_label: event,
+                    ...data
+                });
+            }
+
+            // Send to GHL webhook for engagement tracking
+            fetch('https://api.leadconnectorhq.com/webhook/vibematch-swipe-tracking', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    event: event,
+                    timestamp: new Date().toISOString(),
+                    page: 'swipe_deck',
+                    data: data
+                })
+            }).catch(console.error);
+        }
+
+        // Track swipe deck page load
+        window.addEventListener('load', function () {
+            const userMode = localStorage.getItem('vibematch_mode') || 'both';
+
+            ghlSwipeTrack('swipe_deck_view', {
+                userMode: userMode,
+                source: 'demo',
+                referrer: document.referrer,
+                utm_source: new URLSearchParams(window.location.search).get('utm_source'),
+                utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign')
+            });
+        });
+
+        // Override the likeCard function to track likes
+        const originalLikeCard = likeCard;
+        likeCard = function () {
+            const card = getSelectedCard();
+            if (card) {
+                const nameElement = card.querySelector('.name');
+                const badgeElement = card.querySelector('.badge');
+                const matchElement = card.querySelector('.match-info');
+
+                const profileName = nameElement ? nameElement.textContent.split(',')[0] : 'Unknown';
+                const personalityType = badgeElement ? badgeElement.textContent : 'Unknown';
+                const compatibility = matchElement ? matchElement.textContent.split(' ')[0] : '0%';
+
+                ghlSwipeTrack('profile_liked', {
+                    profileName: profileName,
+                    personalityType: personalityType,
+                    compatibility: compatibility,
+                    userMode: localStorage.getItem('vibematch_mode') || 'both',
+                    swipeMethod: 'button',
+                    engagementLevel: 'high'
+                });
+            }
+            originalLikeCard();
+        };
+
+        // Override the passCard function to track passes
+        const originalPassCard = passCard;
+        passCard = function () {
+            const card = getSelectedCard();
+            if (card) {
+                const nameElement = card.querySelector('.name');
+                const badgeElement = card.querySelector('.badge');
+                const matchElement = card.querySelector('.match-info');
+
+                const profileName = nameElement ? nameElement.textContent.split(',')[0] : 'Unknown';
+                const personalityType = badgeElement ? badgeElement.textContent : 'Unknown';
+                const compatibility = matchElement ? matchElement.textContent.split(' ')[0] : '0%';
+
+                ghlSwipeTrack('profile_passed', {
+                    profileName: profileName,
+                    personalityType: personalityType,
+                    compatibility: compatibility,
+                    userMode: localStorage.getItem('vibematch_mode') || 'both',
+                    swipeMethod: 'button'
+                });
+            }
+            originalPassCard();
+        };
+
+        // Override the superLike function to track super likes (premium feature)
+        const originalSuperLike = superLike;
+        superLike = function () {
+            const card = getSelectedCard();
+            if (card) {
+                const nameElement = card.querySelector('.name');
+                const profileName = nameElement ? nameElement.textContent.split(',')[0] : 'Unknown';
+
+                ghlSwipeTrack('super_like_used', {
+                    profileName: profileName,
+                    userMode: localStorage.getItem('vibematch_mode') || 'both',
+                    premiumFeature: true,
+                    engagementLevel: 'very_high'
+                });
+            }
+            originalSuperLike();
+        };
+
+        // Override the showInsight function to track AI insight usage
+        const originalShowInsight = showInsight;
+        showInsight = function () {
+            const card = getSelectedCard();
+            if (card) {
+                const nameElement = card.querySelector('.name');
+                const profileName = nameElement ? nameElement.textContent.split(',')[0] : 'Unknown';
+
+                ghlSwipeTrack('ai_insight_viewed', {
+                    profileName: profileName,
+                    userMode: localStorage.getItem('vibematch_mode') || 'both',
+                    aiFeature: 'match_insights',
+                    engagementLevel: 'high'
+                });
+            }
+            originalShowInsight();
+        };
+
+        // Override the refreshDeck function to track refresh usage
+        const originalRefreshDeck = refreshDeck;
+        refreshDeck = function () {
+            ghlSwipeTrack('deck_refresh_attempted', {
+                refreshCount: refreshCount,
+                maxRefreshes: maxRefreshes,
+                userMode: localStorage.getItem('vibematch_mode') || 'both',
+                hasRefreshesLeft: refreshCount < maxRefreshes
+            });
+
+            if (refreshCount >= maxRefreshes) {
+                ghlSwipeTrack('premium_upsell_shown', {
+                    source: 'refresh_limit',
+                    feature: 'unlimited_refreshes',
+                    conversionOpportunity: 'high'
+                });
+            }
+
+            originalRefreshDeck();
+        };
+
+        // Track card selection and profile viewing
+        const originalSelectCard = selectCard;
+        selectCard = function (card) {
+            const nameElement = card.querySelector('.name');
+            const profileName = nameElement ? nameElement.textContent.split(',')[0] : 'Unknown';
+
+            ghlSwipeTrack('profile_selected', {
+                profileName: profileName,
+                userMode: localStorage.getItem('vibematch_mode') || 'both',
+                interactionType: 'card_selection'
+            });
+
+            originalSelectCard(card);
+        };
+
+        // Track card flipping (detailed profile viewing)
+        const originalFlipCard = flipCard;
+        flipCard = function (card) {
+            const nameElement = card.querySelector('.name');
+            const profileName = nameElement ? nameElement.textContent.split(',')[0] : 'Unknown';
+
+            ghlSwipeTrack('profile_detailed_view', {
+                profileName: profileName,
+                userMode: localStorage.getItem('vibematch_mode') || 'both',
+                interactionType: 'card_flip',
+                engagementLevel: 'high'
+            });
+
+            originalFlipCard(card);
+        };
+
+        // Track time spent on swipe deck
+        let swipeStartTime = Date.now();
+        let totalSwipes = 0;
+        let totalLikes = 0;
+        let totalPasses = 0;
+
+        // Count swipes for session analytics
+        const originalLikeCardForCount = likeCard;
+        likeCard = function () {
+            totalSwipes++;
+            totalLikes++;
+            originalLikeCardForCount();
+        };
+
+        const originalPassCardForCount = passCard;
+        passCard = function () {
+            totalSwipes++;
+            totalPasses++;
+            originalPassCardForCount();
+        };
+
+        // Track session summary on page unload
+        window.addEventListener('beforeunload', function () {
+            const sessionTime = Math.round((Date.now() - swipeStartTime) / 1000);
+            const likeRate = totalSwipes > 0 ? (totalLikes / totalSwipes) * 100 : 0;
+
+            ghlSwipeTrack('swipe_session_summary', {
+                sessionTime: sessionTime,
+                totalSwipes: totalSwipes,
+                totalLikes: totalLikes,
+                totalPasses: totalPasses,
+                likeRate: Math.round(likeRate),
+                userMode: localStorage.getItem('vibematch_mode') || 'both',
+                engagementLevel: sessionTime > 120 ? 'high' : sessionTime > 60 ? 'medium' : 'low'
+            });
+        });
+
+        // Track premium upsell opportunities
+        function trackPremiumUpsell(source, feature) {
+            ghlSwipeTrack('premium_upsell_opportunity', {
+                source: source,
+                feature: feature,
+                userMode: localStorage.getItem('vibematch_mode') || 'both',
+                conversionStage: 'premium_consideration'
+            });
+        }
+
+        // Track page visibility for engagement analysis
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden) {
+                ghlSwipeTrack('swipe_page_hidden', {
+                    sessionTime: Math.round((Date.now() - swipeStartTime) / 1000),
+                    totalSwipes: totalSwipes
+                });
+            } else {
+                ghlSwipeTrack('swipe_page_visible', {
+                    returningUser: true,
+                    userMode: localStorage.getItem('vibematch_mode') || 'both'
+                });
+            }
+        });
+
+        // Track mode-specific behavior
+        ghlSwipeTrack('mode_specific_engagement', {
+            userMode: localStorage.getItem('vibematch_mode') || 'both',
+            source: 'swipe_deck',
+            modePreference: localStorage.getItem('vibematch_mode') || 'both'
         });
     </script>
 </body>

@@ -3,7 +3,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VibeMatch Premium - Upgrade</title>
+    <title>Plenty of Hearts Premium - Upgrade</title>
     <style>
         * {
             margin: 0;
@@ -88,6 +88,140 @@
 
         .content {
             padding: 0 24px 24px;
+        }
+
+        /* GHL Integration Styles */
+        .ghl-urgency-banner {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            padding: 12px 20px;
+            margin: 0 -24px 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ghl-urgency-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        .social-proof {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .social-proof-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 16px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-number {
+            font-size: 20px;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        .testimonial-mini {
+            font-size: 14px;
+            font-style: italic;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .testimonial-author {
+            font-size: 12px;
+            color: #FFD700;
+            font-weight: 500;
+        }
+
+        .countdown-timer {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .countdown-title {
+            font-size: 14px;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        .countdown-display {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFD700;
+            font-family: 'Courier New', monospace;
+        }
+
+        .ghl-tracking-pixel {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+        }
+
+        /* HeartDeck Hero Image Styles */
+        .heartdeck-hero {
+            margin: 0 0 24px 0;
+            text-align: center;
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .heartdeck-image {
+            width: 100%;
+            height: auto;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 20px;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            filter: saturate(1.1) contrast(1.05);
+        }
+
+        .heartdeck-image:hover {
+            transform: scale(1.02);
+            filter: saturate(1.2) contrast(1.1);
         }
 
         .hero-section {
@@ -475,11 +609,52 @@
         </div>
 
         <div class="content">
+            <!-- GHL Urgency Banner -->
+            <div class="ghl-urgency-banner">
+                ⚡ Limited Time: 50% OFF Premium - 247 spots left!
+            </div>
+
             <!-- Hero Section -->
             <div class="hero-section">
+
+                <!-- HeartDeck Branding Image -->
+                <div class="heartdeck-hero">
+                    <img src="https://storage.googleapis.com/msgsndr/QLyYYRoOhCg65lKW9HDX/media/686aa788bf950687befa5c6c.jpeg"
+                        alt="HeartDeck - Premium card matching experience with neon King and Queen of Hearts"
+                        class="heartdeck-image">
+                </div>
+
                 <div class="premium-icon">💎</div>
-                <h1 class="hero-title">VibeMatch Premium</h1>
+                <h1 class="hero-title">Plenty of Hearts Premium</h1>
                 <p class="hero-subtitle">Unlock your full matching potential</p>
+            </div>
+
+            <!-- GHL Social Proof Section -->
+            <div class="social-proof">
+                <div class="social-proof-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">10,247</span>
+                        <span class="stat-label">Premium Members</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">3.2x</span>
+                        <span class="stat-label">More Matches</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">89%</span>
+                        <span class="stat-label">Find Love</span>
+                    </div>
+                </div>
+                <div class="testimonial-mini">
+                    "I met my soulmate within 2 weeks of going Premium!"
+                </div>
+                <div class="testimonial-author">- Jessica M., Premium Member</div>
+            </div>
+
+            <!-- GHL Countdown Timer -->
+            <div class="countdown-timer">
+                <div class="countdown-title">Special Offer Ends In:</div>
+                <div class="countdown-display" id="countdown">23:45:12</div>
             </div>
 
             <!-- Plan Toggle -->
@@ -663,10 +838,83 @@
         </div>
     </div>
 
+    <!-- GHL Tracking Pixels -->
+    <img src="https://api.leadconnectorhq.com/tracking/pixel.gif?account=ACCOUNT_ID&event=premium_page_view"
+        class="ghl-tracking-pixel" alt="" />
+
     <script>
         let selectedPlan = 'yearly';
 
+        // GHL Premium Page Tracking
+        function ghlTrack(event, data = {}) {
+            // Google Analytics / GTM tracking
+            if (typeof gtag !== 'undefined') {
+                gtag('event', event, {
+                    event_category: 'VibeMatch_Premium',
+                    event_label: event,
+                    ...data
+                });
+            }
+
+            // Send to GHL webhook for premium tracking
+            fetch('https://api.leadconnectorhq.com/webhook/vibematch-premium-tracking', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    event: event,
+                    timestamp: new Date().toISOString(),
+                    page: 'premium',
+                    selectedPlan: selectedPlan,
+                    data: data
+                })
+            }).catch(console.error);
+        }
+
+        // Track page load time
+        window.pageLoadTime = Date.now();
+
+        // Track page load
+        window.addEventListener('load', function () {
+            ghlTrack('premium_page_view', {
+                referrer: document.referrer,
+                utm_source: new URLSearchParams(window.location.search).get('utm_source'),
+                utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign'),
+                loadTime: Date.now() - window.pageLoadTime
+            });
+
+            // Start countdown timer
+            startCountdown();
+        });
+
+        // Countdown Timer Function
+        function startCountdown() {
+            const countdownElement = document.getElementById('countdown');
+            let timeLeft = 24 * 60 * 60 - (Math.floor(Date.now() / 1000) % (24 * 60 * 60)); // 24 hours cycle
+
+            const timer = setInterval(() => {
+                const hours = Math.floor(timeLeft / 3600);
+                const minutes = Math.floor((timeLeft % 3600) / 60);
+                const seconds = timeLeft % 60;
+
+                countdownElement.textContent =
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+                timeLeft--;
+
+                if (timeLeft < 0) {
+                    timeLeft = 24 * 60 * 60 - 1; // Reset to 24 hours
+                }
+            }, 1000);
+        }
+
         function showPlan(planType) {
+            // Track plan view
+            ghlTrack('premium_plan_viewed', {
+                planType: planType
+            });
+
             // Update toggle buttons
             document.querySelectorAll('.plan-option').forEach(btn => {
                 btn.classList.remove('active');
@@ -684,6 +932,14 @@
         }
 
         function selectPlan(planType) {
+            // Track plan selection
+            ghlTrack('premium_plan_selected', {
+                planType: planType,
+                previousPlan: selectedPlan,
+                priceMonthly: planType === 'monthly' ? 19.99 : 9.99,
+                savings: planType === 'yearly' ? 120 : 0
+            });
+
             // Update selected plan
             selectedPlan = planType;
 
@@ -706,12 +962,44 @@
             const btn = event.target;
             const originalText = btn.textContent;
 
+            // Track upgrade attempt
+            ghlTrack('premium_upgrade_initiated', {
+                selectedPlan: selectedPlan,
+                priceMonthly: selectedPlan === 'monthly' ? 19.99 : 9.99,
+                priceYearly: selectedPlan === 'yearly' ? 119.88 : 239.88,
+                discount: selectedPlan === 'yearly' ? 50 : 0
+            });
+
             btn.textContent = 'Processing...';
             btn.disabled = true;
 
             // Simulate payment processing
             setTimeout(() => {
                 btn.textContent = 'Success! 🎉';
+
+                // Track successful conversion
+                ghlTrack('premium_upgrade_completed', {
+                    selectedPlan: selectedPlan,
+                    transactionValue: selectedPlan === 'yearly' ? 119.88 : 19.99,
+                    subscriptionType: selectedPlan,
+                    conversionTime: Date.now() - window.pageLoadTime
+                });
+
+                // Send conversion to GHL
+                fetch('https://api.leadconnectorhq.com/webhook/vibematch-premium-conversion', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        event: 'premium_subscription_created',
+                        planType: selectedPlan,
+                        amount: selectedPlan === 'yearly' ? 119.88 : 19.99,
+                        currency: 'USD',
+                        userId: localStorage.getItem('vibematch_user_id'),
+                        timestamp: new Date().toISOString()
+                    })
+                }).catch(console.error);
 
                 setTimeout(() => {
                     alert(`🎉 Welcome to VibeMatch Premium!\n\n✓ ${selectedPlan === 'yearly' ? 'Yearly' : 'Monthly'} plan activated\n✓ 7-day free trial started\n✓ All premium features unlocked\n\nEnjoy unlimited likes and advanced matching!`);

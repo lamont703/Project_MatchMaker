@@ -32,6 +32,14 @@
 - **Size:** 24px standard, 32px for primary actions
 - **Colors:** Match brand palette
 
+### GoHighLevel Integration Points
+
+- **Lead Capture Forms:** Integrated throughout user journey
+- **Email Automation:** Triggered by user actions and milestones
+- **Analytics Tracking:** User behavior and conversion metrics
+- **CRM Integration:** User profiles and lifecycle management
+- **SMS Campaigns:** Time-sensitive engagement and notifications
+
 ---
 
 ## 💻 Screen Wireframes
@@ -62,6 +70,9 @@
 │        Already have an account?     │
 │              Sign In                │
 │                                     │
+│    📧 Join 50,000+ successful       │
+│       connections made!             │
+│                                     │
 └─────────────────────────────────────┘
 ```
 
@@ -73,6 +84,14 @@
 - Primary CTA button (gradient background)
 - Secondary sign-in link
 - Clean, welcoming design
+
+**GHL Integration Points:**
+
+- **Lead Capture:** Email collection before app download
+- **Social Proof:** Dynamic user count from GHL database
+- **Attribution Tracking:** UTM parameters for campaign tracking
+- **Behavioral Triggers:** Page visit triggers welcome email sequence
+- **A/B Testing:** Multiple versions tested through GHL
 
 ---
 
@@ -761,3 +780,143 @@
 5. **Safety Features:** AI-powered content moderation
 
 This wireframe foundation supports a scalable, engaging dating web application that prioritizes meaningful connections through personality-based matching while maintaining a fun, game-like experience. The design is optimized for desktop users with full responsive support for tablets and mobile browsers.
+
+---
+
+## 🚀 GoHighLevel Integration Screens
+
+### 1. Lead Magnet Landing Page
+
+```
+┌─────────────────────────────────────┐
+│         💖 VIBEMATCH QUIZ           │
+├─────────────────────────────────────┤
+│                                     │
+│        What's Your Dating           │
+│        Personality Type?            │
+│                                     │
+│    🧠 Discover your unique style    │
+│    💕 Find your perfect match type  │
+│    🎯 Get personalized dating tips  │
+│                                     │
+│  ┌─────────────────────────────────┐ │
+│  │  Name:    [_______________]     │ │
+│  │  Email:   [_______________]     │ │
+│  │  Age:     [_______________]     │ │
+│  │  Location: [_______________]    │ │
+│  └─────────────────────────────────┘ │
+│                                     │
+│     ┌─────────────────────────┐     │
+│     │    START FREE QUIZ      │     │
+│     └─────────────────────────┘     │
+│                                     │
+│      ⭐ Used by 50,000+ singles     │
+│        ⭐⭐⭐⭐⭐ 4.9/5 rating       │
+│                                     │
+│     "This quiz changed my dating    │
+│      life!" - Sarah, 28             │
+│                                     │
+└─────────────────────────────────────┘
+```
+
+### 2. Premium Upgrade Email Template
+
+```
+┌─────────────────────────────────────┐
+│         💖 VIBEMATCH PREMIUM        │
+├─────────────────────────────────────┤
+│                                     │
+│       Hi [First Name],              │
+│                                     │
+│   You've made 5 amazing matches     │
+│   this week! 🎉                    │
+│                                     │
+│   Ready to see who's been           │
+│   secretly liking you?              │
+│                                     │
+│        ┌─────────────────┐          │
+│        │  3 people are   │          │
+│        │  waiting for    │          │
+│        │  your response  │          │
+│        │     💕 💕 💕    │          │
+│        └─────────────────┘          │
+│                                     │
+│     ┌─────────────────────────┐     │
+│     │    UPGRADE NOW 50% OFF │     │
+│     └─────────────────────────┘     │
+│                                     │
+│      ⏰ Limited time offer          │
+│         ends in 24 hours            │
+│                                     │
+│   Join 10,000+ Premium members     │
+│   finding deeper connections        │
+│                                     │
+└─────────────────────────────────────┘
+```
+
+### 3. GHL Analytics Dashboard Integration
+
+```
+┌─────────────────────────────────────┐
+│        📊 VIBEMATCH ANALYTICS       │
+├─────────────────────────────────────┤
+│                                     │
+│  📈 User Acquisition (This Week)    │
+│  ├─ New Signups: 1,247 (+12%)      │
+│  ├─ Quiz Completions: 3,891 (78%)  │
+│  ├─ App Downloads: 891 (23%)       │
+│  └─ Premium Upgrades: 156 (17%)    │
+│                                     │
+│  💰 Revenue Metrics                 │
+│  ├─ MRR: $24,180 (+8%)             │
+│  ├─ ARPU: $9.50                    │
+│  ├─ Churn Rate: 8.2% (-1.3%)       │
+│  └─ LTV: $68.20                    │
+│                                     │
+│  📧 Email Performance               │
+│  ├─ Open Rate: 28.4% (↑)           │
+│  ├─ Click Rate: 6.7% (↑)           │
+│  ├─ Unsubscribe: 0.8% (↓)          │
+│  └─ Conversion: 12.3% (↑)          │
+│                                     │
+│  📱 SMS Performance                 │
+│  ├─ Delivery Rate: 98.1%           │
+│  ├─ Click Rate: 18.2%              │
+│  └─ Opt-out Rate: 2.1%             │
+│                                     │
+└─────────────────────────────────────┘
+```
+
+**GHL Integration Features:**
+
+- **Dynamic Social Proof:** Real-time user counts and success stories
+- **Behavioral Triggers:** Automated campaigns based on user actions
+- **A/B Testing:** Multiple variations of emails and landing pages
+- **Segmentation:** Personalized messaging based on user data
+- **Attribution Tracking:** ROI measurement for all marketing channels
+
+---
+
+## 📊 GHL User Journey Mapping
+
+### Lead Generation Phase
+
+1. **Social Media Ad** → **Lead Magnet Landing Page** → **Quiz Completion** → **Email Capture**
+2. **Email Nurture Sequence** → **App Download** → **Profile Creation** → **First Match**
+
+### Engagement Phase
+
+1. **App Activity Monitoring** → **Behavioral Triggers** → **Personalized Campaigns**
+2. **Inactivity Detection** → **Re-engagement Sequences** → **Win-back Offers**
+
+### Conversion Phase
+
+1. **Premium Feature Exposure** → **Upgrade Prompts** → **Conversion Tracking**
+2. **Churn Prevention** → **Retention Campaigns** → **Loyalty Programs**
+
+### Analytics Integration
+
+- **User Behavior Tracking:** Page views, form submissions, email opens
+- **Conversion Funnel Analysis:** Lead to customer journey optimization
+- **Revenue Attribution:** Track ROI for all marketing channels
+- **Lifetime Value Calculations:** Predict and optimize customer value

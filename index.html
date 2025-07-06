@@ -3,7 +3,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VibeMatch - Interactive Demos</title>
+    <title>Plenty of Hearts - Interactive Demos</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -148,6 +148,229 @@
             margin-top: 20px;
         }
 
+        /* GHL Integration Styles */
+        .ghl-section {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
+            border: 2px solid rgba(139, 92, 246, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .ghl-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1F2937;
+        }
+
+        .ghl-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .ghl-stat {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid rgba(139, 92, 246, 0.1);
+        }
+
+        .ghl-stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #8B5CF6;
+            display: block;
+        }
+
+        .ghl-stat-label {
+            font-size: 12px;
+            color: #6B7280;
+            margin-top: 4px;
+        }
+
+        .ghl-demo-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+        }
+
+        .ghl-demo-card:hover {
+            border-color: #667eea;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+        }
+
+        .ghl-demo-card .demo-title,
+        .ghl-demo-card .demo-desc {
+            color: white;
+        }
+
+        .contact-cta {
+            background: linear-gradient(135deg, #10B981, #059669);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .contact-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+
+        .contact-cta-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .contact-cta-desc {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Hero Banner Styles */
+        .hero-banner {
+            margin: 30px 0 40px 0;
+            text-align: center;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-image:hover {
+            transform: scale(1.02);
+        }
+
+        /* GHL Section Image Styles */
+        .ghl-brand-image {
+            margin: 20px 0;
+            text-align: center;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .ghl-image {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 16px;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .ghl-image:hover {
+            opacity: 1;
+        }
+
+        /* Documentation Links */
+        .doc-links {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .doc-links-title {
+            font-size: 14px;
+            color: #6B7280;
+            margin-bottom: 12px;
+        }
+
+        .doc-links-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .doc-link {
+            font-size: 13px;
+            color: #8B5CF6;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        .doc-link:hover {
+            color: #6D28D9;
+            border-bottom-color: #8B5CF6;
+            text-decoration: none;
+        }
+
+        /* HeartDeck Section Styles */
+        .heartdeck-section {
+            position: relative;
+            margin: 40px 0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+            max-height: 300px;
+        }
+
+        .heartdeck-section-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            filter: brightness(0.7) saturate(1.3);
+        }
+
+        .heartdeck-section:hover .heartdeck-section-image {
+            transform: scale(1.02);
+            filter: brightness(0.8) saturate(1.4);
+        }
+
+        .heartdeck-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.6), rgba(236, 72, 153, 0.6));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+        }
+
+        .heartdeck-overlay h2 {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 0 0 12px 0;
+            text-shadow: 0 4px 16px rgba(0, 0, 0, 0.9);
+        }
+
+        .heartdeck-overlay p {
+            font-size: 18px;
+            margin: 0;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 32px 24px;
@@ -157,15 +380,61 @@
             .demo-grid {
                 grid-template-columns: 1fr;
             }
+
+            .hero-banner {
+                margin: 20px 0 30px 0;
+            }
+
+            .hero-image {
+                max-height: 200px;
+            }
+
+            .ghl-image {
+                max-height: 150px;
+            }
+
+            .ghl-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .doc-links-list {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .heartdeck-section {
+                margin: 30px 0;
+                max-height: 200px;
+            }
+
+            .heartdeck-section-image {
+                height: 200px;
+            }
+
+            .heartdeck-overlay h2 {
+                font-size: 24px;
+                margin-bottom: 8px;
+            }
+
+            .heartdeck-overlay p {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="logo">VibeMatch</div>
+        <div class="logo">Plenty of Hearts</div>
         <div class="tagline">"Find your vibe. Find your heart."</div>
         <div class="subtitle">Interactive Wireframe Demos</div>
+
+        <!-- Hero Banner Image -->
+        <div class="hero-banner">
+            <img src="https://storage.googleapis.com/msgsndr/QLyYYRoOhCg65lKW9HDX/media/686aa788f7b839404622d751.jpeg"
+                alt="Plenty of Hearts - Diverse community of happy people connecting through our platform"
+                class="hero-image">
+        </div>
 
         <div class="info-section">
             <div class="info-title">🎯 Project Overview</div>
@@ -177,7 +446,7 @@
                 or <strong>Find Both</strong> (open to all connections).
             </div>
             <ul class="feature-list">
-                <li>• 🌟 Dual-mode platform: Friends (VibeMatch) & Dating (Plenty of Hearts)</li>
+                <li>• 🌟 Dual-mode platform: Friends (Find Your Vibe) & Dating (Plenty of Hearts)</li>
                 <li>• 🧠 Myers-Briggs inspired personality assessment</li>
                 <li>• 📹 Short-form video profiles (15-30 seconds)</li>
                 <li>• 🤖 AI-powered match insights and conversation starters</li>
@@ -192,6 +461,41 @@
                 <span class="tech-tag">Azure Cosmos DB</span>
                 <span class="tech-tag">Azure Blob Storage</span>
                 <span class="tech-tag">Gemini API</span>
+                <span class="tech-tag">GoHighLevel</span>
+            </div>
+        </div>
+
+        <!-- GHL Integration Section -->
+        <div class="ghl-section">
+            <div class="ghl-title">🚀 GoHighLevel CRM Integration</div>
+            <div class="info-text">
+                Comprehensive automation system for lead generation, user lifecycle management,
+                and revenue optimization through intelligent marketing workflows.
+            </div>
+
+            <!-- Brand Image in GHL Section -->
+            <div class="ghl-brand-image">
+                <img src="https://storage.googleapis.com/msgsndr/QLyYYRoOhCg65lKW9HDX/media/686aa788f7b839404622d751.jpeg"
+                    alt="Plenty of Hearts community - Building meaningful connections" class="ghl-image">
+            </div>
+
+            <div class="ghl-stats">
+                <div class="ghl-stat">
+                    <span class="ghl-stat-number">52,347</span>
+                    <span class="ghl-stat-label">Active Users</span>
+                </div>
+                <div class="ghl-stat">
+                    <span class="ghl-stat-number">78%</span>
+                    <span class="ghl-stat-label">Lead Conversion</span>
+                </div>
+                <div class="ghl-stat">
+                    <span class="ghl-stat-number">3.2x</span>
+                    <span class="ghl-stat-label">Premium Upgrades</span>
+                </div>
+                <div class="ghl-stat">
+                    <span class="ghl-stat-number">$125K</span>
+                    <span class="ghl-stat-label">Monthly Revenue</span>
+                </div>
             </div>
         </div>
 
@@ -283,6 +587,26 @@
                     Manage your communities and track activity across groups
                 </div>
             </a>
+
+            <a href="ghl-lead-magnet.html" class="demo-card">
+                <div class="demo-icon">🎯</div>
+                <div class="demo-title">Lead Magnet Quiz</div>
+                <div class="demo-desc">
+                    Personality quiz landing page with GHL form integration and automation triggers
+                </div>
+            </a>
+        </div>
+
+
+
+        <!-- HeartDeck Feature Section -->
+        <div class="heartdeck-section">
+            <img src="https://storage.googleapis.com/msgsndr/QLyYYRoOhCg65lKW9HDX/media/686aa788bf950687befa5c6c.jpeg"
+                alt="HeartDeck - Experience our neon-powered card matching system" class="heartdeck-section-image">
+            <div class="heartdeck-overlay">
+                <h2>🃏 Welcome to HeartDeck</h2>
+                <p>Where every match feels like winning the jackpot</p>
+            </div>
         </div>
 
         <div class="info-section">
@@ -295,7 +619,7 @@
                 design patterns.
                 <br><br>
                 <strong>For Stakeholders:</strong> Demonstrate the personality-first approach and AI-enhanced features
-                that differentiate VibeMatch.
+                that differentiate Plenty of Hearts.
             </div>
         </div>
 
@@ -303,7 +627,122 @@
             💡 <strong>Pro Tip:</strong> These demos work on desktop, tablet, and mobile browsers.
             Try resizing your browser window to see the responsive design in action!
         </div>
+
+        <!-- Business Contact CTA -->
+        <a href="mailto:lamontevans@innergcomplete.com?subject=Plenty of Hearts Project Inquiry&body=Hi, I'm interested in learning more about the Plenty of Hearts project and potential collaboration opportunities."
+            class="contact-cta">
+            <div class="contact-cta-title">🚀 Ready to Build Plenty of Hearts?</div>
+            <div class="contact-cta-desc">Contact us to discuss development, investment, or partnership opportunities
+            </div>
+        </a>
+
+        <!-- Documentation Links -->
+        <div class="doc-links">
+            <div class="doc-links-title">Project Documentation</div>
+            <div class="doc-links-list">
+                <a href="README.md" class="doc-link" target="_blank">Project Overview</a>
+                <a href="VibeMatch_Design_Specs.md" class="doc-link" target="_blank">Design Specs</a>
+                <a href="VibeMatch_Wireframes.md" class="doc-link" target="_blank">Wireframes</a>
+                <a href="VibeMatch_GHL_Integration.md" class="doc-link" target="_blank">GHL Integration</a>
+            </div>
+        </div>
     </div>
+
+    <!-- GHL Tracking Pixel -->
+    <img src="https://api.leadconnectorhq.com/tracking/pixel.gif?account=ACCOUNT_ID&event=demo_hub_view"
+        style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;" alt="" />
+
+    <script>
+        // GHL Analytics Integration for Demo Hub
+        function ghlTrack(event, data = {}) {
+            // Google Analytics / GTM tracking
+            if (typeof gtag !== 'undefined') {
+                gtag('event', event, {
+                    event_category: 'VibeMatch_Demo_Hub',
+                    event_label: event,
+                    ...data
+                });
+            }
+
+            // Send to GHL webhook
+            fetch('https://api.leadconnectorhq.com/webhook/vibematch-demo-tracking', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    event: event,
+                    timestamp: new Date().toISOString(),
+                    page: 'demo_hub',
+                    data: data
+                })
+            }).catch(console.error);
+        }
+
+        // Track page load
+        window.addEventListener('load', function () {
+            ghlTrack('demo_hub_view', {
+                referrer: document.referrer,
+                utm_source: new URLSearchParams(window.location.search).get('utm_source'),
+                utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign')
+            });
+        });
+
+        // Track demo card clicks
+        document.querySelectorAll('.demo-card').forEach(card => {
+            card.addEventListener('click', function (e) {
+                const demoTitle = this.querySelector('.demo-title').textContent;
+                const demoUrl = this.getAttribute('href');
+
+                ghlTrack('demo_card_clicked', {
+                    demoTitle: demoTitle,
+                    demoUrl: demoUrl,
+                    isGhlDemo: this.classList.contains('ghl-demo-card')
+                });
+            });
+        });
+
+        // Track contact CTA clicks
+        document.querySelector('.contact-cta').addEventListener('click', function () {
+            ghlTrack('contact_cta_clicked', {
+                source: 'demo_hub',
+                type: 'email_contact'
+            });
+        });
+
+        // Track time spent on page
+        let startTime = Date.now();
+        window.addEventListener('beforeunload', function () {
+            const timeSpent = Math.round((Date.now() - startTime) / 1000);
+            ghlTrack('demo_hub_time_spent', {
+                timeSpent: timeSpent
+            });
+        });
+
+        // Animate stats on page load
+        window.addEventListener('load', function () {
+            const stats = document.querySelectorAll('.ghl-stat-number');
+            stats.forEach((stat, index) => {
+                setTimeout(() => {
+                    stat.style.animation = 'countUp 1s ease-out';
+                }, index * 200);
+            });
+        });
+    </script>
+
+    <style>
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </body>
 
 </html>

@@ -3,7 +3,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VibeMatch - Welcome</title>
+    <title>Plenty of Hearts - Welcome</title>
     <style>
         html {
             background: #8B5CF6 !important;
@@ -145,17 +145,125 @@
             opacity: 0.5;
             cursor: not-allowed;
         }
+
+        /* Social Proof Styles */
+        .social-proof {
+            margin: 24px 0;
+            padding: 20px;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .stats {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #8B5CF6;
+            animation: countUp 2s ease-out;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #6B7280;
+            margin-top: 4px;
+        }
+
+        .rating {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stars {
+            font-size: 16px;
+        }
+
+        .rating-text {
+            font-size: 12px;
+            color: #6B7280;
+        }
+
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Brand Image Styles */
+        .welcome-brand-image {
+            margin: 20px 0;
+            text-align: center;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .welcome-image {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .welcome-image:hover {
+            transform: scale(1.05);
+        }
+
+        /* GHL Tracking Styles */
+        .ghl-tracker {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="logo">VibeMatch</div>
+        <div class="logo">Plenty of Hearts</div>
         <div class="tagline">Find your vibe. Find your heart.</div>
+
+        <!-- Brand Image -->
+        <div class="welcome-brand-image">
+            <img src="https://storage.googleapis.com/msgsndr/QLyYYRoOhCg65lKW9HDX/media/686aa788f7b839404622d751.jpeg"
+                alt="Plenty of Hearts - Join our diverse community of connections" class="welcome-image">
+        </div>
 
         <div class="feature"><span>🎭</span> Personality-Based Matching</div>
         <div class="feature"><span>📹</span> Video Profiles</div>
         <div class="feature"><span>🔥</span> Smart AI Matching</div>
+
+        <!-- Social Proof Section -->
+        <div class="social-proof">
+            <div class="stats">
+                <span class="stat-number" id="userCount">52,347</span>
+                <span class="stat-label">successful connections made</span>
+            </div>
+            <div class="rating">
+                <span class="stars">⭐⭐⭐⭐⭐</span>
+                <span class="rating-text">4.9/5 from 10,000+ users</span>
+            </div>
+        </div>
 
         <!-- Mode Selection -->
         <div class="mode-selection">
@@ -184,13 +292,80 @@
         <div>
             <a href="#" class="link" onclick="signIn()">Already have an account? Sign In</a>
         </div>
+
+        <!-- GHL Tracking Pixel -->
+        <img src="https://api.leadconnectorhq.com/tracking/pixel.gif?account=ACCOUNT_ID&event=page_view&page=welcome"
+            class="ghl-tracker" alt="" />
     </div>
 
     <script>
         let selectedMode = null;
 
+        // GHL Analytics Integration
+        function ghlTrack(event, data = {}) {
+            // Track events to GoHighLevel
+            if (typeof gtag !== 'undefined') {
+                gtag('event', event, {
+                    event_category: 'VibeMatch',
+                    event_label: event,
+                    custom_map: {
+                        'custom1': 'selectedMode',
+                        'custom2': 'userSource'
+                    },
+                    ...data
+                });
+            }
+
+            // Send to GHL webhook
+            fetch('https://api.leadconnectorhq.com/webhook/vibematch-tracking', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    event: event,
+                    timestamp: new Date().toISOString(),
+                    page: 'welcome',
+                    data: data
+                })
+            }).catch(console.error);
+        }
+
+        // Track page load
+        window.addEventListener('load', function () {
+            ghlTrack('welcome_page_view', {
+                referrer: document.referrer,
+                utm_source: new URLSearchParams(window.location.search).get('utm_source'),
+                utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign')
+            });
+
+            // Animate social proof numbers
+            animateCounters();
+        });
+
+        function animateCounters() {
+            const counter = document.getElementById('userCount');
+            const target = parseInt(counter.textContent.replace(/,/g, ''));
+            let current = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                counter.textContent = Math.floor(current).toLocaleString();
+            }, 20);
+        }
+
         function selectMode(mode) {
             selectedMode = mode;
+
+            // Track mode selection
+            ghlTrack('mode_selected', {
+                selectedMode: mode,
+                timestamp: new Date().toISOString()
+            });
 
             // Remove selection from all cards
             document.querySelectorAll('.mode-card').forEach(card => {
@@ -213,6 +388,13 @@
                 return;
             }
 
+            // Track conversion event
+            ghlTrack('get_started_clicked', {
+                selectedMode: selectedMode,
+                conversionStep: 'welcome_to_quiz',
+                timestamp: new Date().toISOString()
+            });
+
             const modeMessages = {
                 'friends': '🌟 Find Your Vibe Mode Selected!\n\nNext: Take our personality quiz to discover your unique vibe type and connect with like-minded friends!',
                 'dating': '💖 Find Your Heart Mode Selected!\n\nNext: Take our personality quiz to discover your personality type and find meaningful romantic connections!',
@@ -220,11 +402,50 @@
             };
 
             alert(modeMessages[selectedMode]);
+
+            // In a real implementation, this would redirect to the quiz
+            // window.location.href = 'demo-quiz.html?mode=' + selectedMode;
         }
 
         function signIn() {
+            // Track sign in attempt
+            ghlTrack('sign_in_clicked', {
+                page: 'welcome',
+                timestamp: new Date().toISOString()
+            });
+
             alert('🔐 Sign In Options:\n\n• Email & Password\n• Google OAuth\n• Facebook Login\n• Azure AD B2C');
+
+            // In a real implementation, this would redirect to sign in page
+            // window.location.href = 'sign-in.html';
         }
+
+        // Track time spent on page
+        let startTime = Date.now();
+        window.addEventListener('beforeunload', function () {
+            const timeSpent = Math.round((Date.now() - startTime) / 1000);
+            ghlTrack('page_time_spent', {
+                page: 'welcome',
+                timeSpent: timeSpent,
+                selectedMode: selectedMode
+            });
+        });
+
+        // Track scroll depth
+        let maxScrollDepth = 0;
+        window.addEventListener('scroll', function () {
+            const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+            if (scrollDepth > maxScrollDepth) {
+                maxScrollDepth = scrollDepth;
+                if (scrollDepth >= 25 && scrollDepth < 50) {
+                    ghlTrack('scroll_depth_25');
+                } else if (scrollDepth >= 50 && scrollDepth < 75) {
+                    ghlTrack('scroll_depth_50');
+                } else if (scrollDepth >= 75) {
+                    ghlTrack('scroll_depth_75');
+                }
+            }
+        });
     </script>
 </body>
 
