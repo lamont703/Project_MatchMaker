@@ -264,13 +264,152 @@
             display: none;
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
             .content {
-                padding: 20px;
+                padding: 24px 20px;
+            }
+
+            .step-title {
+                font-size: 24px;
+            }
+
+            .step-subtitle {
+                font-size: 16px;
+            }
+
+            .video-upload {
+                height: 200px;
+            }
+
+            .upload-icon {
+                font-size: 36px;
+            }
+
+            .upload-text {
+                font-size: 16px;
+            }
+
+            .form-input {
+                font-size: 14px;
             }
 
             .interests-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .interest-tag {
+                font-size: 13px;
+                padding: 8px 12px;
+            }
+
+            .personality-display {
+                padding: 16px;
+            }
+
+            .personality-emoji {
+                font-size: 36px;
+            }
+
+            .personality-name {
+                font-size: 18px;
+            }
+
+            .continue-btn {
+                padding: 16px 24px;
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0;
+            }
+
+            .header {
+                padding: 16px 20px;
+            }
+
+            .header-title {
+                font-size: 16px;
+            }
+
+            .content {
+                padding: 16px;
+            }
+
+            .step-title {
+                font-size: 22px;
+            }
+
+            .step-subtitle {
+                font-size: 14px;
+            }
+
+            .video-upload {
+                height: 180px;
+            }
+
+            .upload-icon {
+                font-size: 32px;
+            }
+
+            .upload-text {
+                font-size: 14px;
+            }
+
+            .upload-hint {
+                font-size: 12px;
+            }
+
+            .form-input {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .form-textarea {
+                height: 80px;
+            }
+
+            .interests-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 6px;
+            }
+
+            .interest-tag {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            .personality-display {
+                padding: 12px;
+            }
+
+            .personality-emoji {
+                font-size: 32px;
+            }
+
+            .personality-name {
+                font-size: 16px;
+            }
+
+            .personality-desc {
+                font-size: 12px;
+            }
+
+            .continue-btn {
+                padding: 14px 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .interests-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .interest-tag {
+                text-align: center;
             }
         }
     </style>
