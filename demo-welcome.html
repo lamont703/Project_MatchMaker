@@ -41,6 +41,9 @@
             text-align: center;
             color: #1F2937;
             max-width: 500px;
+            width: 90%;
+            margin: 20px;
+            box-sizing: border-box;
         }
 
         .logo {
@@ -238,10 +241,16 @@
 
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
             .container {
+                width: 95%;
+                max-width: none;
                 padding: 24px;
-                margin: 20px;
-                max-width: 90%;
+                margin: 10px auto;
+                border-radius: 16px;
             }
 
             .logo {
@@ -280,10 +289,16 @@
         }
 
         @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
             .container {
+                width: 98%;
+                max-width: none;
                 padding: 20px;
-                margin: 16px;
-                border-radius: 16px;
+                margin: 5px auto;
+                border-radius: 12px;
             }
 
             .logo {
@@ -339,6 +354,75 @@
 
             .stat-label {
                 font-size: 12px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            body {
+                padding: 2px;
+            }
+
+            .container {
+                width: 100%;
+                max-width: none;
+                padding: 16px;
+                margin: 2px auto;
+                border-radius: 8px;
+            }
+
+            .logo {
+                font-size: 22px;
+            }
+
+            .tagline {
+                font-size: 13px;
+                margin-bottom: 20px;
+            }
+
+            .welcome-brand-image {
+                margin: 12px 0;
+            }
+
+            .welcome-image {
+                max-height: 120px;
+            }
+
+            .feature {
+                font-size: 13px;
+                margin: 10px 0;
+            }
+
+            .btn {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+
+            .mode-card {
+                padding: 12px;
+            }
+
+            .mode-icon {
+                font-size: 20px;
+            }
+
+            .mode-title {
+                font-size: 13px;
+            }
+
+            .mode-desc {
+                font-size: 11px;
+            }
+
+            .social-proof {
+                padding: 12px;
+            }
+
+            .stat-number {
+                font-size: 16px;
+            }
+
+            .stat-label {
+                font-size: 11px;
             }
         }
     </style>
