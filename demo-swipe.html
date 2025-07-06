@@ -5,10 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VibeMatch - Swipe Demo</title>
     <style>
+        html {
+            background: #8B5CF6 !important;
+            /* Fallback color */
+            background: -webkit-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: -moz-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: -o-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background-attachment: fixed;
+            height: 100vh;
+        }
+
         body {
             font-family: -apple-system, sans-serif;
+            background: #8B5CF6 !important;
+            /* Fallback color */
+            background: -webkit-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: -moz-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: -o-linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%) !important;
+            background-attachment: fixed;
             margin: 0;
-            background: #f8f9fa;
+            padding: 0;
+            min-height: 100vh;
         }
 
         .header {
@@ -191,6 +210,13 @@
                 touch-action: manipulation;
                 min-height: 44px;
             }
+
+            .refresh-btn {
+                touch-action: manipulation;
+                min-height: 44px;
+                font-size: 13px;
+                padding: 10px 20px;
+            }
         }
 
         .card-inner {
@@ -314,6 +340,31 @@
             margin-bottom: 20px;
         }
 
+        .refresh-btn {
+            background: linear-gradient(135deg, #10B981, #059669);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .refresh-btn:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+        }
+
+        .refresh-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .demo-note {
             position: fixed;
             top: 20px;
@@ -333,7 +384,10 @@
 
     <div class="header">
         <div style="font-size: 24px;">🔥</div>
-        <div class="logo">VibeMatch</div>
+        <div class="logo">
+            <span id="headerTitle">VibeMatch</span>
+            <div id="modeIndicator" style="font-size: 12px; font-weight: normal; margin-top: 2px;"></div>
+        </div>
         <div style="font-size: 24px; cursor: pointer;" onclick="alert('Settings menu')">⚙️</div>
     </div>
 
@@ -475,7 +529,8 @@
             </div>
         </div>
 
-        <div style="text-align: center; margin: 20px 0; color: #6B7280; font-size: 14px;">
+        <div
+            style="text-align: center; margin: 20px 0; color: white; font-size: 14px; font-weight: 500; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);">
             💡 <span class="desktop-text">Click</span><span class="mobile-text">Tap</span> on a profile card to select
             it, then use the buttons below
         </div>
@@ -483,18 +538,89 @@
         <button class="insight-btn" onclick="showInsight()">💡 See Why We Think You Match</button>
 
         <div class="actions">
-            <button class="btn pass" onclick="passCard()" title="Pass on selected profile">👎</button>
-            <button class="btn like" onclick="likeCard()" title="Like selected profile">❤️</button>
-            <button class="btn super" onclick="superLike()" title="Super like selected profile">⭐</button>
+            <button class="btn pass" onclick="passCard()" id="passBtn" title="Pass on selected profile">👎</button>
+            <button class="btn like" onclick="likeCard()" id="actionBtn" title="Like selected profile">❤️</button>
+            <button class="btn super" onclick="superLike()" id="superBtn" title="Super like selected profile">⭐</button>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="refresh-btn" onclick="refreshDeck()" id="refreshBtn" title="Get new profiles">
+                🔄 Refresh Deck
+            </button>
         </div>
     </div>
 
     <script>
-        const profiles = [
-            { name: "Taylor, 24", badge: "🌍 The Explorer", match: "87% Match" },
-            { name: "Alex, 27", badge: "🎨 The Creative", match: "92% Match" },
-            { name: "Jordan, 26", badge: "🚀 The Adventurer", match: "79% Match" }
+        // Mode detection and configuration
+        const userMode = localStorage.getItem('vibematch_mode') || 'both';
+
+        const modeConfig = {
+            'friends': {
+                title: 'VibeMatch',
+                subtitle: '🌟 Find Your Vibe',
+                actionIcon: '🌟',
+                actionText: 'Connect',
+                superText: 'Super Connect',
+                matchText: 'Friend Match',
+                icebreaker: 'I love your vibe! Want to be friends?'
+            },
+            'dating': {
+                title: 'Plenty of Hearts',
+                subtitle: '💖 Find Your Heart',
+                actionIcon: '💖',
+                actionText: 'Like',
+                superText: 'Super Like',
+                matchText: 'It\'s a Match',
+                icebreaker: 'I love your vibe! What\'s your favorite adventure so far?'
+            },
+            'both': {
+                title: 'VibeMatch',
+                subtitle: '✨ Find Both',
+                actionIcon: '✨',
+                actionText: 'Interested',
+                superText: 'Super Interested',
+                matchText: 'Connection Made',
+                icebreaker: 'I love your vibe! Let\'s see where this goes!'
+            }
+        };
+
+        const allProfiles = [
+            // Current profiles
+            { name: "Taylor, 24", badge: "🌍 The Explorer", match: "87% Match", bio: "Love hiking and discovering hidden coffee shops! Always up for spontaneous weekend adventures.", interests: "🎵 Music 🏔️ Hiking ☕ Coffee 📸 Photography ✈️ Travel 🎨 Art", video: "Taylor's Adventure" },
+            { name: "Alex, 27", badge: "🎨 The Creative", match: "92% Match", bio: "Artist by day, stargazer by night. I find inspiration in everything from street art to classical music. My studio is my sanctuary, but I love sharing creative adventures with someone special.", interests: "🎨 Painting 🎵 Classical Music ⭐ Astronomy 🍷 Wine 📚 Poetry 🌃 Night Walks", video: "Alex's Art Studio" },
+            { name: "Jordan, 26", badge: "🚀 The Adventurer", match: "79% Match", bio: "Life's too short for boring! Rock climber by passion, foodie by nature. I believe the best stories come from saying 'yes' to adventure.", interests: "🧗 Rock Climbing 🍕 Food Adventures 🎯 Archery 🏃 Running 🏕️ Camping 🌮 Tacos", video: "Jordan's Climb" },
+
+            // New profiles for refresh
+            { name: "Casey, 25", badge: "💫 The Connector", match: "84% Match", bio: "People person who loves bringing friends together! Whether it's hosting game nights or organizing group hikes, I'm all about creating memories with amazing people.", interests: "🎲 Board Games 🍳 Cooking 🎭 Theater 🌮 Food Tours 🏐 Volleyball 🎪 Events", video: "Casey's Game Night" },
+            { name: "Riley, 28", badge: "🧠 The Thinker", match: "91% Match", bio: "Philosophy meets practicality. I love deep conversations over coffee, weekend book clubs, and exploring ideas that challenge how we see the world.", interests: "📚 Reading 🧩 Puzzles ☕ Coffee Culture 🎙️ Podcasts 🌱 Sustainability 🏛️ Museums", video: "Riley's Library" },
+            { name: "Avery, 26", badge: "🌺 The Nurturer", match: "88% Match", bio: "Yoga instructor and plant parent who believes in the power of mindfulness and genuine connections. Looking for someone who values growth and authenticity.", interests: "🧘 Yoga 🌱 Plants 🥗 Healthy Cooking 🎨 Watercolor 🐕 Dog Walking 🌸 Meditation", video: "Avery's Studio" }
         ];
+
+        let currentProfileSet = 0;
+        let refreshCount = 0;
+        const maxRefreshes = 3;
+
+        function getCurrentProfiles() {
+            const start = currentProfileSet * 3;
+            return allProfiles.slice(start, start + 3);
+        }
+
+        // Initialize mode-specific interface
+        function initializeInterface() {
+            const config = modeConfig[userMode];
+
+            // Update header
+            document.getElementById('headerTitle').textContent = config.title;
+            document.getElementById('modeIndicator').textContent = config.subtitle;
+
+            // Update action button
+            const actionBtn = document.getElementById('actionBtn');
+            actionBtn.innerHTML = config.actionIcon;
+            actionBtn.title = config.actionText + ' selected profile';
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', initializeInterface);
 
 
 
@@ -572,6 +698,7 @@
             // Get profile info from card
             const nameElement = card.querySelector('.name');
             const profileName = nameElement ? nameElement.textContent.split(',')[0] : 'Someone';
+            const config = modeConfig[userMode];
 
             removeCard(card, 'right');
             selectedCard = null;
@@ -579,7 +706,7 @@
             // 30% chance of match for demo
             if (Math.random() < 0.3) {
                 setTimeout(() => {
-                    alert(`🎉 It's a Match!\n\nYou and ${profileName} are highly compatible!\n\n💡 Icebreaker: "I love your vibe! What's your favorite adventure so far?"`);
+                    alert(`🎉 ${config.matchText}!\n\nYou and ${profileName} are highly compatible!\n\n💡 Icebreaker: "${config.icebreaker}"`);
                 }, 500);
             }
         }
@@ -591,12 +718,13 @@
             // Get profile info from card
             const nameElement = card.querySelector('.name');
             const profileName = nameElement ? nameElement.textContent.split(',')[0] : 'Someone';
+            const config = modeConfig[userMode];
 
             removeCard(card, 'up');
             selectedCard = null;
 
             setTimeout(() => {
-                alert(`⭐ Super Like Sent!\n\n${profileName} will see that you're really interested!\n\n🎯 60% higher chance of matching!`);
+                alert(`⭐ ${config.superText} Sent!\n\n${profileName} will see that you're really interested!\n\n🎯 60% higher chance of matching!`);
             }, 300);
         }
 
@@ -615,13 +743,126 @@
             alert(`🤖 AI Match Insights for ${profileName}:\n\nWhy we think you'll connect:\n\n✓ Both love outdoor adventures\n✓ Creative and spontaneous personalities\n✓ Similar energy levels\n✓ Shared values around authenticity\n\n🧠 Personality Analysis:\n${badge} pairs well with your type!\n\nCompatibility: ${match}`);
         }
 
+        function refreshDeck() {
+            // Check if user has refreshes left
+            if (refreshCount >= maxRefreshes) {
+                alert('🔄 Refresh Limit Reached!\n\n💎 Upgrade to Premium for unlimited refreshes, or check back later for new profiles!');
+                return;
+            }
+
+            // Animate refresh button
+            const refreshBtn = document.getElementById('refreshBtn');
+            refreshBtn.disabled = true;
+            refreshBtn.textContent = '🔄 Loading...';
+
+            // Move to next profile set
+            currentProfileSet++;
+
+            // If we're out of profile sets, cycle back but show premium message
+            if (currentProfileSet * 3 >= allProfiles.length) {
+                currentProfileSet = 0;
+                setTimeout(() => {
+                    alert('🎯 You\'ve seen all available profiles!\n\n💎 Upgrade to Premium to unlock unlimited profiles and advanced matching!');
+                }, 1000);
+            }
+
+            // Create new cards with animation
+            setTimeout(() => {
+                createNewCards();
+                refreshCount++;
+
+                // Update button text with remaining refreshes
+                const remaining = maxRefreshes - refreshCount;
+                refreshBtn.textContent = remaining > 0 ? `🔄 Refresh Deck (${remaining} left)` : '🔄 Refresh Deck';
+                refreshBtn.disabled = false;
+
+                // Show success message
+                setTimeout(() => {
+                    alert('✨ New profiles loaded!\n\nFresh matches are ready for you to explore!');
+                }, 300);
+            }, 1000);
+        }
+
+        function createNewCards() {
+            const cardStack = document.getElementById('cardStack');
+            const profiles = getCurrentProfiles();
+
+            // Clear existing cards
+            cardStack.innerHTML = '';
+
+            // Create new cards
+            profiles.forEach((profile, index) => {
+                const card = createProfileCard(profile, index);
+                cardStack.appendChild(card);
+            });
+
+            // Reset selection
+            selectedCard = null;
+        }
+
+        function createProfileCard(profile, index) {
+            const cardColors = [
+                'linear-gradient(135deg, #8B5CF6, #EC4899)',
+                'linear-gradient(135deg, #F97316, #EA580C)',
+                'linear-gradient(135deg, #10B981, #059669)'
+            ];
+
+            const badgeColors = [
+                'linear-gradient(135deg, #F97316, #EA580C)',
+                'linear-gradient(135deg, #6366F1, #4F46E5)',
+                'linear-gradient(135deg, #EF4444, #DC2626)'
+            ];
+
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.onclick = () => { selectCard(card); flipCard(card); };
+
+            card.innerHTML = `
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="video-area" style="background: ${cardColors[index % cardColors.length]};">
+                            📹 Video Preview<br><small>${profile.video}</small>
+                        </div>
+                        <div class="card-info">
+                            <div class="name">${profile.name} 📍 ${Math.floor(Math.random() * 5) + 1} miles</div>
+                            <div class="badge" style="background: ${badgeColors[index % badgeColors.length]};">${profile.badge}</div>
+                            <div class="match-info">${profile.match} • ${Math.floor(Math.random() * 5) + 1} mutual friends</div>
+                            <div style="text-align: center; margin-top: 20px; color: #6B7280; font-size: 14px;">
+                                💡 <span class="desktop-text">Click</span><span class="mobile-text">Tap</span> to select & flip profile
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-info" style="padding: 30px 20px; height: 100%;">
+                            <div class="name" style="margin-bottom: 15px;">${profile.name} 📍 ${Math.floor(Math.random() * 5) + 1} miles away</div>
+                            <div class="badge" style="background: ${badgeColors[index % badgeColors.length]}; margin-bottom: 15px;">${profile.badge}</div>
+                            <div class="match-info" style="margin-bottom: 20px;">${profile.match} • ${Math.floor(Math.random() * 5) + 1} mutual friends</div>
+                            <div class="bio" style="margin-bottom: 20px; line-height: 1.5;">"${profile.bio}"</div>
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: #1F2937;">Interests:</strong><br>
+                                ${profile.interests}
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: #1F2937;">Looking for:</strong> Ages ${Math.floor(Math.random() * 5) + 20}-${Math.floor(Math.random() * 5) + 30}, within ${Math.floor(Math.random() * 15) + 5} miles
+                            </div>
+                            <div style="text-align: center; color: #6B7280; font-size: 14px;">
+                                💡 <span class="desktop-text">Click</span><span class="mobile-text">Tap</span> to flip back
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
         function showEndMessage() {
             const cardStack = document.getElementById('cardStack');
             cardStack.innerHTML = `
-                <div style="height: 500px; display: flex; align-items: center; justify-content: center; text-align: center; color: #6B7280;">
+                <div style="height: 500px; display: flex; align-items: center; justify-content: center; text-align: center; color: white; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);">
                     <div>
-                        <h3 style="margin-bottom: 10px; color: #8B5CF6;">🎯 No more profiles!</h3>
-                        <p style="margin: 0; font-size: 14px;">Check back later for new matches</p>
+                        <h3 style="margin-bottom: 10px; color: white; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);">🎯 No more profiles!</h3>
+                        <p style="margin: 0; font-size: 14px;">Try refreshing the deck or check back later for new matches</p>
                         <p style="margin-top: 20px; font-size: 14px;">💎 Upgrade to Premium for unlimited profiles!</p>
                         <button onclick="location.reload()" style="
                             margin-top: 20px; 

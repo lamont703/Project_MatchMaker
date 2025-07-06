@@ -174,6 +174,30 @@
             transform: translateY(-2px);
         }
 
+        .btn-secondary {
+            background: transparent;
+            color: #8B5CF6;
+            border: 2px solid #8B5CF6;
+            padding: 14px 30px;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #8B5CF6;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        #continueOptions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
         .demo-note {
             position: fixed;
             top: 20px;
@@ -185,46 +209,219 @@
             font-size: 14px;
             z-index: 1000;
         }
+
+        .game-selection {
+            padding: 20px;
+        }
+
+        .game-intro {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .game-intro h2 {
+            color: #1F2937;
+            margin-bottom: 12px;
+        }
+
+        .game-intro p {
+            color: #6B7280;
+            font-size: 16px;
+        }
+
+        .game-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .game-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .game-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.2);
+            border-color: #8B5CF6;
+        }
+
+        .game-card.completed {
+            border-color: #10B981;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05));
+        }
+
+        .game-card.completed .game-title::after {
+            content: " ✓";
+            color: #10B981;
+            font-weight: bold;
+        }
+
+        .completed-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #10B981;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .game-icon {
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .game-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1F2937;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .game-desc {
+            color: #6B7280;
+            text-align: center;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .game-time {
+            color: #8B5CF6;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1F2937;
+        }
+
+        @media (max-width: 768px) {
+            .game-options {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .game-card {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <div class="demo-note">🧠 Interactive Quiz Demo</div>
+    <div class="demo-note">🧠 Interactive Assessment Demo</div>
 
     <div class="container">
-        <div class="header">
-            <button class="back-btn" onclick="goBack()">◄</button>
-            <div class="counter" id="counter">Question 1/8</div>
-            <button class="close-btn" onclick="closeQuiz()">✕</button>
-        </div>
+        <!-- Game Selection Screen -->
+        <div class="game-selection" id="gameSelection">
+            <div class="header">
+                <button class="back-btn" onclick="goBack()">◄</button>
+                <div class="header-title">Choose Your Assessment</div>
+                <button class="close-btn" onclick="closeQuiz()">✕</button>
+            </div>
 
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill" style="width: 12.5%"></div>
-        </div>
+            <div class="game-intro">
+                <h2>🎮 Discover Your Personality</h2>
+                <p>Choose how you'd like to reveal your unique vibe type:</p>
+                <div id="profileContinueBtn" style="display: none; margin-top: 20px;">
+                    <button class="continue-btn" onclick="continueToProfile()" style="width: auto; padding: 12px 24px;">
+                        Continue to Profile Setup
+                    </button>
+                </div>
+            </div>
 
-        <div class="question-content" id="questionContent">
-            <div class="question-icon" id="questionIcon">🎨</div>
-            <div class="question-text" id="questionText">What energizes you most on a weekend?</div>
-            <div class="options" id="options">
-                <button class="option-btn" onclick="selectAnswer(this, 'A')">
-                    <span style="font-size: 24px;">🏠</span>
-                    <span>Cozy movie night at home with close friends</span>
-                </button>
-                <button class="option-btn" onclick="selectAnswer(this, 'B')">
-                    <span style="font-size: 24px;">🎉</span>
-                    <span>Big party with lots of new people to meet</span>
-                </button>
+            <div class="game-options">
+                <div class="game-card" onclick="selectGame('story')">
+                    <div class="game-icon">📖</div>
+                    <div class="game-title">Day in Your Life</div>
+                    <div class="game-desc">Interactive story with real-life scenarios</div>
+                    <div class="game-time">⏱️ 3-4 minutes</div>
+                </div>
+
+                <div class="game-card" onclick="selectGame('survival')">
+                    <div class="game-icon">🏝️</div>
+                    <div class="game-title">Desert Island Challenge</div>
+                    <div class="game-desc">Make survival decisions and build your team</div>
+                    <div class="game-time">⏱️ 2-3 minutes</div>
+                </div>
+
+                <div class="game-card" onclick="selectGame('social')">
+                    <div class="game-icon">💬</div>
+                    <div class="game-title">Social Scenarios</div>
+                    <div class="game-desc">Navigate different social situations</div>
+                    <div class="game-time">⏱️ 2-3 minutes</div>
+                </div>
+
+                <div class="game-card" onclick="selectGame('visual')">
+                    <div class="game-icon">🎨</div>
+                    <div class="game-title">Visual Preferences</div>
+                    <div class="game-desc">Choose images that resonate with you</div>
+                    <div class="game-time">⏱️ 1-2 minutes</div>
+                </div>
+
+                <div class="game-card" onclick="selectGame('traditional')">
+                    <div class="game-icon">📋</div>
+                    <div class="game-title">Classic Quiz</div>
+                    <div class="game-desc">Traditional question & answer format</div>
+                    <div class="game-time">⏱️ 2 minutes</div>
+                </div>
             </div>
         </div>
 
-        <div class="result-container" id="resultContainer">
-            <div class="result-icon" id="resultIcon">🌍</div>
-            <div class="result-title" id="resultTitle">You're The Explorer!</div>
-            <div class="result-desc" id="resultDesc">
-                Adventurous, curious, and spontaneous. You love discovering new places,
-                trying new experiences, and living life to the fullest!
+        <!-- Quiz Game Content -->
+        <div class="quiz-game" id="quizGame" style="display: none;">
+            <div class="header">
+                <button class="back-btn" onclick="backToSelection()">◄</button>
+                <div class="counter" id="counter">Question 1/8</div>
+                <button class="close-btn" onclick="closeQuiz()">✕</button>
             </div>
-            <button class="continue-btn" onclick="continueToProfile()">Continue to Profile Setup</button>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 12.5%"></div>
+            </div>
+
+            <div class="question-content" id="questionContent">
+                <div class="question-icon" id="questionIcon">🎨</div>
+                <div class="question-text" id="questionText">What energizes you most on a weekend?</div>
+                <div class="options" id="options">
+                    <button class="option-btn" onclick="selectAnswer(this, 'A')">
+                        <span style="font-size: 24px;">🏠</span>
+                        <span>Cozy movie night at home with close friends</span>
+                    </button>
+                    <button class="option-btn" onclick="selectAnswer(this, 'B')">
+                        <span style="font-size: 24px;">🎉</span>
+                        <span>Big party with lots of new people to meet</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="result-container" id="resultContainer">
+                <div class="result-icon" id="resultIcon">🌍</div>
+                <div class="result-title" id="resultTitle">You're The Explorer!</div>
+                <div class="result-desc" id="resultDesc">
+                    Adventurous, curious, and spontaneous. You love discovering new places,
+                    trying new experiences, and living life to the fullest!
+                </div>
+                <div id="continueOptions">
+                    <button class="continue-btn" onclick="continueToProfile()">Continue to Profile Setup</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -252,11 +449,182 @@
         let currentQuestion = 0;
         let answers = [];
         let selectedAnswer = null;
+        let currentGame = null;
+        let completedGames = {};
+        let gameResults = {};
 
-        function updateQuestion() {
-            const q = questions[currentQuestion];
-            document.getElementById('counter').textContent = `Question ${currentQuestion + 1}/8`;
-            document.getElementById('progressFill').style.width = `${((currentQuestion + 1) / 8) * 100}%`;
+        // Game selection functions
+        function selectGame(gameType) {
+            currentGame = gameType;
+
+            // Reset game state for new game
+            currentQuestion = 0;
+            answers = [];
+            selectedAnswer = null;
+
+            document.getElementById('gameSelection').style.display = 'none';
+            document.getElementById('quizGame').style.display = 'block';
+
+            // Reset result container
+            document.getElementById('questionContent').style.display = 'block';
+            document.getElementById('resultContainer').style.display = 'none';
+
+            // Initialize the selected game
+            switch (gameType) {
+                case 'story':
+                    initStoryGame();
+                    break;
+                case 'survival':
+                    initSurvivalGame();
+                    break;
+                case 'social':
+                    initSocialGame();
+                    break;
+                case 'visual':
+                    initVisualGame();
+                    break;
+                case 'traditional':
+                default:
+                    initTraditionalQuiz();
+                    break;
+            }
+        }
+
+        function backToSelection() {
+            document.getElementById('quizGame').style.display = 'none';
+            document.getElementById('gameSelection').style.display = 'block';
+
+            // Reset game state
+            currentQuestion = 0;
+            answers = [];
+            selectedAnswer = null;
+
+            // Update game selection display
+            updateGameSelection();
+        }
+
+        function updateGameSelection() {
+            const gameCards = document.querySelectorAll('.game-card');
+            const gameTypes = ['story', 'survival', 'social', 'visual', 'traditional'];
+
+            gameCards.forEach((card, index) => {
+                const gameType = gameTypes[index];
+
+                // Remove existing completed badge
+                const existingBadge = card.querySelector('.completed-badge');
+                if (existingBadge) {
+                    existingBadge.remove();
+                }
+
+                // Add completed styling and badge if game is completed
+                if (completedGames[gameType]) {
+                    card.classList.add('completed');
+
+                    const badge = document.createElement('div');
+                    badge.className = 'completed-badge';
+                    badge.textContent = 'COMPLETED';
+                    card.appendChild(badge);
+                } else {
+                    card.classList.remove('completed');
+                }
+            });
+
+            // Update intro text if games have been completed
+            updateIntroText();
+        }
+
+        function updateIntroText() {
+            const completedCount = Object.keys(completedGames).length;
+            const introElement = document.querySelector('.game-intro p');
+            const profileBtn = document.getElementById('profileContinueBtn');
+
+            if (completedCount === 0) {
+                introElement.textContent = "Choose how you'd like to reveal your unique vibe type:";
+                profileBtn.style.display = 'none';
+            } else if (completedCount === 1) {
+                introElement.textContent = "Great! Want to try another assessment method to confirm your results?";
+                profileBtn.style.display = 'block';
+            } else {
+                introElement.textContent = `Amazing! You've completed ${completedCount} assessments. Try more or continue to your profile:`;
+                profileBtn.style.display = 'block';
+            }
+        }
+
+        function initTraditionalQuiz() {
+            // Use the existing quiz format
+            updateQuestion();
+        }
+
+        function initStoryGame() {
+            const storyQuestions = [
+                { icon: "☀️", text: "It's 7 AM on Saturday. Your alarm goes off, but you don't have any plans. What's your first instinct?", options: [{ icon: "☕", text: "Make coffee and enjoy a quiet morning at home", value: "A" }, { icon: "📱", text: "Text friends to see who's up for an adventure", value: "B" }] },
+                { icon: "🍳", text: "You're making breakfast when your neighbor drops by unexpectedly. You:", options: [{ icon: "🚪", text: "Invite them in for coffee and a chat", value: "B" }, { icon: "😊", text: "Chat briefly at the door, then suggest meeting up later", value: "A" }] },
+                { icon: "🛍️", text: "You need groceries. At the store, you:", options: [{ icon: "📝", text: "Follow your prepared list efficiently", value: "A" }, { icon: "🌟", text: "Browse and see what catches your eye", value: "B" }] },
+                { icon: "🎭", text: "A friend invites you to a party where you don't know many people. You:", options: [{ icon: "🏠", text: "Suggest a smaller get-together instead", value: "A" }, { icon: "🎉", text: "Get excited about meeting new people", value: "B" }] },
+                { icon: "💼", text: "At work, you're happiest when:", options: [{ icon: "🎯", text: "Working on detailed projects with clear goals", value: "A" }, { icon: "🌈", text: "Brainstorming creative solutions with the team", value: "B" }] },
+                { icon: "💕", text: "On a first date, you prefer:", options: [{ icon: "☕", text: "Intimate coffee shop conversation", value: "A" }, { icon: "🎪", text: "Fun activity like mini golf or concerts", value: "B" }] },
+                { icon: "🌙", text: "Your ideal evening wind-down involves:", options: [{ icon: "📚", text: "Reading or journaling in peace", value: "A" }, { icon: "🎬", text: "Watching movies with friends or video calling family", value: "B" }] },
+                { icon: "⚡", text: "When facing a major life decision, you:", options: [{ icon: "🤔", text: "Research thoroughly and make pro/con lists", value: "A" }, { icon: "💫", text: "Trust your gut and see where it leads", value: "B" }] }
+            ];
+
+            // Replace questions array for this game
+            window.gameQuestions = storyQuestions;
+            updateGameQuestion();
+        }
+
+        function initSurvivalGame() {
+            const survivalQuestions = [
+                { icon: "🏝️", text: "You're stranded on a desert island. What's your first priority?", options: [{ icon: "🏠", text: "Build a shelter and organize supplies", value: "A" }, { icon: "🔥", text: "Explore the island and look for other survivors", value: "B" }] },
+                { icon: "👥", text: "You find 3 other survivors. How do you organize the group?", options: [{ icon: "📋", text: "Assign specific roles based on skills", value: "A" }, { icon: "🤝", text: "Work together and figure it out as you go", value: "B" }] },
+                { icon: "🐟", text: "Food is running low. Your approach:", options: [{ icon: "🎣", text: "Set up systematic fishing and foraging schedules", value: "A" }, { icon: "🏃", text: "Try multiple creative methods to find food", value: "B" }] },
+                { icon: "🚢", text: "You spot a ship in the distance. Your rescue plan:", options: [{ icon: "🔥", text: "Build a large, consistent signal fire", value: "A" }, { icon: "📢", text: "Try multiple attention-grabbing methods", value: "B" }] },
+                { icon: "⛈️", text: "A storm is coming. How do you prepare?", options: [{ icon: "🏠", text: "Secure shelter and gather supplies methodically", value: "A" }, { icon: "💪", text: "Adapt quickly and help others stay positive", value: "B" }] },
+                { icon: "🤕", text: "Someone gets injured. You:", options: [{ icon: "🏥", text: "Apply first aid knowledge step by step", value: "A" }, { icon: "❤️", text: "Comfort them while finding creative solutions", value: "B" }] },
+                { icon: "🗺️", text: "The group disagrees on which direction to explore. You:", options: [{ icon: "⚖️", text: "Weigh the logical pros and cons of each option", value: "A" }, { icon: "💭", text: "Consider everyone's feelings and find compromise", value: "B" }] },
+                { icon: "🛟", text: "Rescue finally arrives! You feel:", options: [{ icon: "😌", text: "Relieved that your planning paid off", value: "A" }, { icon: "🎉", text: "Grateful for the amazing teamwork and bonds formed", value: "B" }] }
+            ];
+
+            window.gameQuestions = survivalQuestions;
+            updateGameQuestion();
+        }
+
+        function initSocialGame() {
+            const socialQuestions = [
+                { icon: "🎉", text: "You're at a party and see someone sitting alone. You:", options: [{ icon: "👋", text: "Go over and start a friendly conversation", value: "B" }, { icon: "😊", text: "Give them a warm smile and wait for natural opportunity", value: "A" }] },
+                { icon: "💼", text: "In a work meeting, you typically:", options: [{ icon: "👂", text: "Listen carefully and contribute thoughtful points", value: "A" }, { icon: "💡", text: "Share ideas enthusiastically and energize discussion", value: "B" }] },
+                { icon: "😔", text: "A friend is going through a tough time. You:", options: [{ icon: "🤗", text: "Give them space but let them know you're there", value: "A" }, { icon: "☕", text: "Immediately reach out and suggest meeting up", value: "B" }] },
+                { icon: "🎭", text: "At a networking event, you prefer to:", options: [{ icon: "🤝", text: "Have meaningful one-on-one conversations", value: "A" }, { icon: "🌟", text: "Meet as many new people as possible", value: "B" }] },
+                { icon: "📱", text: "Your ideal way to make weekend plans:", options: [{ icon: "💭", text: "Text close friends and see what feels right", value: "A" }, { icon: "📢", text: "Create a group chat and organize something fun", value: "B" }] },
+                { icon: "🎤", text: "You're asked to give a presentation to 50 people. You:", options: [{ icon: "📚", text: "Prepare thoroughly and focus on the content", value: "A" }, { icon: "⚡", text: "Get excited about engaging the audience", value: "B" }] },
+                { icon: "🍽️", text: "Dinner conversation style you prefer:", options: [{ icon: "💭", text: "Deep discussions with close friends", value: "A" }, { icon: "😄", text: "Light, fun banter with the whole table", value: "B" }] },
+                { icon: "🤝", text: "When resolving conflicts, you tend to:", options: [{ icon: "⚖️", text: "Think through the issue and discuss privately", value: "A" }, { icon: "❤️", text: "Address it openly and focus on everyone's feelings", value: "B" }] }
+            ];
+
+            window.gameQuestions = socialQuestions;
+            updateGameQuestion();
+        }
+
+        function initVisualGame() {
+            const visualQuestions = [
+                { icon: "🏠", text: "Which living space calls to you?", options: [{ icon: "🏛️", text: "Cozy library with built-in bookshelves", value: "A" }, { icon: "🌈", text: "Bright open loft with creative workspace", value: "B" }] },
+                { icon: "🌍", text: "Your dream vacation destination:", options: [{ icon: "🏔️", text: "Peaceful mountain cabin by a lake", value: "A" }, { icon: "🏝️", text: "Vibrant tropical island with activities", value: "B" }] },
+                { icon: "☕", text: "Your ideal coffee shop vibe:", options: [{ icon: "📚", text: "Quiet corner with soft music and books", value: "A" }, { icon: "🎵", text: "Bustling café with live music and chatter", value: "B" }] },
+                { icon: "🎨", text: "Art that resonates with you:", options: [{ icon: "🖼️", text: "Thoughtful, detailed classical paintings", value: "A" }, { icon: "🎭", text: "Bold, expressive modern installations", value: "B" }] },
+                { icon: "👗", text: "Your clothing style preference:", options: [{ icon: "✨", text: "Classic, timeless pieces that last", value: "A" }, { icon: "🌟", text: "Trendy, expressive statement pieces", value: "B" }] },
+                { icon: "🎪", text: "Event that excites you most:", options: [{ icon: "🎭", text: "Intimate theater performance or book reading", value: "A" }, { icon: "🎤", text: "Music festival with multiple stages", value: "B" }] },
+                { icon: "🌺", text: "Garden style you'd love to have:", options: [{ icon: "🌿", text: "Zen garden with meditation space", value: "A" }, { icon: "🌻", text: "Colorful wildflower garden with gathering space", value: "B" }] },
+                { icon: "📚", text: "Learning environment that motivates you:", options: [{ icon: "🤓", text: "One-on-one tutoring or small seminars", value: "A" }, { icon: "👥", text: "Interactive workshops with group activities", value: "B" }] }
+            ];
+
+            window.gameQuestions = visualQuestions;
+            updateGameQuestion();
+        }
+
+        function updateGameQuestion() {
+            const questionSet = window.gameQuestions || questions;
+            const q = questionSet[currentQuestion];
+            document.getElementById('counter').textContent = `Question ${currentQuestion + 1}/${questionSet.length}`;
+            document.getElementById('progressFill').style.width = `${((currentQuestion + 1) / questionSet.length) * 100}%`;
             document.getElementById('questionIcon').textContent = q.icon;
             document.getElementById('questionText').textContent = q.text;
 
@@ -272,6 +640,10 @@
             });
         }
 
+        function updateQuestion() {
+            updateGameQuestion();
+        }
+
         function selectAnswer(button, value) {
             document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
             button.classList.add('selected');
@@ -284,58 +656,212 @@
             answers.push(selectedAnswer);
             selectedAnswer = null;
 
-            if (currentQuestion < questions.length - 1) {
+            const questionSet = window.gameQuestions || questions;
+            if (currentQuestion < questionSet.length - 1) {
                 currentQuestion++;
-                updateQuestion();
+                updateGameQuestion();
             } else {
                 showResult();
             }
         }
 
         function showResult() {
+            const questionSet = window.gameQuestions || questions;
             const aCount = answers.filter(a => a === 'A').length;
+            const totalQuestions = questionSet.length;
             let personalityType;
 
-            if (aCount >= 6) {
+            // Adaptive personality scoring based on question count
+            const aRatio = aCount / totalQuestions;
+
+            if (aRatio >= 0.75) {
                 personalityType = personalityTypes["AAAAAAAA"];
-            } else if (aCount >= 4) {
+            } else if (aRatio >= 0.6) {
                 personalityType = personalityTypes["AAAABBBB"];
-            } else if (aCount >= 2) {
+            } else if (aRatio >= 0.4) {
                 personalityType = personalityTypes["AABBBBBB"];
+            } else if (aRatio >= 0.25) {
+                personalityType = personalityTypes["BBBBBAAA"];
             } else {
                 personalityType = personalityTypes["BBBBBBBB"];
             }
+
+            // Get game type description
+            const gameDescriptions = {
+                'story': 'Through your daily life choices',
+                'survival': 'Through survival challenges',
+                'social': 'Through social scenarios',
+                'visual': 'Through visual preferences',
+                'traditional': 'Through personality questions'
+            };
+
+            const gameDesc = gameDescriptions[currentGame] || 'Through assessment';
+
+            // Save this game's result
+            completedGames[currentGame] = true;
+            gameResults[currentGame] = {
+                type: personalityType,
+                description: gameDesc
+            };
 
             document.getElementById('questionContent').style.display = 'none';
             document.getElementById('resultContainer').style.display = 'block';
             document.getElementById('resultIcon').textContent = personalityType.icon;
             document.getElementById('resultTitle').textContent = `You're ${personalityType.title}!`;
-            document.getElementById('resultDesc').textContent = personalityType.desc;
+
+            // Enhanced result description
+            let resultText = `${personalityType.desc}\n\n✨ Discovered ${gameDesc}`;
+
+            // If multiple games completed, show consistency
+            const completedCount = Object.keys(completedGames).length;
+            if (completedCount > 1) {
+                const allResults = Object.values(gameResults);
+                const consistentType = allResults.every(result => result.type.title === personalityType.title);
+
+                if (consistentType) {
+                    resultText += `\n\n🎯 Consistent across ${completedCount} assessments!`;
+                } else {
+                    resultText += `\n\n💡 You've shown different aspects across assessments - that's normal!`;
+                }
+            }
+
+            document.getElementById('resultDesc').textContent = resultText;
             document.getElementById('counter').textContent = 'Complete!';
             document.getElementById('progressFill').style.width = '100%';
+
+            // Update the continue button to show options
+            updateContinueButton();
+        }
+
+        function updateContinueButton() {
+            const completedCount = Object.keys(completedGames).length;
+            const totalGames = 5;
+            const continueOptions = document.getElementById('continueOptions');
+
+            if (completedCount === 1) {
+                // First game completed - offer to try another or continue
+                continueOptions.innerHTML = `
+                    <button class="continue-btn" onclick="continueToProfile()">Continue to Profile Setup</button>
+                    <button class="btn-secondary" onclick="tryAnotherGame()">🎮 Try Another Assessment</button>
+                `;
+            } else if (completedCount < totalGames) {
+                // Multiple games completed but not all
+                continueOptions.innerHTML = `
+                    <button class="continue-btn" onclick="continueToProfile()">Continue to Profile Setup</button>
+                    <button class="btn-secondary" onclick="tryAnotherGame()">🎮 Try Another Assessment (${totalGames - completedCount} remaining)</button>
+                    <button class="btn-secondary" onclick="showAllResults()">📊 View All Results</button>
+                `;
+            } else {
+                // All games completed!
+                continueOptions.innerHTML = `
+                    <button class="continue-btn" onclick="continueToProfile()">Continue to Profile Setup</button>
+                    <button class="btn-secondary" onclick="showAllResults()">🏆 View Complete Assessment Summary</button>
+                `;
+            }
+        }
+
+        function tryAnotherGame() {
+            backToSelection();
+        }
+
+        function showAllResults() {
+            const completedCount = Object.keys(completedGames).length;
+            const allResults = Object.values(gameResults);
+
+            // Count personality type frequency
+            const typeCount = {};
+            allResults.forEach(result => {
+                const typeName = result.type.title;
+                typeCount[typeName] = (typeCount[typeName] || 0) + 1;
+            });
+
+            // Find most frequent type
+            const mostFrequentType = Object.keys(typeCount).reduce((a, b) => typeCount[a] > typeCount[b] ? a : b);
+            const frequency = typeCount[mostFrequentType];
+
+            let summary = `🎯 Assessment Summary (${completedCount} games):\n\n`;
+
+            // List all results
+            Object.keys(gameResults).forEach(gameType => {
+                const result = gameResults[gameType];
+                const gameNames = {
+                    'story': 'Day in Your Life',
+                    'survival': 'Desert Island',
+                    'social': 'Social Scenarios',
+                    'visual': 'Visual Preferences',
+                    'traditional': 'Classic Quiz'
+                };
+                summary += `${gameNames[gameType]}: ${result.type.title}\n`;
+            });
+
+            summary += `\n🏆 Most Frequent: ${mostFrequentType}`;
+            if (frequency === completedCount) {
+                summary += ' (100% consistent!)';
+            } else {
+                summary += ` (${Math.round(frequency / completedCount * 100)}% of assessments)`;
+            }
+
+            summary += '\n\n✨ Multiple assessments give you a more complete personality picture!';
+
+            alert(summary);
         }
 
         function goBack() {
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                answers.pop();
-                updateQuestion();
+            // If we're on the quiz game screen
+            if (document.getElementById('quizGame').style.display !== 'none') {
+                if (currentQuestion > 0) {
+                    currentQuestion--;
+                    answers.pop();
+                    updateGameQuestion();
+                } else {
+                    // Go back to game selection
+                    backToSelection();
+                }
             } else {
-                alert('🔙 Would return to previous screen');
+                // From game selection, go to previous screen
+                alert('🔙 Would return to welcome screen');
             }
         }
 
         function closeQuiz() {
-            if (confirm('Exit quiz? Progress will be lost.')) {
+            if (confirm('Exit assessment? Progress will be lost.')) {
                 alert('❌ Returning to welcome screen');
             }
         }
 
         function continueToProfile() {
-            alert('🎯 Quiz Complete!\n\nNext: Profile Setup\n\n• Upload video profile\n• Add photos and bio\n• Set preferences\n• Start matching!');
+            const completedCount = Object.keys(completedGames).length;
+
+            if (completedCount === 0) {
+                alert('🎯 Please complete at least one assessment first!');
+                return;
+            }
+
+            const gameNames = {
+                'story': 'Day in Your Life',
+                'survival': 'Desert Island Challenge',
+                'social': 'Social Scenarios',
+                'visual': 'Visual Preferences',
+                'traditional': 'Classic Quiz'
+            };
+
+            let message;
+            if (completedCount === 1) {
+                const gameName = gameNames[currentGame] || 'Assessment';
+                message = `🎯 ${gameName} Complete!\n\nYour personality type has been discovered!`;
+            } else if (completedCount === 5) {
+                message = `🏆 All Assessments Complete!\n\nYou've explored your personality through every method - amazing dedication!`;
+            } else {
+                message = `🎯 ${completedCount} Assessments Complete!\n\nYou've gained great insights into your personality!`;
+            }
+
+            message += '\n\nNext: Profile Setup\n\n• Upload video profile\n• Add photos and bio\n• Set preferences\n• Start matching!';
+
+            alert(message);
         }
 
-        updateQuestion();
+        // Don't auto-start quiz anymore - wait for game selection
+        // updateQuestion();
     </script>
 </body>
 

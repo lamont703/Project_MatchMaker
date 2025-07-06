@@ -432,6 +432,15 @@
         <div class="section">
             <div class="section-header">Account</div>
 
+            <div class="setting-item" onclick="changeMode()">
+                <div class="setting-icon">🎯</div>
+                <div class="setting-content">
+                    <div class="setting-title">Connection Mode</div>
+                    <div class="setting-desc" id="currentMode">Currently: Find Both</div>
+                </div>
+                <div class="setting-action">→</div>
+            </div>
+
             <div class="setting-item" onclick="retakeQuiz()">
                 <div class="setting-icon quiz">🧠</div>
                 <div class="setting-content">
@@ -623,6 +632,39 @@
         function openTerms() {
             alert('📄 Terms of Service\n\nKey points:\n• Must be 18+ to use\n• Respectful community guidelines\n• Profile authenticity required\n• Premium subscription terms\n\nView full terms at vibematch.app/terms');
         }
+
+        function changeMode() {
+            const current = localStorage.getItem('vibematch_mode') || 'both';
+            const modes = {
+                'friends': '🌟 Find Your Vibe (Friends)',
+                'dating': '💖 Find Your Heart (Dating)',
+                'both': '✨ Find Both (Friends & Dating)'
+            };
+
+            const options = Object.keys(modes).map(key => `${key === current ? '✓' : '  '} ${modes[key]}`).join('\n');
+
+            if (confirm(`🎯 Choose Your Connection Mode:\n\n${options}\n\nWould you like to change your mode?`)) {
+                // Simple mode cycling for demo
+                const nextMode = current === 'friends' ? 'dating' : current === 'dating' ? 'both' : 'friends';
+                localStorage.setItem('vibematch_mode', nextMode);
+                document.getElementById('currentMode').textContent = `Currently: ${modes[nextMode].split(' ').slice(1).join(' ')}`;
+                alert(`✅ Mode changed to: ${modes[nextMode]}`);
+            }
+        }
+
+        function initializeModeDisplay() {
+            const current = localStorage.getItem('vibematch_mode') || 'both';
+            const modes = {
+                'friends': 'Find Your Vibe (Friends)',
+                'dating': 'Find Your Heart (Dating)',
+                'both': 'Find Both (Friends & Dating)'
+            };
+
+            document.getElementById('currentMode').textContent = `Currently: ${modes[current]}`;
+        }
+
+        // Initialize mode display on page load
+        window.addEventListener('DOMContentLoaded', initializeModeDisplay);
 
         function logout() {
             if (confirm('Are you sure you want to log out?')) {

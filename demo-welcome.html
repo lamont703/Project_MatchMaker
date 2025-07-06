@@ -40,7 +40,7 @@
             border-radius: 20px;
             text-align: center;
             color: #1F2937;
-            max-width: 400px;
+            max-width: 500px;
         }
 
         .logo {
@@ -87,19 +87,99 @@
             color: #8B5CF6;
             text-decoration: none;
         }
+
+        .mode-selection {
+            margin: 32px 0;
+        }
+
+        .mode-selection h3 {
+            color: #1F2937;
+            margin-bottom: 24px;
+            font-size: 20px;
+        }
+
+        .mode-options {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .mode-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mode-card:hover {
+            border-color: #8B5CF6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+        }
+
+        .mode-card.selected {
+            border-color: #8B5CF6;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
+        }
+
+        .mode-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .mode-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 4px;
+        }
+
+        .mode-desc {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <div class="logo">VibeMatch</div>
-        <div class="tagline">Find your vibe.<br>Not just a match.</div>
+        <div class="tagline">Find your vibe. Find your heart.</div>
 
         <div class="feature"><span>🎭</span> Personality-Based Matching</div>
         <div class="feature"><span>📹</span> Video Profiles</div>
         <div class="feature"><span>🔥</span> Smart AI Matching</div>
 
-        <button class="btn" onclick="startJourney()">Get Started</button>
+        <!-- Mode Selection -->
+        <div class="mode-selection">
+            <h3>What are you looking for?</h3>
+            <div class="mode-options">
+                <div class="mode-card" onclick="selectMode('friends')">
+                    <div class="mode-icon">🌟</div>
+                    <div class="mode-title">Find Your Vibe</div>
+                    <div class="mode-desc">Connect with like-minded friends</div>
+                </div>
+                <div class="mode-card" onclick="selectMode('dating')">
+                    <div class="mode-icon">💖</div>
+                    <div class="mode-title">Find Your Heart</div>
+                    <div class="mode-desc">Discover meaningful dating connections</div>
+                </div>
+                <div class="mode-card" onclick="selectMode('both')">
+                    <div class="mode-icon">✨</div>
+                    <div class="mode-title">Find Both</div>
+                    <div class="mode-desc">Open to friendship and romance</div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn" onclick="startJourney()" id="getStartedBtn" disabled>Get Started</button>
 
         <div>
             <a href="#" class="link" onclick="signIn()">Already have an account? Sign In</a>
@@ -107,8 +187,39 @@
     </div>
 
     <script>
+        let selectedMode = null;
+
+        function selectMode(mode) {
+            selectedMode = mode;
+
+            // Remove selection from all cards
+            document.querySelectorAll('.mode-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            // Add selection to clicked card
+            event.target.closest('.mode-card').classList.add('selected');
+
+            // Enable the Get Started button
+            document.getElementById('getStartedBtn').disabled = false;
+
+            // Store mode preference
+            localStorage.setItem('vibematch_mode', mode);
+        }
+
         function startJourney() {
-            alert('🎯 Next: Personality Quiz\n\nTake our 8-question assessment to discover your unique "vibe" type and find better matches!');
+            if (!selectedMode) {
+                alert('Please select what you\'re looking for first!');
+                return;
+            }
+
+            const modeMessages = {
+                'friends': '🌟 Find Your Vibe Mode Selected!\n\nNext: Take our personality quiz to discover your unique vibe type and connect with like-minded friends!',
+                'dating': '💖 Find Your Heart Mode Selected!\n\nNext: Take our personality quiz to discover your personality type and find meaningful romantic connections!',
+                'both': '✨ Find Both Mode Selected!\n\nNext: Take our personality quiz to discover your vibe type and explore both friendship and romantic connections!'
+            };
+
+            alert(modeMessages[selectedMode]);
         }
 
         function signIn() {

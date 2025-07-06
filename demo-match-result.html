@@ -355,8 +355,8 @@
         <div class="celebration" id="celebration"></div>
 
         <div class="match-content">
-            <h1 class="match-title">🎉 It's a Match!</h1>
-            <p class="match-subtitle">You and Taylor have connected!</p>
+            <h1 class="match-title" id="matchTitle">🎉 It's a Match!</h1>
+            <p class="match-subtitle" id="matchSubtitle">You and Taylor have connected!</p>
 
             <!-- Profile Cards -->
             <div class="profiles-container">
@@ -423,10 +423,10 @@
 
             <!-- Action Buttons -->
             <div class="action-buttons">
-                <button class="btn btn-primary" onclick="startChatting()">
+                <button class="btn btn-primary" onclick="startChatting()" id="chatBtn">
                     💬 Start Chatting
                 </button>
-                <button class="btn btn-secondary" onclick="keepSwiping()">
+                <button class="btn btn-secondary" onclick="keepSwiping()" id="continueBtn">
                     🔥 Keep Swiping
                 </button>
             </div>
@@ -460,6 +460,50 @@
             }
         }
 
+        // Mode detection and configuration
+        const userMode = localStorage.getItem('vibematch_mode') || 'both';
+
+        const modeConfig = {
+            'friends': {
+                title: '🌟 Friend Match!',
+                subtitle: 'You and Taylor have connected as friends!',
+                actionText: 'Start Chatting',
+                continueText: 'Keep Connecting',
+                heartIcon: '🌟'
+            },
+            'dating': {
+                title: '💖 It\'s a Match!',
+                subtitle: 'You and Taylor have connected!',
+                actionText: 'Start Chatting',
+                continueText: 'Keep Swiping',
+                heartIcon: '💖'
+            },
+            'both': {
+                title: '✨ Connection Made!',
+                subtitle: 'You and Taylor have connected!',
+                actionText: 'Start Chatting',
+                continueText: 'Keep Exploring',
+                heartIcon: '✨'
+            }
+        };
+
+        function initializeInterface() {
+            const config = modeConfig[userMode];
+
+            // Update match messaging
+            document.getElementById('matchTitle').textContent = config.title;
+            document.getElementById('matchSubtitle').textContent = config.subtitle;
+
+            // Update heart icon
+            const heartIcon = document.querySelector('.heart-icon');
+            if (heartIcon) {
+                heartIcon.textContent = config.heartIcon;
+            }
+
+            // Update button text
+            document.getElementById('continueBtn').innerHTML = `🔥 ${config.continueText}`;
+        }
+
         function startChatting() {
             // Show loading state
             const btn = event.target;
@@ -473,9 +517,11 @@
         }
 
         function keepSwiping() {
+            const config = modeConfig[userMode];
+
             // Animate back to swiping
             const btn = event.target;
-            btn.textContent = 'Back to swiping...';
+            btn.textContent = `Back to ${config.continueText.toLowerCase()}...`;
             btn.disabled = true;
 
             setTimeout(() => {
@@ -485,6 +531,7 @@
 
         // Auto-create confetti on page load
         window.addEventListener('load', () => {
+            initializeInterface();
             createConfetti();
 
             // Continue creating confetti periodically
