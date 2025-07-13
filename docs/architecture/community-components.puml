@@ -1,0 +1,57 @@
+@startuml VibeMatch_Community_Components
+title VibeMatch - Community Platform Architecture
+
+participant "CommunityPage" as CommunityPage
+participant "CommunityDetails" as CommunityDetails
+participant "PostComponents" as PostComponents
+participant "EventComponents" as EventComponents
+participant "CommunityService" as CommunityService
+participant "ContentService" as ContentService
+participant "EventService" as EventService
+participant "DiscoveryService" as DiscoveryService
+participant "CommunityMatching" as CommunityMatching
+participant "CommunitiesDB" as CommunitiesDB
+participant "ActivityCache" as ActivityCache
+
+note over CommunityPage : Community Frontend\n- Community List\n- Search & Filter\n- Category Tabs
+
+note over CommunityDetails : Community Details\n- Member List\n- Post Feed\n- Event Calendar\n- Join/Leave Button
+
+note over PostComponents : Post Management\n- Post Creator\n- Post Card\n- Comment Thread\n- Like System
+
+note over EventComponents : Event Management\n- Event Creator\n- Event Card\n- RSVP System\n- Calendar View
+
+note over CommunityService : Backend Services\n- CRUD Operations\n- Member Management\n- Permission System\n- Search Engine
+
+note over ContentService : Content Management\n- Post Management\n- Comment System\n- Media Upload\n- Content Moderation
+
+note over EventService : Event Management\n- Event CRUD\n- RSVP Tracking\n- Notification System\n- Calendar Integration
+
+note over DiscoveryService : Discovery Engine\n- Recommendation Engine\n- Trending Algorithm\n- User Interest Matching\n- Community Suggestions
+
+note over CommunityMatching : Enhanced Matching\n- Shared Interest Detection\n- Community-based Recommendations\n- Event Attendance Matching\n- Social Discovery Algorithm
+
+note over CommunitiesDB : Data Storage\n- Community Profiles\n- Member Relationships\n- Posts & Comments\n- Events & RSVPs
+
+note over ActivityCache : Performance Cache\n- Recent Posts\n- Active Members\n- Trending Communities
+
+CommunityPage -> CommunityService : Get communities
+CommunityDetails -> CommunityService : Get community details
+CommunityDetails -> ContentService : Get posts
+CommunityDetails -> EventService : Get events
+
+PostComponents -> ContentService : CRUD posts
+EventComponents -> EventService : CRUD events
+
+CommunityService -> CommunitiesDB : Store community data
+ContentService -> CommunitiesDB : Store posts and comments
+EventService -> CommunitiesDB : Store events and RSVPs
+DiscoveryService -> CommunitiesDB : Read community data
+
+CommunityService -> ActivityCache : Cache community data
+DiscoveryService -> ActivityCache : Cache trending data
+
+CommunityService -> CommunityMatching : Share activity data
+DiscoveryService -> CommunityMatching : Get recommendations
+
+@enduml 

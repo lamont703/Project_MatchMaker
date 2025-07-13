@@ -1,0 +1,62 @@
+@startuml VibeMatch_System_Overview_Basic
+title VibeMatch - System Architecture Overview
+
+participant "React Web App" as ReactApp
+participant "Express API" as API
+participant "WebSocket Server" as WS
+participant "Auth Service" as AuthService
+participant "Profile Service" as ProfileService
+participant "Matching Engine" as MatchingEngine
+participant "Messaging Service" as MessagingService
+participant "Community Service" as CommunityService
+participant "Personality AI" as PersonalityAI
+participant "Content AI" as ContentAI
+participant "Conversation AI" as ConversationAI
+participant "Azure Cosmos DB" as CosmosDB
+participant "Redis Cache" as Redis
+participant "Azure Blob Storage" as BlobStorage
+participant "Google Gemini API" as GeminiAPI
+participant "Azure AD B2C" as AzureAD
+participant "GoHighLevel CRM" as GHL
+
+note over ReactApp : Client Layer
+note over API, WS : API Gateway
+note over AuthService, CommunityService : Core Services
+note over PersonalityAI, ConversationAI : AI/ML Layer
+note over CosmosDB, BlobStorage : Data Storage
+note over GeminiAPI, GHL : External Services
+
+ReactApp -> API : HTTPS REST API
+ReactApp -> WS : WebSocket Connection
+
+API -> AuthService : Authentication
+API -> ProfileService : Profile Management
+API -> MatchingEngine : Matching Logic
+API -> MessagingService : Message Handling
+API -> CommunityService : Community Features
+
+WS -> MessagingService : Real-time Messages
+WS -> MatchingEngine : Match Notifications
+
+MatchingEngine -> PersonalityAI : Compatibility Analysis
+ProfileService -> ContentAI : Content Moderation
+MessagingService -> ConversationAI : AI Suggestions
+
+AuthService -> CosmosDB : User Data
+ProfileService -> CosmosDB : Profile Data
+MatchingEngine -> CosmosDB : Match Data
+MessagingService -> CosmosDB : Message Data
+CommunityService -> CosmosDB : Community Data
+
+AuthService -> Redis : Session Cache
+MatchingEngine -> Redis : Match Cache
+MessagingService -> Redis : Real-time Cache
+
+ProfileService -> BlobStorage : Video Storage
+
+AuthService -> AzureAD : Identity Management
+PersonalityAI -> GeminiAPI : AI Processing
+ConversationAI -> GeminiAPI : AI Processing
+ProfileService -> GHL : CRM Integration
+
+@enduml 

@@ -1,0 +1,74 @@
+@startuml VibeMatch_Messaging_System
+title VibeMatch - Real-Time Messaging System
+
+participant "User A (Sarah)" as UserA
+participant "React Chat Component" as ChatA
+participant "WebSocket Client A" as WSA
+participant "WebSocket Server" as WSServer
+participant "Messaging Service" as MsgService
+participant "Conversation AI" as AI
+participant "Cosmos DB" as DB
+participant "WebSocket Client B" as WSB
+participant "React Chat Component" as ChatB
+participant "User B (Taylor)" as UserB
+
+UserA -> ChatA : Type message
+activate ChatA
+
+ChatA -> WSA : sendMessage()
+activate WSA
+
+WSA -> WSServer : message data
+activate WSServer
+
+WSServer -> MsgService : processMessage()
+activate MsgService
+
+alt AI Suggestions Enabled
+    MsgService -> AI : enhanceMessage()
+    activate AI
+    note right : Check for tone and suggest improvements
+    AI --> MsgService : suggestions
+    deactivate AI
+end
+
+MsgService -> DB : saveMessage()
+activate DB
+DB --> MsgService : messageSaved(messageId)
+deactivate DB
+
+MsgService -> WSServer : messageProcessed()
+deactivate MsgService
+
+WSServer -> WSB : newMessage
+activate WSB
+
+WSB -> ChatB : displayMessage()
+activate ChatB
+
+ChatB --> UserB : Show message
+deactivate ChatB
+deactivate WSB
+
+UserB -> ChatB : Start typing response
+ChatB -> WSB : typing indicator
+WSB -> WSServer : typing status
+WSServer -> WSA : typing notification
+WSA -> ChatA : showTypingIndicator()
+ChatA --> UserA : "Taylor is typing..."
+
+UserB -> ChatB : Read message
+ChatB -> WSB : messageRead event
+WSB -> WSServer : read receipt
+WSServer -> MsgService : markAsRead()
+MsgService -> DB : updateReadStatus()
+MsgService -> WSServer : readConfirmed()
+WSServer -> WSA : messageRead confirmation
+WSA -> ChatA : showReadReceipt()
+ChatA --> UserA : Show read indicator
+
+deactivate WSServer
+deactivate WSA
+deactivate ChatA
+
+@enduml 

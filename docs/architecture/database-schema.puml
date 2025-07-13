@@ -1,0 +1,54 @@
+@startuml VibeMatch_Database_Schema
+title VibeMatch - Database Entity Relationships
+
+participant "users" as users
+participant "profiles" as profiles  
+participant "personality_data" as personality
+participant "matches" as matches
+participant "interactions" as interactions
+participant "messages" as messages
+participant "communities" as communities
+participant "community_members" as community_members
+participant "posts" as posts
+participant "events" as events
+participant "event_rsvps" as event_rsvps
+
+note over users : Core User Data\n- id (UUID PK)\n- email, password_hash\n- created_at, updated_at\n- is_premium, subscription_end\n- azure_ad_id, ghl_contact_id
+
+note over profiles : User Profile Data\n- id (UUID PK)\n- user_id (FK)\n- display_name, age, bio\n- location, video_url\n- interests, looking_for\n- distance_preference
+
+note over personality : Personality Analysis\n- id (UUID PK)\n- profile_id (FK)\n- quiz_responses (JSON)\n- personality_type, trait_scores\n- compatibility_matrix\n- ai_insights (JSON)
+
+note over matches : Match Relationships\n- id (UUID PK)\n- user_a_id, user_b_id (FK)\n- compatibility_score\n- ai_insights (JSON)\n- created_at, is_active
+
+note over interactions : User Actions\n- id (UUID PK)\n- user_id, target_user_id (FK)\n- action (like/pass/super_like)\n- timestamp, context (JSON)
+
+note over messages : Chat Messages\n- id (UUID PK)\n- match_id, sender_id (FK)\n- content, message_type\n- timestamp, read_at\n- ai_generated, ai_suggestions
+
+note over communities : Community Groups\n- id (UUID PK)\n- name, description, category\n- member_count, is_public\n- created_by (FK), settings (JSON)
+
+note over community_members : Community Membership\n- id (UUID PK)\n- community_id, user_id (FK)\n- role (member/moderator/admin)\n- joined_at, permissions (JSON)
+
+note over posts : Community Posts\n- id (UUID PK)\n- community_id, author_id (FK)\n- content, media_urls (JSON)\n- likes_count, comments_count\n- created_at, is_pinned
+
+note over events : Community Events\n- id (UUID PK)\n- community_id, creator_id (FK)\n- title, description, event_date\n- location, max_attendees\n- rsvp_count
+
+note over event_rsvps : Event Responses\n- id (UUID PK)\n- event_id, user_id (FK)\n- rsvp_status (yes/no/maybe)\n- rsvp_date
+
+users -> profiles : has (1:1)
+profiles -> personality : has (1:1)
+users -> interactions : creates (1:many)
+users -> matches : participates_in (many:many)
+matches -> messages : contains (1:many)
+
+users -> communities : creates (1:many)
+users -> community_members : joins (1:many)
+communities -> community_members : has (1:many)
+communities -> posts : contains (1:many)
+users -> posts : authors (1:many)
+communities -> events : hosts (1:many)
+users -> events : creates (1:many)
+events -> event_rsvps : receives (1:many)
+users -> event_rsvps : makes (1:many)
+
+@enduml 

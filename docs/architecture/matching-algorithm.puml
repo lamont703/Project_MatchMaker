@@ -1,0 +1,71 @@
+@startuml VibeMatch_Matching_Algorithm
+title VibeMatch - Matching Algorithm Flow
+
+participant User
+participant SwipeComponent
+participant MatchingAPI
+participant MatchingEngine
+participant RedisCache
+participant CosmosDB
+participant GeminiAI
+
+User -> SwipeComponent : Swipe right on profile
+activate SwipeComponent
+
+SwipeComponent -> MatchingAPI : POST /api/matches/evaluate
+activate MatchingAPI
+
+MatchingAPI -> MatchingEngine : calculateMatchCompatibility()
+activate MatchingEngine
+
+MatchingEngine -> RedisCache : getUserPersonalityData()
+activate RedisCache
+RedisCache --> MatchingEngine : personalityData (cached or null)
+deactivate RedisCache
+
+note over MatchingEngine : If cache miss, fetch from database
+MatchingEngine -> CosmosDB : fetchPersonalityProfiles()
+activate CosmosDB
+CosmosDB --> MatchingEngine : personalityProfiles
+deactivate CosmosDB
+
+MatchingEngine -> RedisCache : storePersonalityData()
+RedisCache --> MatchingEngine : cached
+
+MatchingEngine -> GeminiAI : calculateCompatibilityScore()
+activate GeminiAI
+note right : Send personality profiles to Gemini for analysis
+GeminiAI --> MatchingEngine : score and insights
+deactivate GeminiAI
+
+MatchingEngine -> CosmosDB : recordInteraction()
+activate CosmosDB
+CosmosDB --> MatchingEngine : interactionRecorded
+deactivate CosmosDB
+
+MatchingEngine -> CosmosDB : checkMutualMatch()
+activate CosmosDB
+CosmosDB --> MatchingEngine : mutualMatchResult
+deactivate CosmosDB
+
+note over MatchingEngine : If mutual match found
+MatchingEngine -> GeminiAI : generateMatchInsights()
+activate GeminiAI
+GeminiAI --> MatchingEngine : icebreakers and conversation starters
+deactivate GeminiAI
+
+MatchingEngine -> CosmosDB : createMatchRecord()
+activate CosmosDB
+CosmosDB --> MatchingEngine : matchCreated
+deactivate CosmosDB
+
+MatchingEngine --> MatchingAPI : matchResult
+deactivate MatchingEngine
+
+MatchingAPI --> SwipeComponent : match result with AI insights
+deactivate MatchingAPI
+
+SwipeComponent --> User : Show match result or continue
+deactivate SwipeComponent
+
+@enduml 

@@ -1,0 +1,25 @@
+# PlantUML generated files
+out/
+*.jar
+
+# Node.js dependencies (if any)
+node_modules/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Build outputs
+build/
+dist/ 

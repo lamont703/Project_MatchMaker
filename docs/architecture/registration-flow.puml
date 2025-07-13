@@ -1,0 +1,75 @@
+@startuml VibeMatch_Registration_Flow
+title VibeMatch - User Registration & Personality Quiz Flow
+
+actor User
+participant ReactApp
+participant ExpressAPI
+participant AuthService
+participant AzureADB2C
+participant ProfileService
+participant GeminiAI
+participant CosmosDB
+participant GoHighLevel
+
+== Registration Phase ==
+
+User -> ReactApp : Enter email & password
+ReactApp -> ExpressAPI : POST /api/auth/register
+activate ExpressAPI
+
+ExpressAPI -> AuthService : validateUserData()
+activate AuthService
+
+AuthService -> AzureADB2C : createUser()
+activate AzureADB2C
+AzureADB2C --> AuthService : userCreated(userId)
+deactivate AzureADB2C
+
+AuthService -> CosmosDB : saveUserProfile()
+activate CosmosDB
+CosmosDB --> AuthService : profileSaved
+deactivate CosmosDB
+
+AuthService --> ExpressAPI : registrationComplete(token)
+deactivate AuthService
+
+ExpressAPI --> ReactApp : token and userId
+deactivate ExpressAPI
+
+ReactApp --> User : Show personality quiz
+
+== Personality Quiz Phase ==
+
+User -> ReactApp : Complete 8 quiz questions
+ReactApp -> ExpressAPI : POST /api/personality/analyze
+activate ExpressAPI
+
+ExpressAPI -> ProfileService : processQuizResponses()
+activate ProfileService
+
+ProfileService -> GeminiAI : analyzePersonality(responses)
+activate GeminiAI
+note right : Send quiz data to Gemini API for personality type analysis
+GeminiAI --> ProfileService : personalityResult(type, traits, scores)
+deactivate GeminiAI
+
+ProfileService -> CosmosDB : savePersonalityData()
+activate CosmosDB
+CosmosDB --> ProfileService : personalityDataSaved
+deactivate CosmosDB
+
+ProfileService -> GoHighLevel : syncUserProfile()
+activate GoHighLevel
+note right : Add user to CRM with personality data
+GoHighLevel --> ProfileService : profileSynced
+deactivate GoHighLevel
+
+ProfileService --> ExpressAPI : personalityAnalysisComplete()
+deactivate ProfileService
+
+ExpressAPI --> ReactApp : personalityType and insights
+deactivate ExpressAPI
+
+ReactApp --> User : Show personality results and prompt for video profile
+
+@enduml
