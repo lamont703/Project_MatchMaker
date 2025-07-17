@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeMatch - Share Your Dating Story</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone-container {
+            width: 375px;
+            height: 812px;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #EC4899 0%, #BE185D 100%);
+            color: white;
+            padding: 50px 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            font-size: 18px;
+            cursor: pointer;
+            padding: 8px;
+            margin: -8px;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            flex: 1;
+            text-align: center;
+            margin: 0 16px;
+        }
+
+        .save-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .save-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .save-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .content {
+            height: calc(100% - 90px);
+            overflow-y: auto;
+            padding: 24px 20px;
+        }
+
+        .story-form {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .form-section {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .category-option {
+            background: white;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .category-option:hover {
+            border-color: #EC4899;
+            background: #FDF2F8;
+        }
+
+        .category-option.selected {
+            border-color: #EC4899;
+            background: linear-gradient(135deg, #EC4899 0%, #BE185D 100%);
+            color: white;
+        }
+
+        .category-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .category-name {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .category-desc {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #EC4899;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 16px;
+            resize: vertical;
+            min-height: 120px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: #EC4899;
+        }
+
+        .char-counter {
+            text-align: right;
+            font-size: 12px;
+            color: #6B7280;
+            margin-top: 4px;
+        }
+
+        .char-counter.warning {
+            color: #F59E0B;
+        }
+
+        .char-counter.error {
+            color: #EF4444;
+        }
+
+        .privacy-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .privacy-option {
+            background: white;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .privacy-option:hover {
+            border-color: #EC4899;
+            background: #FDF2F8;
+        }
+
+        .privacy-option.selected {
+            border-color: #EC4899;
+            background: #FDF2F8;
+        }
+
+        .privacy-icon {
+            font-size: 20px;
+            min-width: 24px;
+        }
+
+        .privacy-info {
+            flex: 1;
+        }
+
+        .privacy-name {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .privacy-desc {
+            font-size: 12px;
+            color: #6B7280;
+        }
+
+        .radio-indicator {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #E5E7EB;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .privacy-option.selected .radio-indicator {
+            border-color: #EC4899;
+            background: #EC4899;
+        }
+
+        .privacy-option.selected .radio-indicator::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .tag-input-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 12px;
+            min-height: 48px;
+        }
+
+        .tag-input-container:focus-within {
+            border-color: #EC4899;
+        }
+
+        .tag {
+            background: #EC4899;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .tag-remove {
+            cursor: pointer;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .tag-remove:hover {
+            opacity: 1;
+        }
+
+        .tag-input {
+            border: none;
+            outline: none;
+            flex: 1;
+            min-width: 100px;
+            font-size: 14px;
+        }
+
+        .suggested-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .suggested-tag {
+            background: #F3F4F6;
+            color: #6B7280;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .suggested-tag:hover {
+            background: #EC4899;
+            color: white;
+        }
+
+        .guidelines-reminder {
+            background: #FEF9E7;
+            border: 1px solid #FDE68A;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .guidelines-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #92400E;
+            margin-bottom: 8px;
+        }
+
+        .guidelines-list {
+            font-size: 12px;
+            color: #92400E;
+            line-height: 1.5;
+        }
+
+        .guidelines-list li {
+            margin-bottom: 4px;
+        }
+
+        .submit-section {
+            background: linear-gradient(135deg, #EC4899 0%, #BE185D 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .submit-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .submit-desc {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 16px;
+        }
+
+        .submit-btn {
+            background: white;
+            color: #EC4899;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #FDF2F8;
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                align-items: flex-start;
+                padding: 0;
+            }
+
+            .phone-container {
+                width: 100%;
+                height: 100vh;
+                border-radius: 0;
+                box-shadow: none;
+                max-width: none;
+            }
+
+            .header {
+                padding: 40px 20px 16px;
+            }
+
+            .content {
+                padding: 20px 16px;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-section {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="phone-container">
+        <div class="header">
+            <span class="back-btn" onclick="goBack()">◄</span>
+            <h1>💝 Share Your Story</h1>
+            <button class="save-btn" id="saveBtn" onclick="saveDraft()" disabled>Save Draft</button>
+        </div>
+
+        <div class="content">
+            <div class="story-form">
+                <div class="form-section">
+                    <div class="section-title">📝 Story Category</div>
+                    <div class="category-grid">
+                        <div class="category-option" onclick="selectCategory(this, 'success')">
+                            <div class="category-icon">🎉</div>
+                            <div class="category-name">Success Story</div>
+                            <div class="category-desc">Found love or made a great connection</div>
+                        </div>
+                        <div class="category-option" onclick="selectCategory(this, 'funny')">
+                            <div class="category-icon">😂</div>
+                            <div class="category-name">Funny Tale</div>
+                            <div class="category-desc">Amusing dating experiences</div>
+                        </div>
+                        <div class="category-option" onclick="selectCategory(this, 'lessons')">
+                            <div class="category-icon">📚</div>
+                            <div class="category-name">Lesson Learned</div>
+                            <div class="category-desc">Insights and advice to share</div>
+                        </div>
+                        <div class="category-option" onclick="selectCategory(this, 'adventure')">
+                            <div class="category-icon">🌟</div>
+                            <div class="category-name">Adventure</div>
+                            <div class="category-desc">Unique dating experiences</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-title">✏️ Story Details</div>
+                    <div class="form-group">
+                        <label class="form-label">Story Title</label>
+                        <input type="text" class="form-input" id="storyTitle" placeholder="Give your story a catchy title..." maxlength="80" oninput="updateCharCount('storyTitle', 80)">
+                        <div class="char-counter" id="titleCounter">0/80</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tell Your Story</label>
+                        <textarea class="form-textarea" id="storyContent" placeholder="Share your dating story with the community. Be authentic, respectful, and supportive..." maxlength="1000" oninput="updateCharCount('storyContent', 1000)"></textarea>
+                        <div class="char-counter" id="contentCounter">0/1000</div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-title">🏷️ Tags</div>
+                    <div class="tag-input-container" id="tagContainer">
+                        <input type="text" class="tag-input" id="tagInput" placeholder="Add tags..." onkeypress="handleTagInput(event)">
+                    </div>
+                    <div class="suggested-tags">
+                        <div class="suggested-tag" onclick="addTag('first-date')">first-date</div>
+                        <div class="suggested-tag" onclick="addTag('music')">music</div>
+                        <div class="suggested-tag" onclick="addTag('compatibility')">compatibility</div>
+                        <div class="suggested-tag" onclick="addTag('concert')">concert</div>
+                        <div class="suggested-tag" onclick="addTag('dating-app')">dating-app</div>
+                        <div class="suggested-tag" onclick="addTag('relationship')">relationship</div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-title">👤 Privacy Settings</div>
+                    <div class="privacy-options">
+                        <div class="privacy-option selected" onclick="selectPrivacy(this, 'anonymous')">
+                            <div class="privacy-icon">🎭</div>
+                            <div class="privacy-info">
+                                <div class="privacy-name">Anonymous</div>
+                                <div class="privacy-desc">Your story will be shared without your name or profile</div>
+                            </div>
+                            <div class="radio-indicator"></div>
+                        </div>
+                        <div class="privacy-option" onclick="selectPrivacy(this, 'named')">
+                            <div class="privacy-icon">👤</div>
+                            <div class="privacy-info">
+                                <div class="privacy-name">Show My Name</div>
+                                <div class="privacy-desc">Your name and profile will be visible with the story</div>
+                            </div>
+                            <div class="radio-indicator"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="guidelines-reminder">
+                    <div class="guidelines-title">📋 Story Guidelines</div>
+                    <ul class="guidelines-list">
+                        <li>• Keep stories authentic and respectful</li>
+                        <li>• Support others' journeys and experiences</li>
+                        <li>• No personal attacks or negative comments about individuals</li>
+                        <li>• Avoid explicit content or inappropriate details</li>
+                        <li>• Stories may be moderated before appearing</li>
+                    </ul>
+                </div>
+
+                <div class="submit-section">
+                    <div class="submit-title">Ready to Share?</div>
+                    <div class="submit-desc">Your story will be reviewed and shared with the Music Lovers Hub community</div>
+                    <button class="submit-btn" id="submitBtn" onclick="submitStory()" disabled>Submit Story</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedCategory = null;
+        let selectedPrivacy = 'anonymous';
+        let tags = [];
+
+        function goBack() {
+            if (hasUnsavedChanges()) {
+                if (confirm('You have unsaved changes. Are you sure you want to go back?')) {
+                    alert("🔙 Returning to Music Lovers Hub community");
+                }
+            } else {
+                alert("🔙 Returning to Music Lovers Hub community");
+            }
+        }
+
+        function selectCategory(element, category) {
+            document.querySelectorAll('.category-option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedCategory = category;
+            validateForm();
+        }
+
+        function selectPrivacy(element, privacy) {
+            document.querySelectorAll('.privacy-option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedPrivacy = privacy;
+            validateForm();
+        }
+
+        function updateCharCount(inputId, maxLength) {
+            const input = document.getElementById(inputId);
+            const counter = document.getElementById(inputId === 'storyTitle' ? 'titleCounter' : 'contentCounter');
+            const currentLength = input.value.length;
+            
+            counter.textContent = `${currentLength}/${maxLength}`;
+            
+            if (currentLength > maxLength * 0.9) {
+                counter.classList.add('warning');
+            } else {
+                counter.classList.remove('warning');
+            }
+            
+            if (currentLength >= maxLength) {
+                counter.classList.add('error');
+            } else {
+                counter.classList.remove('error');
+            }
+            
+            validateForm();
+        }
+
+        function handleTagInput(event) {
+            if (event.key === 'Enter' || event.key === ',') {
+                event.preventDefault();
+                const input = event.target;
+                const tag = input.value.trim().toLowerCase();
+                
+                if (tag && !tags.includes(tag) && tags.length < 5) {
+                    addTag(tag);
+                    input.value = '';
+                }
+            }
+        }
+
+        function addTag(tag) {
+            if (!tags.includes(tag) && tags.length < 5) {
+                tags.push(tag);
+                updateTagDisplay();
+                validateForm();
+            }
+        }
+
+        function removeTag(tag) {
+            tags = tags.filter(t => t !== tag);
+            updateTagDisplay();
+            validateForm();
+        }
+
+        function updateTagDisplay() {
+            const container = document.getElementById('tagContainer');
+            const input = document.getElementById('tagInput');
+            
+            // Clear existing tags
+            container.querySelectorAll('.tag').forEach(tag => tag.remove());
+            
+            // Add current tags
+            tags.forEach(tag => {
+                const tagElement = document.createElement('div');
+                tagElement.className = 'tag';
+                tagElement.innerHTML = `
+                    ${tag}
+                    <span class="tag-remove" onclick="removeTag('${tag}')">×</span>
+                `;
+                container.insertBefore(tagElement, input);
+            });
+        }
+
+        function validateForm() {
+            const title = document.getElementById('storyTitle').value.trim();
+            const content = document.getElementById('storyContent').value.trim();
+            const submitBtn = document.getElementById('submitBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            
+            const isValid = selectedCategory && title.length > 0 && content.length > 20;
+            
+            submitBtn.disabled = !isValid;
+            saveBtn.disabled = !(title.length > 0 || content.length > 0);
+            
+            if (isValid) {
+                submitBtn.style.opacity = '1';
+                submitBtn.style.cursor = 'pointer';
+            }
+        }
+
+        function hasUnsavedChanges() {
+            const title = document.getElementById('storyTitle').value.trim();
+            const content = document.getElementById('storyContent').value.trim();
+            return title.length > 0 || content.length > 0 || tags.length > 0;
+        }
+
+        function saveDraft() {
+            const title = document.getElementById('storyTitle').value.trim();
+            const content = document.getElementById('storyContent').value.trim();
+            
+            alert(`💾 Draft Saved!\n\nTitle: "${title}"\nContent: ${content.length} characters\nCategory: ${selectedCategory || 'None selected'}\nTags: ${tags.join(', ') || 'None'}\nPrivacy: ${selectedPrivacy}`);
+        }
+
+        function submitStory() {
+            const title = document.getElementById('storyTitle').value.trim();
+            const content = document.getElementById('storyContent').value.trim();
+            
+            if (!selectedCategory || !title || content.length < 20) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            alert(`🎉 Story Submitted!\n\nYour story "${title}" has been submitted for review.\n\nCategory: ${selectedCategory}\nPrivacy: ${selectedPrivacy}\nTags: ${tags.join(', ') || 'None'}\n\nYou'll be notified when it's approved and live in the community!`);
+        }
+
+        // Initialize form
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('storyTitle').addEventListener('input', validateForm);
+            document.getElementById('storyContent').addEventListener('input', validateForm);
+            validateForm();
+        });
+    </script>
+</body>
+
+</html> 

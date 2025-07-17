@@ -72,6 +72,16 @@
             box-shadow: 0 8px 24px rgba(139, 92, 246, 0.15);
         }
 
+        .demo-card.new {
+            border-color: #10B981;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(5, 150, 105, 0.02));
+        }
+
+        .demo-card.new:hover {
+            border-color: #10B981;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.2);
+        }
+
         .demo-icon {
             font-size: 48px;
             margin-bottom: 16px;
@@ -88,6 +98,16 @@
             font-size: 14px;
             color: #6B7280;
             line-height: 1.4;
+        }
+
+        .new-badge {
+            background: #10B981;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-left: 8px;
         }
 
         .info-section {
@@ -146,6 +166,47 @@
             border-radius: 8px;
             font-size: 14px;
             margin-top: 20px;
+        }
+
+        /* Quiz Integration Section */
+        .quiz-integration-section {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05));
+            border: 2px solid rgba(16, 185, 129, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .quiz-integration-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1F2937;
+        }
+
+        .quiz-integration-desc {
+            font-size: 14px;
+            color: #4B5563;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .quiz-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .quiz-feature {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 12px;
+            color: #059669;
+            font-weight: 500;
+            border: 1px solid rgba(16, 185, 129, 0.1);
         }
 
         /* GHL Integration Styles */
@@ -318,6 +379,15 @@
             text-decoration: none;
         }
 
+        .doc-link.new {
+            color: #10B981;
+        }
+
+        .doc-link.new:hover {
+            color: #059669;
+            border-bottom-color: #10B981;
+        }
+
         /* HeartDeck Section Styles */
         .heartdeck-section {
             position: relative;
@@ -397,6 +467,10 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
+            .quiz-features {
+                grid-template-columns: 1fr;
+            }
+
             .doc-links-list {
                 flex-direction: column;
                 gap: 8px;
@@ -462,6 +536,26 @@
                 <span class="tech-tag">Azure Blob Storage</span>
                 <span class="tech-tag">Gemini API</span>
                 <span class="tech-tag">GoHighLevel</span>
+            </div>
+        </div>
+
+        <!-- NEW: Quiz-Community Integration Section -->
+        <div class="quiz-integration-section">
+            <div class="quiz-integration-title">🎮 Enhanced Community Features</div>
+            <div class="quiz-integration-desc">
+                Comprehensive community platform with quiz integration, dating story sharing, and robust moderation
+                tools
+                to create meaningful connections and maintain healthy community environments.
+            </div>
+            <div class="quiz-features">
+                <div class="quiz-feature">🎵 Community-Specific Quizzes</div>
+                <div class="quiz-feature">💝 Dating Story Sharing</div>
+                <div class="quiz-feature">📋 Community Guidelines</div>
+                <div class="quiz-feature">🛡️ Moderation Tools</div>
+                <div class="quiz-feature">🏆 Social Quiz Challenges</div>
+                <div class="quiz-feature">📊 Result Sharing & Comparison</div>
+                <div class="quiz-feature">🎯 Event-Based Assessments</div>
+                <div class="quiz-feature">📱 Enhanced Social Features</div>
             </div>
         </div>
 
@@ -574,9 +668,9 @@
 
             <a href="demo-community-details.html" class="demo-card">
                 <div class="demo-icon">🎵</div>
-                <div class="demo-title">Community Details</div>
+                <div class="demo-title">Community Details <span class="new-badge">UPDATED</span></div>
                 <div class="demo-desc">
-                    Join communities, view posts, and interact with members
+                    Enhanced with quiz integration, member matching, and social quiz features
                 </div>
             </a>
 
@@ -588,6 +682,40 @@
                 </div>
             </a>
 
+            <!-- NEW: Quiz-Community Integration Demos -->
+            <a href="demo-community-mini-quiz.html" class="demo-card new">
+                <div class="demo-icon">🎮</div>
+                <div class="demo-title">Community Mini-Quiz <span class="new-badge">NEW</span></div>
+                <div class="demo-desc">
+                    Music-themed personality quiz with member matching and social features
+                </div>
+            </a>
+
+            <a href="demo-quiz-result-sharing.html" class="demo-card new">
+                <div class="demo-icon">📊</div>
+                <div class="demo-title">Quiz Result Sharing <span class="new-badge">NEW</span></div>
+                <div class="demo-desc">
+                    Share quiz results, compare compatibility, and connect with similar members
+                </div>
+            </a>
+
+            <!-- NEW: Dating Stories & Guidelines Features -->
+            <a href="demo-dating-story-creator.html" class="demo-card new">
+                <div class="demo-icon">💝</div>
+                <div class="demo-title">Dating Story Creator <span class="new-badge">NEW</span></div>
+                <div class="demo-desc">
+                    Share authentic dating stories with categories, privacy options, and moderation
+                </div>
+            </a>
+
+            <a href="demo-community-guidelines-editor.html" class="demo-card new">
+                <div class="demo-icon">📋</div>
+                <div class="demo-title">Community Guidelines Editor <span class="new-badge">NEW</span></div>
+                <div class="demo-desc">
+                    Moderator tools for creating and managing community guidelines with enforcement
+                </div>
+            </a>
+
             <a href="ghl-lead-magnet.html" class="demo-card">
                 <div class="demo-icon">🎯</div>
                 <div class="demo-title">Lead Magnet Quiz</div>
@@ -596,8 +724,6 @@
                 </div>
             </a>
         </div>
-
-
 
         <!-- HeartDeck Feature Section -->
         <div class="heartdeck-section">
@@ -641,9 +767,13 @@
             <div class="doc-links-title">Project Documentation</div>
             <div class="doc-links-list">
                 <a href="README.md" class="doc-link" target="_blank">Project Overview</a>
-                <a href="VibeMatch_Design_Specs.md" class="doc-link" target="_blank">Design Specs</a>
-                <a href="VibeMatch_Wireframes.md" class="doc-link" target="_blank">Wireframes</a>
-                <a href="VibeMatch_GHL_Integration.md" class="doc-link" target="_blank">GHL Integration</a>
+                <a href="PlentyOfHearts_Design_Specs.md" class="doc-link" target="_blank">Design Specs</a>
+                <a href="PlentyOfHearts_Wireframes.md" class="doc-link" target="_blank">Wireframes</a>
+                <a href="PlentyOfHearts_GHL_Integration.md" class="doc-link" target="_blank">GHL Integration</a>
+                <a href="docs/QUIZ_COMMUNITY_INTEGRATION_GUIDE.md" class="doc-link new" target="_blank">Quiz-Community
+                    Integration Guide</a>
+                <a href="docs/TECHNICAL_ANALYSIS.md" class="doc-link new" target="_blank">Technical Analysis ($10K
+                    AI-Assisted Azure)</a>
             </div>
         </div>
     </div>
@@ -658,14 +788,14 @@
             // Google Analytics / GTM tracking
             if (typeof gtag !== 'undefined') {
                 gtag('event', event, {
-                    event_category: 'VibeMatch_Demo_Hub',
+                    event_category: 'PlentyOfHearts_Demo_Hub',
                     event_label: event,
                     ...data
                 });
             }
 
             // Send to GHL webhook
-            fetch('https://api.leadconnectorhq.com/webhook/vibematch-demo-tracking', {
+            fetch('https://api.leadconnectorhq.com/webhook/plentyofhearts-demo-tracking', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -693,11 +823,13 @@
             card.addEventListener('click', function (e) {
                 const demoTitle = this.querySelector('.demo-title').textContent;
                 const demoUrl = this.getAttribute('href');
+                const isNewFeature = this.classList.contains('new');
 
                 ghlTrack('demo_card_clicked', {
                     demoTitle: demoTitle,
                     demoUrl: demoUrl,
-                    isGhlDemo: this.classList.contains('ghl-demo-card')
+                    isGhlDemo: this.classList.contains('ghl-demo-card'),
+                    isNewFeature: isNewFeature
                 });
             });
         });
@@ -707,6 +839,19 @@
             ghlTrack('contact_cta_clicked', {
                 source: 'demo_hub',
                 type: 'email_contact'
+            });
+        });
+
+        // Track documentation link clicks
+        document.querySelectorAll('.doc-link').forEach(link => {
+            link.addEventListener('click', function () {
+                const docType = this.textContent;
+                const isNewDoc = this.classList.contains('new');
+
+                ghlTrack('documentation_clicked', {
+                    docType: docType,
+                    isNewDoc: isNewDoc
+                });
             });
         });
 

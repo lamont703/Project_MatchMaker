@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeMatch - Music Personality Match</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone-container {
+            width: 375px;
+            height: 812px;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1DB584 0%, #059669 100%);
+            color: white;
+            padding: 50px 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            font-size: 18px;
+            cursor: pointer;
+            padding: 8px;
+            margin: -8px;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            flex: 1;
+            text-align: center;
+            margin: 0 16px;
+        }
+
+        .close-btn {
+            font-size: 18px;
+            cursor: pointer;
+            padding: 8px;
+            margin: -8px;
+        }
+
+        .content {
+            height: calc(100% - 90px);
+            overflow-y: auto;
+            padding: 24px 20px;
+        }
+
+        .quiz-hero {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .quiz-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .quiz-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1F2937;
+            margin-bottom: 8px;
+        }
+
+        .quiz-subtitle {
+            font-size: 16px;
+            color: #6B7280;
+            margin-bottom: 16px;
+        }
+
+        .quiz-stats {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1DB584;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #6B7280;
+        }
+
+        .progress-section {
+            background: #F8FAFC;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 32px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .progress-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1F2937;
+        }
+
+        .progress-counter {
+            font-size: 14px;
+            color: #6B7280;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            background: #E5E7EB;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, #1DB584 0%, #059669 100%);
+            height: 100%;
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+
+        .question-container {
+            margin-bottom: 32px;
+        }
+
+        .question-icon {
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .question-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1F2937;
+            text-align: center;
+            line-height: 1.4;
+            margin-bottom: 32px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .option {
+            background: white;
+            border: 2px solid #E5E7EB;
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .option:hover {
+            border-color: #1DB584;
+            background: #F0FDF4;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(29, 181, 132, 0.15);
+        }
+
+        .option.selected {
+            border-color: #1DB584;
+            background: linear-gradient(135deg, #1DB584 0%, #059669 100%);
+            color: white;
+        }
+
+        .option-icon {
+            font-size: 28px;
+            min-width: 40px;
+        }
+
+        .option-content {
+            flex: 1;
+        }
+
+        .option-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .option-desc {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .result-container {
+            text-align: center;
+            display: none;
+        }
+
+        .result-icon {
+            font-size: 80px;
+            margin-bottom: 24px;
+        }
+
+        .result-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1F2937;
+            margin-bottom: 12px;
+        }
+
+        .result-subtitle {
+            font-size: 18px;
+            color: #1DB584;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .result-description {
+            font-size: 16px;
+            color: #6B7280;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .result-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1DB584 0%, #059669 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(29, 181, 132, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #1DB584;
+            border: 2px solid #1DB584;
+        }
+
+        .btn-secondary:hover {
+            background: #F0FDF4;
+            transform: translateY(-2px);
+        }
+
+        .matches-preview {
+            background: #F0FDF4;
+            border: 1px solid #BBF7D0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .matches-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #166534;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .matches-avatars {
+            display: flex;
+            gap: -8px;
+            margin-bottom: 8px;
+        }
+
+        .match-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1DB584 0%, #059669 100%);
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: white;
+            margin-left: -8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .match-avatar:first-child {
+            margin-left: 0;
+        }
+
+        .matches-text {
+            font-size: 12px;
+            color: #166534;
+        }
+
+        .community-badge {
+            background: #1DB584;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                align-items: flex-start;
+                padding: 0;
+            }
+
+            .phone-container {
+                width: 100%;
+                height: 100vh;
+                border-radius: 0;
+                box-shadow: none;
+                max-width: none;
+            }
+
+            .header {
+                padding: 40px 20px 16px;
+            }
+
+            .content {
+                padding: 20px 16px;
+            }
+
+            .quiz-title {
+                font-size: 20px;
+            }
+
+            .quiz-subtitle {
+                font-size: 14px;
+            }
+
+            .quiz-stats {
+                gap: 16px;
+            }
+
+            .stat-value {
+                font-size: 18px;
+            }
+
+            .question-text {
+                font-size: 18px;
+            }
+
+            .option {
+                padding: 16px;
+            }
+
+            .option-icon {
+                font-size: 24px;
+            }
+
+            .option-title {
+                font-size: 15px;
+            }
+
+            .option-desc {
+                font-size: 13px;
+            }
+
+            .result-title {
+                font-size: 24px;
+            }
+
+            .result-subtitle {
+                font-size: 16px;
+            }
+
+            .result-description {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="phone-container">
+        <div class="header">
+            <span class="back-btn" onclick="goBack()">◄</span>
+            <h1>🎵 Music Personality Match</h1>
+            <span class="close-btn" onclick="closeQuiz()">✕</span>
+        </div>
+
+        <div class="content">
+            <div class="quiz-hero">
+                <div class="community-badge">
+                    <span>🎵</span>
+                    <span>Music Lovers Hub</span>
+                </div>
+                <div class="quiz-icon">🎨</div>
+                <div class="quiz-title">Music Personality Match</div>
+                <div class="quiz-subtitle">Discover your music vibe and find similar members!</div>
+
+                <div class="quiz-stats">
+                    <div class="stat">
+                        <div class="stat-value">247</div>
+                        <div class="stat-label">Participants</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">2</div>
+                        <div class="stat-label">Minutes</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">Days Left</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-section">
+                <div class="progress-header">
+                    <div class="progress-title">Your Progress</div>
+                    <div class="progress-counter" id="progressCounter">Question 1/5</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 20%"></div>
+                </div>
+            </div>
+
+            <div class="question-container" id="questionContainer">
+                <div class="question-icon" id="questionIcon">🎵</div>
+                <div class="question-text" id="questionText">
+                    What type of music discovery excites you most?
+                </div>
+                <div class="options" id="options">
+                    <div class="option" onclick="selectAnswer(this, 'curator')">
+                        <div class="option-icon">🎨</div>
+                        <div class="option-content">
+                            <div class="option-title">The Curator</div>
+                            <div class="option-desc">Finding hidden gems and building perfect playlists</div>
+                        </div>
+                    </div>
+                    <div class="option" onclick="selectAnswer(this, 'explorer')">
+                        <div class="option-icon">🌍</div>
+                        <div class="option-content">
+                            <div class="option-title">The Explorer</div>
+                            <div class="option-desc">Discovering new genres and international sounds</div>
+                        </div>
+                    </div>
+                    <div class="option" onclick="selectAnswer(this, 'social')">
+                        <div class="option-icon">🎉</div>
+                        <div class="option-content">
+                            <div class="option-title">The Social Listener</div>
+                            <div class="option-desc">Finding music through friends and live experiences</div>
+                        </div>
+                    </div>
+                    <div class="option" onclick="selectAnswer(this, 'nostalgic')">
+                        <div class="option-icon">📻</div>
+                        <div class="option-content">
+                            <div class="option-title">The Nostalgic</div>
+                            <div class="option-desc">Rediscovering classics and vintage collections</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-container" id="resultContainer">
+                <div class="result-icon" id="resultIcon">🎨</div>
+                <div class="result-title" id="resultTitle">The Creative Curator</div>
+                <div class="result-subtitle" id="resultSubtitle">Your Music Personality</div>
+                <div class="result-description" id="resultDescription">
+                    You have an artistic ear for music and love discovering hidden gems. You're the friend who always
+                    has the perfect playlist for any mood and enjoys sharing your musical discoveries with others.
+                </div>
+
+                <div class="matches-preview">
+                    <div class="matches-title">
+                        <span>💝</span>
+                        <span>Members with Similar Music Taste</span>
+                    </div>
+                    <div class="matches-avatars">
+                        <div class="match-avatar">S</div>
+                        <div class="match-avatar">A</div>
+                        <div class="match-avatar">J</div>
+                        <div class="match-avatar">M</div>
+                    </div>
+                    <div class="matches-text">12 members share your Creative Curator vibe!</div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="btn btn-primary" onclick="shareResult()">Share Your Result</button>
+                    <button class="btn btn-secondary" onclick="findMatches()">Find Similar Members</button>
+                    <button class="btn btn-secondary" onclick="backToCommunity()">Back to Community</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const musicQuestions = [
+            {
+                icon: "🎵",
+                text: "What type of music discovery excites you most?",
+                options: [
+                    {
+                        icon: "🎨",
+                        title: "The Curator",
+                        desc: "Finding hidden gems and building perfect playlists",
+                        value: "curator"
+                    },
+                    {
+                        icon: "🌍",
+                        title: "The Explorer",
+                        desc: "Discovering new genres and international sounds",
+                        value: "explorer"
+                    },
+                    {
+                        icon: "🎉",
+                        title: "The Social Listener",
+                        desc: "Finding music through friends and live experiences",
+                        value: "social"
+                    },
+                    {
+                        icon: "📻",
+                        title: "The Nostalgic",
+                        desc: "Rediscovering classics and vintage collections",
+                        value: "nostalgic"
+                    }
+                ]
+            },
+            {
+                icon: "🎤",
+                text: "At a concert, you're most likely to be:",
+                options: [
+                    {
+                        icon: "📸",
+                        title: "The Documentarian",
+                        desc: "Capturing moments to share and remember",
+                        value: "curator"
+                    },
+                    {
+                        icon: "🕺",
+                        title: "The Dancer",
+                        desc: "Lost in the music and moving to the beat",
+                        value: "explorer"
+                    },
+                    {
+                        icon: "🤝",
+                        title: "The Socializer",
+                        desc: "Meeting new people and sharing the experience",
+                        value: "social"
+                    },
+                    {
+                        icon: "🎸",
+                        title: "The Purist",
+                        desc: "Focused on the artistry and technical skill",
+                        value: "nostalgic"
+                    }
+                ]
+            },
+            {
+                icon: "🎧",
+                text: "Your ideal music listening environment:",
+                options: [
+                    {
+                        icon: "🏠",
+                        title: "Cozy Home Studio",
+                        desc: "Perfect acoustics and curated atmosphere",
+                        value: "curator"
+                    },
+                    {
+                        icon: "🌄",
+                        title: "Nature Adventure",
+                        desc: "Hiking trails with epic soundtracks",
+                        value: "explorer"
+                    },
+                    {
+                        icon: "☕",
+                        title: "Bustling Café",
+                        desc: "Background music while people-watching",
+                        value: "social"
+                    },
+                    {
+                        icon: "🛋️",
+                        title: "Vinyl Corner",
+                        desc: "Vintage setup with classic albums",
+                        value: "nostalgic"
+                    }
+                ]
+            },
+            {
+                icon: "🎼",
+                text: "When sharing music, you prefer to:",
+                options: [
+                    {
+                        icon: "📱",
+                        title: "Curated Playlists",
+                        desc: "Thoughtfully arranged musical journeys",
+                        value: "curator"
+                    },
+                    {
+                        icon: "🌟",
+                        title: "Latest Discoveries",
+                        desc: "Fresh finds from around the world",
+                        value: "explorer"
+                    },
+                    {
+                        icon: "🎉",
+                        title: "Party Favorites",
+                        desc: "Songs that get everyone moving",
+                        value: "social"
+                    },
+                    {
+                        icon: "💎",
+                        title: "Timeless Classics",
+                        desc: "Songs that never go out of style",
+                        value: "nostalgic"
+                    }
+                ]
+            },
+            {
+                icon: "🎶",
+                text: "Your music collection strategy:",
+                options: [
+                    {
+                        icon: "🎯",
+                        title: "Quality Over Quantity",
+                        desc: "Each song is carefully selected and meaningful",
+                        value: "curator"
+                    },
+                    {
+                        icon: "🌈",
+                        title: "Diverse Discovery",
+                        desc: "Constantly adding new genres and styles",
+                        value: "explorer"
+                    },
+                    {
+                        icon: "📈",
+                        title: "Trending & Popular",
+                        desc: "What's hot and what friends are playing",
+                        value: "social"
+                    },
+                    {
+                        icon: "📚",
+                        title: "Complete Collections",
+                        desc: "Full discographies and classic albums",
+                        value: "nostalgic"
+                    }
+                ]
+            }
+        ];
+
+        const musicPersonalities = {
+            curator: {
+                icon: "🎨",
+                title: "The Creative Curator",
+                subtitle: "Your Music Personality",
+                description: "You have an artistic ear for music and love discovering hidden gems. You're the friend who always has the perfect playlist for any mood and enjoys sharing your musical discoveries with others.",
+                matches: 12
+            },
+            explorer: {
+                icon: "🌍",
+                title: "The Global Explorer",
+                subtitle: "Your Music Personality",
+                description: "You're always seeking new musical territories and love discovering sounds from different cultures. Your musical journey knows no boundaries, and you inspire others to expand their horizons.",
+                matches: 8
+            },
+            social: {
+                icon: "🎉",
+                title: "The Social Connector",
+                subtitle: "Your Music Personality",
+                description: "Music is your social glue! You love experiencing music with others, whether at concerts, parties, or sharing discoveries. You build communities through shared musical experiences.",
+                matches: 15
+            },
+            nostalgic: {
+                icon: "📻",
+                title: "The Timeless Collector",
+                subtitle: "Your Music Personality",
+                description: "You appreciate the classics and understand music's rich history. You're drawn to quality, authenticity, and the stories behind the songs. Others come to you for musical wisdom.",
+                matches: 7
+            }
+        };
+
+        let currentQuestion = 0;
+        let answers = [];
+        let selectedAnswer = null;
+
+        function updateQuestion() {
+            const question = musicQuestions[currentQuestion];
+
+            document.getElementById('progressCounter').textContent = `Question ${currentQuestion + 1}/5`;
+            document.getElementById('progressFill').style.width = `${((currentQuestion + 1) / 5) * 100}%`;
+            document.getElementById('questionIcon').textContent = question.icon;
+            document.getElementById('questionText').textContent = question.text;
+
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+
+            question.options.forEach(option => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.onclick = () => selectAnswer(optionElement, option.value);
+                optionElement.innerHTML = `
+                    <div class="option-icon">${option.icon}</div>
+                    <div class="option-content">
+                        <div class="option-title">${option.title}</div>
+                        <div class="option-desc">${option.desc}</div>
+                    </div>
+                `;
+                optionsContainer.appendChild(optionElement);
+            });
+        }
+
+        function selectAnswer(element, value) {
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            element.classList.add('selected');
+            selectedAnswer = value;
+
+            setTimeout(() => {
+                nextQuestion();
+            }, 600);
+        }
+
+        function nextQuestion() {
+            if (selectedAnswer === null) return;
+
+            answers.push(selectedAnswer);
+            selectedAnswer = null;
+
+            if (currentQuestion < musicQuestions.length - 1) {
+                currentQuestion++;
+                updateQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            // Count answers to determine personality type
+            const counts = {};
+            answers.forEach(answer => {
+                counts[answer] = (counts[answer] || 0) + 1;
+            });
+
+            // Find the most common answer
+            const personalityType = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+            const personality = musicPersonalities[personalityType];
+
+            document.getElementById('questionContainer').style.display = 'none';
+            document.getElementById('resultContainer').style.display = 'block';
+
+            document.getElementById('resultIcon').textContent = personality.icon;
+            document.getElementById('resultTitle').textContent = personality.title;
+            document.getElementById('resultSubtitle').textContent = personality.subtitle;
+            document.getElementById('resultDescription').textContent = personality.description;
+
+            // Update progress to 100%
+            document.getElementById('progressCounter').textContent = 'Complete!';
+            document.getElementById('progressFill').style.width = '100%';
+
+            // Update matches count
+            document.querySelector('.matches-text').textContent = `${personality.matches} members share your ${personality.title.replace('The ', '')} vibe!`;
+        }
+
+        function goBack() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                answers.pop();
+                document.getElementById('resultContainer').style.display = 'none';
+                document.getElementById('questionContainer').style.display = 'block';
+                updateQuestion();
+            } else {
+                alert("🔙 Returning to Music Lovers Hub community");
+            }
+        }
+
+        function closeQuiz() {
+            if (confirm('Exit quiz? Progress will be lost.')) {
+                alert("❌ Returning to Music Lovers Hub community");
+            }
+        }
+
+        function shareResult() {
+            alert("📤 Share Result\n\nYour music personality result would be shared as a post in the Music Lovers Hub community!");
+        }
+
+        function findMatches() {
+            alert("💝 Find Similar Members\n\nShowing members with similar music taste...\n\n• Sarah (94% match)\n• Alex (91% match)\n• Jordan (89% match)\n• Maya (87% match)");
+        }
+
+        function backToCommunity() {
+            alert("🏠 Back to Community\n\nReturning to Music Lovers Hub...");
+        }
+
+        // Initialize the quiz
+        updateQuestion();
+    </script>
+</body>
+
+</html>

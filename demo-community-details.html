@@ -181,6 +181,98 @@
             transform: translateY(-2px);
         }
 
+        /* Quiz Integration Styles */
+        .quiz-section {
+            padding: 20px;
+            background: #F8FAFC;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .quiz-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .quiz-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1F2937;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quiz-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid #E5E7EB;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+        }
+
+        .quiz-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+            border-color: #8B5CF6;
+        }
+
+        .quiz-card.featured {
+            border-color: #F59E0B;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.05));
+        }
+
+        .quiz-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .quiz-icon {
+            font-size: 24px;
+        }
+
+        .quiz-info h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 2px;
+        }
+
+        .quiz-meta {
+            font-size: 12px;
+            color: #6B7280;
+        }
+
+        .quiz-description {
+            font-size: 13px;
+            color: #6B7280;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .quiz-participants {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #8B5CF6;
+        }
+
+        .quiz-badge {
+            background: #F59E0B;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
         .posts-section {
             padding: 24px 20px;
         }
@@ -202,6 +294,11 @@
             padding: 20px;
             margin-bottom: 16px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .post.quiz-post {
+            border-color: #8B5CF6;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(236, 72, 153, 0.02));
         }
 
         .post-header {
@@ -254,6 +351,73 @@
             font-size: 14px;
         }
 
+        .quiz-result-card {
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 12px 0;
+            text-align: center;
+        }
+
+        .quiz-result-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .quiz-result-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .quiz-result-desc {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .quiz-challenge-card {
+            background: #FEF3C7;
+            border: 1px solid #F59E0B;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .challenge-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .challenge-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #92400E;
+        }
+
+        .challenge-description {
+            font-size: 12px;
+            color: #A16207;
+            margin-bottom: 8px;
+        }
+
+        .challenge-action {
+            background: #F59E0B;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .challenge-action:hover {
+            background: #D97706;
+        }
+
         .post-actions {
             display: flex;
             gap: 20px;
@@ -295,6 +459,320 @@
 
         .floating-btn:hover {
             transform: scale(1.1);
+        }
+
+        .tabs {
+            display: flex;
+            background: white;
+            border-bottom: 1px solid #E5E7EB;
+            padding: 0 20px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px 0;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6B7280;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            color: #8B5CF6;
+            border-bottom-color: #8B5CF6;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Community Guidelines Styles */
+        .guidelines-section {
+            background: #FEF9E7;
+            border: 1px solid #FDE68A;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .guidelines-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .guidelines-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #92400E;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .guidelines-toggle {
+            background: #F59E0B;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .guidelines-toggle:hover {
+            background: #D97706;
+        }
+
+        .guidelines-content {
+            margin-top: 16px;
+        }
+
+        .guidelines-list {
+            margin-bottom: 16px;
+        }
+
+        .guideline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #FDE68A;
+        }
+
+        .guideline-icon {
+            font-size: 20px;
+            min-width: 24px;
+        }
+
+        .guideline-text {
+            font-size: 14px;
+            color: #92400E;
+            line-height: 1.4;
+        }
+
+        .guidelines-footer {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            padding-top: 16px;
+            border-top: 1px solid #FDE68A;
+        }
+
+        .guidelines-btn {
+            background: #F59E0B;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .guidelines-btn:hover {
+            background: #D97706;
+        }
+
+        .guidelines-btn.secondary {
+            background: white;
+            color: #F59E0B;
+            border: 1px solid #F59E0B;
+        }
+
+        .guidelines-btn.secondary:hover {
+            background: #FEF3C7;
+        }
+
+        /* Dating Stories Styles */
+        .stories-filter {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: white;
+            color: #6B7280;
+            border: 1px solid #E5E7EB;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            border-color: #EC4899;
+            color: #EC4899;
+        }
+
+        .filter-btn.active {
+            background: #EC4899;
+            color: white;
+            border-color: #EC4899;
+        }
+
+        .story-create-prompt {
+            background: linear-gradient(135deg, #EC4899 0%, #BE185D 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .story-prompt-text {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .story-create-btn {
+            background: white;
+            color: #EC4899;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .story-create-btn:hover {
+            background: #FDF2F8;
+            transform: translateY(-2px);
+        }
+
+        .story-post {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .story-post:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .story-post.success-story {
+            border-left: 4px solid #10B981;
+        }
+
+        .story-post.funny-story {
+            border-left: 4px solid #F59E0B;
+        }
+
+        .story-post.lessons-story {
+            border-left: 4px solid #8B5CF6;
+        }
+
+        .story-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .story-category {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 12px;
+            background: #F3F4F6;
+            color: #6B7280;
+        }
+
+        .success-story .story-category {
+            background: #ECFDF5;
+            color: #10B981;
+        }
+
+        .funny-story .story-category {
+            background: #FEF3C7;
+            color: #F59E0B;
+        }
+
+        .lessons-story .story-category {
+            background: #EDE9FE;
+            color: #8B5CF6;
+        }
+
+        .story-anonymous {
+            font-size: 12px;
+            color: #6B7280;
+        }
+
+        .story-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 12px;
+        }
+
+        .story-content {
+            font-size: 15px;
+            color: #374151;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .story-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .story-tag {
+            background: #F3F4F6;
+            color: #6B7280;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .story-actions {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .story-action {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: #6B7280;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .story-action:hover {
+            color: #EC4899;
+        }
+
+        .story-action.supported {
+            color: #EF4444;
         }
 
         @media (max-width: 768px) {
@@ -350,89 +828,12 @@
                 padding: 20px 16px;
             }
 
-            .community-description {
-                font-size: 13px;
-                margin-bottom: 14px;
-            }
-
-            .members-preview {
-                margin-bottom: 18px;
-            }
-
-            .members-label {
-                font-size: 13px;
-                margin-bottom: 6px;
-            }
-
-            .member-avatar {
-                width: 30px;
-                height: 30px;
-                font-size: 11px;
-            }
-
-            .members-count {
-                font-size: 13px;
-            }
-
-            .action-buttons {
-                gap: 10px;
-            }
-
-            .btn {
-                padding: 10px 14px;
-                font-size: 13px;
+            .quiz-section {
+                padding: 16px;
             }
 
             .posts-section {
                 padding: 20px 16px;
-            }
-
-            .section-title {
-                font-size: 16px;
-                margin-bottom: 14px;
-            }
-
-            .post {
-                padding: 16px;
-                margin-bottom: 12px;
-                border-radius: 12px;
-            }
-
-            .post-header {
-                gap: 10px;
-                margin-bottom: 10px;
-            }
-
-            .post-avatar {
-                width: 36px;
-                height: 36px;
-                font-size: 14px;
-            }
-
-            .post-author {
-                font-size: 14px;
-            }
-
-            .post-time {
-                font-size: 12px;
-            }
-
-            .post-content {
-                font-size: 14px;
-                margin-bottom: 10px;
-            }
-
-            .post-media {
-                font-size: 13px;
-                margin-bottom: 10px;
-            }
-
-            .post-actions {
-                gap: 16px;
-            }
-
-            .post-action {
-                font-size: 13px;
             }
 
             .floating-btn {
@@ -441,274 +842,6 @@
                 font-size: 22px;
                 bottom: 16px;
                 right: 16px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header {
-                padding: 35px 16px 14px;
-            }
-
-            .header h1 {
-                font-size: 15px;
-            }
-
-            .back-btn,
-            .menu-btn {
-                font-size: 15px;
-            }
-
-            .content {
-                height: calc(100% - 70px);
-            }
-
-            .community-hero {
-                height: 140px;
-            }
-
-            .community-icon {
-                font-size: 36px;
-                margin-bottom: 8px;
-            }
-
-            .community-title {
-                font-size: 18px;
-                margin-bottom: 5px;
-            }
-
-            .community-meta {
-                font-size: 12px;
-            }
-
-            .community-info {
-                padding: 16px 12px;
-            }
-
-            .community-description {
-                font-size: 12px;
-                margin-bottom: 12px;
-            }
-
-            .members-preview {
-                margin-bottom: 16px;
-            }
-
-            .members-label {
-                font-size: 12px;
-                margin-bottom: 5px;
-            }
-
-            .member-avatar {
-                width: 28px;
-                height: 28px;
-                font-size: 10px;
-            }
-
-            .members-count {
-                font-size: 12px;
-            }
-
-            .action-buttons {
-                gap: 8px;
-            }
-
-            .btn {
-                padding: 8px 12px;
-                font-size: 12px;
-            }
-
-            .posts-section {
-                padding: 16px 12px;
-            }
-
-            .section-title {
-                font-size: 15px;
-                margin-bottom: 12px;
-            }
-
-            .post {
-                padding: 14px;
-                margin-bottom: 10px;
-                border-radius: 10px;
-            }
-
-            .post-header {
-                gap: 8px;
-                margin-bottom: 8px;
-            }
-
-            .post-avatar {
-                width: 34px;
-                height: 34px;
-                font-size: 13px;
-            }
-
-            .post-author {
-                font-size: 13px;
-            }
-
-            .post-time {
-                font-size: 11px;
-            }
-
-            .post-content {
-                font-size: 13px;
-                margin-bottom: 8px;
-            }
-
-            .post-media {
-                font-size: 12px;
-                margin-bottom: 8px;
-            }
-
-            .post-actions {
-                gap: 14px;
-            }
-
-            .post-action {
-                font-size: 12px;
-            }
-
-            .floating-btn {
-                width: 48px;
-                height: 48px;
-                font-size: 20px;
-                bottom: 14px;
-                right: 14px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .header {
-                padding: 30px 12px 12px;
-            }
-
-            .header h1 {
-                font-size: 14px;
-            }
-
-            .back-btn,
-            .menu-btn {
-                font-size: 14px;
-            }
-
-            .content {
-                height: calc(100% - 65px);
-            }
-
-            .community-hero {
-                height: 120px;
-            }
-
-            .community-icon {
-                font-size: 32px;
-                margin-bottom: 6px;
-            }
-
-            .community-title {
-                font-size: 16px;
-                margin-bottom: 4px;
-            }
-
-            .community-meta {
-                font-size: 11px;
-            }
-
-            .community-info {
-                padding: 12px 8px;
-            }
-
-            .community-description {
-                font-size: 11px;
-                margin-bottom: 10px;
-            }
-
-            .members-preview {
-                margin-bottom: 14px;
-            }
-
-            .members-label {
-                font-size: 11px;
-                margin-bottom: 4px;
-            }
-
-            .member-avatar {
-                width: 26px;
-                height: 26px;
-                font-size: 9px;
-            }
-
-            .members-count {
-                font-size: 11px;
-            }
-
-            .action-buttons {
-                gap: 6px;
-            }
-
-            .btn {
-                padding: 6px 10px;
-                font-size: 11px;
-            }
-
-            .posts-section {
-                padding: 12px 8px;
-            }
-
-            .section-title {
-                font-size: 14px;
-                margin-bottom: 10px;
-            }
-
-            .post {
-                padding: 12px;
-                margin-bottom: 8px;
-                border-radius: 8px;
-            }
-
-            .post-header {
-                gap: 6px;
-                margin-bottom: 6px;
-            }
-
-            .post-avatar {
-                width: 32px;
-                height: 32px;
-                font-size: 12px;
-            }
-
-            .post-author {
-                font-size: 12px;
-            }
-
-            .post-time {
-                font-size: 10px;
-            }
-
-            .post-content {
-                font-size: 12px;
-                margin-bottom: 6px;
-            }
-
-            .post-media {
-                font-size: 11px;
-                margin-bottom: 6px;
-            }
-
-            .post-actions {
-                gap: 12px;
-            }
-
-            .post-action {
-                font-size: 11px;
-            }
-
-            .floating-btn {
-                width: 44px;
-                height: 44px;
-                font-size: 18px;
-                bottom: 12px;
-                right: 12px;
             }
         }
     </style>
@@ -753,66 +886,324 @@
                 </div>
             </div>
 
-            <div class="posts-section">
-                <div class="section-title">📋 Recent Posts</div>
+            <!-- NEW: Quiz Integration Section -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <div class="quiz-title">🎮 Community Quizzes</div>
+                    <span style="font-size: 12px; color: #6B7280;">Tap to join</span>
+                </div>
 
-                <div class="post">
-                    <div class="post-header">
-                        <div class="post-avatar">📸</div>
-                        <div class="post-meta">
-                            <div class="post-author">Sarah</div>
-                            <div class="post-time">2h ago</div>
+                <div class="quiz-card featured" onclick="startQuiz('featured')">
+                    <div class="quiz-card-header">
+                        <div class="quiz-icon">🎵</div>
+                        <div class="quiz-info">
+                            <h3>Music Personality Match <span class="quiz-badge">WEEKLY</span></h3>
+                            <div class="quiz-meta">5 questions • 2 min • Ends in 3 days</div>
                         </div>
                     </div>
-                    <div class="post-content">
-                        Just discovered this amazing indie band! Who's heard of Arctic Moths? Their new album is pure
-                        magic ✨
+                    <div class="quiz-description">
+                        Discover your music vibe and find members with similar tastes!
                     </div>
-                    <div class="post-media">
-                        🎵 [Track Preview: "Midnight Dreams"]
-                    </div>
-                    <div class="post-actions">
-                        <span class="post-action" onclick="likePost(this)">💙 24</span>
-                        <span class="post-action" onclick="commentPost()">💬 8</span>
-                        <span class="post-action" onclick="sharePost()">📤 Share</span>
+                    <div class="quiz-participants">
+                        <span>🏆 247 participants</span>
+                        <span>🎁 Winner gets concert tickets!</span>
                     </div>
                 </div>
 
-                <div class="post">
-                    <div class="post-header">
-                        <div class="post-avatar">📸</div>
-                        <div class="post-meta">
-                            <div class="post-author">Mike</div>
-                            <div class="post-time">4h ago</div>
+                <div class="quiz-card" onclick="startQuiz('icebreaker')">
+                    <div class="quiz-card-header">
+                        <div class="quiz-icon">🤝</div>
+                        <div class="quiz-info">
+                            <h3>Concert Buddy Finder</h3>
+                            <div class="quiz-meta">3 questions • 1 min</div>
                         </div>
                     </div>
-                    <div class="post-content">
-                        Concert buddy needed for The Strokes next Friday! 🎸 Who's in? The venue is going to be
-                        incredible!
+                    <div class="quiz-description">
+                        Find your perfect concert companion based on preferences!
                     </div>
-                    <div class="post-actions">
-                        <span class="post-action" onclick="likePost(this)">💙 18</span>
-                        <span class="post-action" onclick="commentPost()">💬 12</span>
-                        <span class="post-action" onclick="sharePost()">📤 Share</span>
+                    <div class="quiz-participants">
+                        <span>👥 89 participants</span>
+                        <span>💫 12 matches found</span>
                     </div>
                 </div>
 
-                <div class="post">
-                    <div class="post-header">
-                        <div class="post-avatar">📸</div>
-                        <div class="post-meta">
-                            <div class="post-author">Alex</div>
-                            <div class="post-time">6h ago</div>
+                <div class="quiz-card" onclick="startQuiz('genre')">
+                    <div class="quiz-card-header">
+                        <div class="quiz-icon">🎸</div>
+                        <div class="quiz-info">
+                            <h3>Genre Compatibility Test</h3>
+                            <div class="quiz-meta">4 questions • 90 seconds</div>
                         </div>
                     </div>
-                    <div class="post-content">
-                        Weekly vinyl haul! Found some rare pressings at the record store downtown. Anyone else
-                        collecting vintage jazz? 🎺
+                    <div class="quiz-description">
+                        See how your music taste aligns with other members!
                     </div>
-                    <div class="post-actions">
-                        <span class="post-action" onclick="likePost(this)">💙 15</span>
-                        <span class="post-action" onclick="commentPost()">💬 6</span>
-                        <span class="post-action" onclick="sharePost()">📤 Share</span>
+                    <div class="quiz-participants">
+                        <span>🎯 156 participants</span>
+                        <span>🔥 Trending now</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community Guidelines Section -->
+            <div class="guidelines-section">
+                <div class="guidelines-header">
+                    <div class="guidelines-title">📋 Community Guidelines</div>
+                    <button class="guidelines-toggle" onclick="toggleGuidelines()">View Guidelines</button>
+                </div>
+                <div class="guidelines-content" id="guidelinesContent" style="display: none;">
+                    <div class="guidelines-list">
+                        <div class="guideline-item">
+                            <div class="guideline-icon">🤝</div>
+                            <div class="guideline-text">
+                                <strong>Be Respectful:</strong> Treat all members with kindness and respect. No
+                                harassment, discrimination, or offensive language.
+                            </div>
+                        </div>
+                        <div class="guideline-item">
+                            <div class="guideline-icon">💝</div>
+                            <div class="guideline-text">
+                                <strong>Dating Stories:</strong> Share authentic experiences. Keep stories appropriate
+                                and supportive of others' journeys.
+                            </div>
+                        </div>
+                        <div class="guideline-item">
+                            <div class="guideline-icon">🎵</div>
+                            <div class="guideline-text">
+                                <strong>Stay On Topic:</strong> Keep discussions music-related and relevant to the
+                                community's interests.
+                            </div>
+                        </div>
+                        <div class="guideline-item">
+                            <div class="guideline-icon">🚫</div>
+                            <div class="guideline-text">
+                                <strong>No Spam:</strong> Avoid repetitive posts, excessive self-promotion, or unrelated
+                                content.
+                            </div>
+                        </div>
+                        <div class="guideline-item">
+                            <div class="guideline-icon">🛡️</div>
+                            <div class="guideline-text">
+                                <strong>Report Issues:</strong> Use the report feature for inappropriate content or
+                                behavior.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="guidelines-footer">
+                        <button class="guidelines-btn" onclick="reportIssue()">📢 Report Issue</button>
+                        <button class="guidelines-btn secondary" onclick="contactModerators()">👥 Contact
+                            Moderators</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enhanced Tabs -->
+            <div class="tabs">
+                <div class="tab active" onclick="showTab('posts')">📋 Posts</div>
+                <div class="tab" onclick="showTab('events')">📅 Events</div>
+                <div class="tab" onclick="showTab('stories')">💝 Dating Stories</div>
+                <div class="tab" onclick="showTab('quizzes')">🎮 Quizzes</div>
+            </div>
+
+            <div class="tab-content active" id="posts-tab">
+                <div class="posts-section">
+                    <div class="section-title">📋 Recent Posts</div>
+
+                    <!-- NEW: Quiz Result Post -->
+                    <div class="post quiz-post">
+                        <div class="post-header">
+                            <div class="post-avatar">📸</div>
+                            <div class="post-meta">
+                                <div class="post-author">Sarah</div>
+                                <div class="post-time">2h ago</div>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            Just completed the Music Personality Match quiz! 🎉 Anyone else get similar results?
+                        </div>
+                        <div class="quiz-result-card">
+                            <div class="quiz-result-icon">🎨</div>
+                            <div class="quiz-result-title">The Creative Curator</div>
+                            <div class="quiz-result-desc">You discover hidden gems and share musical treasures with
+                                others</div>
+                        </div>
+                        <div class="post-actions">
+                            <span class="post-action liked" onclick="likePost(this)">❤️ 34</span>
+                            <span class="post-action" onclick="commentPost()">💬 12</span>
+                            <span class="post-action" onclick="sharePost()">🔄 Compare Results</span>
+                        </div>
+                    </div>
+
+                    <!-- NEW: Quiz Challenge Post -->
+                    <div class="post">
+                        <div class="post-header">
+                            <div class="post-avatar">📸</div>
+                            <div class="post-meta">
+                                <div class="post-author">Mike</div>
+                                <div class="post-time">4h ago</div>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            Challenge time! 🎯 Who thinks they know more about 90s rock than me?
+                        </div>
+                        <div class="quiz-challenge-card">
+                            <div class="challenge-header">
+                                <span>🏆</span>
+                                <div class="challenge-title">90s Rock Trivia Challenge</div>
+                            </div>
+                            <div class="challenge-description">
+                                Test your knowledge against Mike's score of 87%!
+                            </div>
+                            <button class="challenge-action" onclick="acceptChallenge()">Accept Challenge</button>
+                        </div>
+                        <div class="post-actions">
+                            <span class="post-action" onclick="likePost(this)">💙 28</span>
+                            <span class="post-action" onclick="commentPost()">💬 15</span>
+                            <span class="post-action" onclick="sharePost()">📤 Share</span>
+                        </div>
+                    </div>
+
+                    <div class="post">
+                        <div class="post-header">
+                            <div class="post-avatar">📸</div>
+                            <div class="post-meta">
+                                <div class="post-author">Alex</div>
+                                <div class="post-time">6h ago</div>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            Concert buddy needed for The Strokes next Friday! 🎸 Based on the Concert Buddy Finder quiz,
+                            I'm looking for someone who loves indie rock and doesn't mind standing close to the stage!
+                        </div>
+                        <div class="post-actions">
+                            <span class="post-action" onclick="likePost(this)">💙 18</span>
+                            <span class="post-action" onclick="commentPost()">💬 8</span>
+                            <span class="post-action" onclick="sharePost()">📤 Share</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="events-tab">
+                <div class="posts-section">
+                    <div class="section-title">📅 Upcoming Events</div>
+                    <div class="post">
+                        <div class="post-content">
+                            <strong>🎵 Music Quiz Night</strong><br>
+                            Tomorrow at 7PM • Downtown Café<br>
+                            <em>Take the pre-event compatibility quiz to find your team!</em>
+                        </div>
+                        <div class="post-actions">
+                            <span class="post-action" onclick="rsvpEvent()">📅 RSVP</span>
+                            <span class="post-action" onclick="takeEventQuiz()">🎮 Take Quiz</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="stories-tab">
+                <div class="posts-section">
+                    <div class="section-title">💝 Dating Stories</div>
+                    <div class="stories-filter">
+                        <button class="filter-btn active" onclick="filterStories('all')">All Stories</button>
+                        <button class="filter-btn" onclick="filterStories('success')">Success Stories</button>
+                        <button class="filter-btn" onclick="filterStories('funny')">Funny Tales</button>
+                        <button class="filter-btn" onclick="filterStories('lessons')">Lessons Learned</button>
+                    </div>
+
+                    <div class="story-create-prompt">
+                        <div class="story-prompt-text">Share your dating story with the community!</div>
+                        <button class="story-create-btn" onclick="createStory()">✏️ Share Your Story</button>
+                    </div>
+
+                    <div class="story-post success-story">
+                        <div class="story-header">
+                            <div class="story-category">🎉 Success Story</div>
+                            <div class="story-anonymous">Anonymous • Music Lover</div>
+                        </div>
+                        <div class="story-title">Found My Concert Buddy and Life Partner!</div>
+                        <div class="story-content">
+                            Met my now-boyfriend at a community event last year. We both love indie music and took the
+                            music personality quiz - 96% compatibility! What started as going to concerts together
+                            turned into something beautiful. We're planning our first festival trip together next month!
+                            🎵💕
+                        </div>
+                        <div class="story-tags">
+                            <span class="story-tag">relationship</span>
+                            <span class="story-tag">concerts</span>
+                            <span class="story-tag">compatibility</span>
+                        </div>
+                        <div class="story-actions">
+                            <span class="story-action" onclick="supportStory(this)">💕 47 Support</span>
+                            <span class="story-action" onclick="commentStory()">💬 12 Comments</span>
+                            <span class="story-action" onclick="shareStory()">📤 Share</span>
+                        </div>
+                    </div>
+
+                    <div class="story-post funny-story">
+                        <div class="story-header">
+                            <div class="story-category">😂 Funny Tale</div>
+                            <div class="story-anonymous">Sarah • Active 2h ago</div>
+                        </div>
+                        <div class="story-title">When Your Date Doesn't Share Your Music Taste</div>
+                        <div class="story-content">
+                            Went on a date with someone who said they "love all music." Turns out they meant they love
+                            all music... as long as it's country. Spent the whole evening at a honky-tonk bar when I was
+                            expecting indie rock. The quiz compatibility was 23% - should have listened! 😅
+                        </div>
+                        <div class="story-tags">
+                            <span class="story-tag">dating-fails</span>
+                            <span class="story-tag">music-taste</span>
+                            <span class="story-tag">first-date</span>
+                        </div>
+                        <div class="story-actions">
+                            <span class="story-action" onclick="supportStory(this)">😂 34 Reactions</span>
+                            <span class="story-action" onclick="commentStory()">💬 18 Comments</span>
+                            <span class="story-action" onclick="shareStory()">📤 Share</span>
+                        </div>
+                    </div>
+
+                    <div class="story-post lessons-story">
+                        <div class="story-header">
+                            <div class="story-category">📚 Lesson Learned</div>
+                            <div class="story-anonymous">Mike • Community Moderator</div>
+                        </div>
+                        <div class="story-title">The Importance of Shared Musical Values</div>
+                        <div class="story-content">
+                            After several dates where music was just background noise, I realized how important it is to
+                            find someone who truly appreciates music the way I do. It's not just about genres - it's
+                            about how music makes you feel and the role it plays in your life. Now I always suggest a
+                            music-focused first date. Coffee shop with live acoustic? Perfect! 🎸
+                        </div>
+                        <div class="story-tags">
+                            <span class="story-tag">dating-advice</span>
+                            <span class="story-tag">music-values</span>
+                            <span class="story-tag">first-dates</span>
+                        </div>
+                        <div class="story-actions">
+                            <span class="story-action" onclick="supportStory(this)">👍 56 Helpful</span>
+                            <span class="story-action" onclick="commentStory()">💬 24 Comments</span>
+                            <span class="story-action" onclick="shareStory()">📤 Share</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="quizzes-tab">
+                <div class="posts-section">
+                    <div class="section-title">🎮 All Community Quizzes</div>
+                    <div class="post">
+                        <div class="post-content">
+                            <strong>🏆 Leaderboard</strong><br>
+                            1. Sarah - 2,340 points<br>
+                            2. Mike - 2,180 points<br>
+                            3. Alex - 1,950 points<br>
+                            <em>You're ranked #12 with 1,240 points</em>
+                        </div>
+                        <div class="post-actions">
+                            <span class="post-action" onclick="viewFullLeaderboard()">📊 View Full</span>
+                            <span class="post-action" onclick="takeQuizToImprove()">🎯 Take Quiz</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -822,6 +1213,7 @@
     </div>
 
     <script>
+        // Existing functions
         function goBack() {
             alert("◄ Returning to Communities page");
         }
@@ -878,7 +1270,128 @@
             alert("✏️ Create new post interface would open here");
         }
 
-        // Add scroll effects
+        // NEW: Quiz Integration Functions
+        function startQuiz(type) {
+            const quizTypes = {
+                'featured': '🎵 Starting Music Personality Match quiz...\n\n5 questions about your music preferences and concert experiences!',
+                'icebreaker': '🤝 Starting Concert Buddy Finder quiz...\n\n3 questions to find your perfect concert companion!',
+                'genre': '🎸 Starting Genre Compatibility Test...\n\n4 questions about your music taste preferences!'
+            };
+
+            alert(quizTypes[type] || 'Starting quiz...');
+        }
+
+        function acceptChallenge() {
+            alert("🏆 Challenge Accepted!\n\nStarting 90s Rock Trivia Challenge...\n\nYou need to score higher than 87% to win!");
+        }
+
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            // Show selected tab
+            event.target.classList.add('active');
+            document.getElementById(tabName + '-tab').classList.add('active');
+        }
+
+        function rsvpEvent() {
+            alert("📅 Event RSVP would open here");
+        }
+
+        function takeEventQuiz() {
+            alert("🎮 Event compatibility quiz would start here");
+        }
+
+        function viewFullLeaderboard() {
+            alert("📊 Full leaderboard would open here");
+        }
+
+        function takeQuizToImprove() {
+            alert("🎯 Quiz selection to improve ranking would open here");
+        }
+
+        // NEW: Community Guidelines Functions
+        function toggleGuidelines() {
+            const content = document.getElementById('guidelinesContent');
+            const toggle = document.querySelector('.guidelines-toggle');
+
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                toggle.textContent = 'Hide Guidelines';
+            } else {
+                content.style.display = 'none';
+                toggle.textContent = 'View Guidelines';
+            }
+        }
+
+        function reportIssue() {
+            alert("📢 Report Issue\n\nOpening report form...\n\n• Inappropriate content\n• Harassment\n• Spam\n• Violation of guidelines\n• Other concerns");
+        }
+
+        function contactModerators() {
+            alert("👥 Contact Moderators\n\nConnecting with community moderators...\n\n• Sarah (Lead Moderator)\n• Mike (Content Moderator)\n• Alex (Event Coordinator)");
+        }
+
+        // NEW: Dating Stories Functions
+        function filterStories(category) {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const stories = document.querySelectorAll('.story-post');
+
+            // Update filter buttons
+            filterBtns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Filter stories
+            stories.forEach(story => {
+                if (category === 'all') {
+                    story.style.display = 'block';
+                } else if (category === 'success' && story.classList.contains('success-story')) {
+                    story.style.display = 'block';
+                } else if (category === 'funny' && story.classList.contains('funny-story')) {
+                    story.style.display = 'block';
+                } else if (category === 'lessons' && story.classList.contains('lessons-story')) {
+                    story.style.display = 'block';
+                } else {
+                    story.style.display = 'none';
+                }
+            });
+        }
+
+        function createStory() {
+            alert("✏️ Share Your Dating Story\n\nStory creation form would open with:\n\n• Story category selection\n• Title and content editor\n• Tag selection\n• Privacy options (Anonymous/Named)\n• Content guidelines reminder\n• Moderation notice");
+        }
+
+        function supportStory(element) {
+            const isSupported = element.classList.contains('supported');
+            const text = element.textContent;
+            const match = text.match(/\d+/);
+            const currentCount = match ? parseInt(match[0]) : 0;
+
+            if (isSupported) {
+                element.classList.remove('supported');
+                element.textContent = element.textContent.replace(/💕|😂|👍/, '💝').replace(/\d+/, currentCount - 1);
+            } else {
+                element.classList.add('supported');
+                if (text.includes('Support')) {
+                    element.textContent = element.textContent.replace('💝', '💕').replace(/\d+/, currentCount + 1);
+                } else if (text.includes('Reactions')) {
+                    element.textContent = element.textContent.replace('💝', '😂').replace(/\d+/, currentCount + 1);
+                } else if (text.includes('Helpful')) {
+                    element.textContent = element.textContent.replace('💝', '👍').replace(/\d+/, currentCount + 1);
+                }
+            }
+        }
+
+        function commentStory() {
+            alert("💬 Story Comments\n\nComment interface would open with:\n\n• Existing comments thread\n• Reply functionality\n• Supportive reaction options\n• Comment moderation\n• Notification settings");
+        }
+
+        function shareStory() {
+            alert("📤 Share Story\n\nShare options:\n\n• Copy link to story\n• Share in other communities\n• Send to friends\n• Share on social media\n• Add to favorites");
+        }
+
+        // Add scroll effects (existing)
         window.addEventListener('scroll', function () {
             const scrolled = window.pageYOffset;
             const hero = document.querySelector('.community-hero');

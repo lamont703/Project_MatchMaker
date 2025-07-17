@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeMatch - Community Guidelines Editor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone-container {
+            width: 375px;
+            height: 812px;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+            padding: 50px 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            font-size: 18px;
+            cursor: pointer;
+            padding: 8px;
+            margin: -8px;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            flex: 1;
+            text-align: center;
+            margin: 0 16px;
+        }
+
+        .save-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .save-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .content {
+            height: calc(100% - 90px);
+            overflow-y: auto;
+            padding: 24px 20px;
+        }
+
+        .moderator-badge {
+            background: #F59E0B;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 24px;
+        }
+
+        .guidelines-editor {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .editor-section {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            border: 1px solid #E5E7EB;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .guidelines-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .guideline-item {
+            background: #F9FAFB;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 16px;
+            position: relative;
+        }
+
+        .guideline-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .guideline-icon-picker {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            padding: 8px;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .guideline-icon-picker:hover {
+            border-color: #F59E0B;
+        }
+
+        .guideline-title-input {
+            flex: 1;
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: border-color 0.3s ease;
+        }
+
+        .guideline-title-input:focus {
+            outline: none;
+            border-color: #F59E0B;
+        }
+
+        .guideline-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            padding: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: #F3F4F6;
+        }
+
+        .action-btn.delete:hover {
+            background: #FEE2E2;
+            color: #EF4444;
+        }
+
+        .guideline-description {
+            width: 100%;
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 60px;
+            transition: border-color 0.3s ease;
+        }
+
+        .guideline-description:focus {
+            outline: none;
+            border-color: #F59E0B;
+        }
+
+        .guideline-settings {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #E5E7EB;
+        }
+
+        .enforcement-level {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #6B7280;
+        }
+
+        .enforcement-select {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .enforcement-select:focus {
+            outline: none;
+            border-color: #F59E0B;
+        }
+
+        .priority-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: #6B7280;
+        }
+
+        .priority-dots {
+            display: flex;
+            gap: 2px;
+        }
+
+        .priority-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #E5E7EB;
+        }
+
+        .priority-dot.active {
+            background: #F59E0B;
+        }
+
+        .add-guideline-btn {
+            background: #F59E0B;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .add-guideline-btn:hover {
+            background: #D97706;
+            transform: translateY(-2px);
+        }
+
+        .community-info {
+            background: #EDE9FE;
+            border: 1px solid #C4B5FD;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .community-info-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #5B21B6;
+            margin-bottom: 8px;
+        }
+
+        .community-info-text {
+            font-size: 12px;
+            color: #6D28D9;
+            line-height: 1.5;
+        }
+
+        .template-options {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .template-btn {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .template-btn:hover {
+            border-color: #F59E0B;
+            background: #FEF3C7;
+        }
+
+        .preview-section {
+            background: #F9FAFB;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .preview-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 12px;
+        }
+
+        .preview-guideline {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #E5E7EB;
+        }
+
+        .preview-icon {
+            font-size: 20px;
+            min-width: 24px;
+        }
+
+        .preview-text {
+            font-size: 14px;
+            color: #4B5563;
+            line-height: 1.4;
+        }
+
+        .save-publish-section {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .save-publish-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .save-publish-desc {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 16px;
+        }
+
+        .save-publish-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .save-publish-btn {
+            flex: 1;
+            background: white;
+            color: #F59E0B;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .save-publish-btn:hover {
+            background: #FEF3C7;
+            transform: translateY(-2px);
+        }
+
+        .save-publish-btn.primary {
+            background: #92400E;
+            color: white;
+        }
+
+        .save-publish-btn.primary:hover {
+            background: #78350F;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                align-items: flex-start;
+                padding: 0;
+            }
+
+            .phone-container {
+                width: 100%;
+                height: 100vh;
+                border-radius: 0;
+                box-shadow: none;
+                max-width: none;
+            }
+
+            .header {
+                padding: 40px 20px 16px;
+            }
+
+            .content {
+                padding: 20px 16px;
+            }
+
+            .editor-section {
+                padding: 16px;
+            }
+
+            .template-options {
+                flex-direction: column;
+            }
+
+            .save-publish-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="phone-container">
+        <div class="header">
+            <span class="back-btn" onclick="goBack()">◄</span>
+            <h1>📋 Edit Guidelines</h1>
+            <button class="save-btn" onclick="saveGuidelines()">Save</button>
+        </div>
+
+        <div class="content">
+            <div class="moderator-badge">
+                <span>🛡️</span>
+                <span>Moderator Tools</span>
+            </div>
+
+            <div class="community-info">
+                <div class="community-info-title">🎵 Music Lovers Hub Guidelines</div>
+                <div class="community-info-text">
+                    Set clear expectations for your community members. Good guidelines help create a positive, welcoming
+                    environment for everyone.
+                </div>
+            </div>
+
+            <div class="guidelines-editor">
+                <div class="editor-section">
+                    <div class="section-title">📝 Community Guidelines</div>
+
+                    <div class="template-options">
+                        <button class="template-btn" onclick="loadTemplate('basic')">Basic Template</button>
+                        <button class="template-btn" onclick="loadTemplate('dating')">Dating Community</button>
+                        <button class="template-btn" onclick="loadTemplate('hobby')">Hobby Community</button>
+                        <button class="template-btn" onclick="loadTemplate('events')">Event-Focused</button>
+                    </div>
+
+                    <div class="guidelines-list" id="guidelinesList">
+                        <div class="guideline-item">
+                            <div class="guideline-header">
+                                <div class="guideline-icon-picker" onclick="selectIcon(this)">🤝</div>
+                                <input type="text" class="guideline-title-input" value="Be Respectful"
+                                    placeholder="Guideline title...">
+                                <div class="guideline-actions">
+                                    <button class="action-btn" onclick="moveUp(this)" title="Move up">↑</button>
+                                    <button class="action-btn" onclick="moveDown(this)" title="Move down">↓</button>
+                                    <button class="action-btn delete" onclick="deleteGuideline(this)"
+                                        title="Delete">🗑️</button>
+                                </div>
+                            </div>
+                            <textarea class="guideline-description"
+                                placeholder="Describe this guideline...">Treat all members with kindness and respect. No harassment, discrimination, or offensive language.</textarea>
+                            <div class="guideline-settings">
+                                <div class="enforcement-level">
+                                    <span>Enforcement:</span>
+                                    <select class="enforcement-select">
+                                        <option value="warning">Warning</option>
+                                        <option value="removal">Remove Content</option>
+                                        <option value="timeout">Timeout</option>
+                                        <option value="ban">Ban</option>
+                                    </select>
+                                </div>
+                                <div class="priority-indicator">
+                                    <span>Priority:</span>
+                                    <div class="priority-dots">
+                                        <div class="priority-dot active"></div>
+                                        <div class="priority-dot active"></div>
+                                        <div class="priority-dot active"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="guideline-item">
+                            <div class="guideline-header">
+                                <div class="guideline-icon-picker" onclick="selectIcon(this)">💝</div>
+                                <input type="text" class="guideline-title-input" value="Dating Stories"
+                                    placeholder="Guideline title...">
+                                <div class="guideline-actions">
+                                    <button class="action-btn" onclick="moveUp(this)" title="Move up">↑</button>
+                                    <button class="action-btn" onclick="moveDown(this)" title="Move down">↓</button>
+                                    <button class="action-btn delete" onclick="deleteGuideline(this)"
+                                        title="Delete">🗑️</button>
+                                </div>
+                            </div>
+                            <textarea class="guideline-description"
+                                placeholder="Describe this guideline...">Share authentic experiences. Keep stories appropriate and supportive of others' journeys.</textarea>
+                            <div class="guideline-settings">
+                                <div class="enforcement-level">
+                                    <span>Enforcement:</span>
+                                    <select class="enforcement-select">
+                                        <option value="warning">Warning</option>
+                                        <option value="removal" selected>Remove Content</option>
+                                        <option value="timeout">Timeout</option>
+                                        <option value="ban">Ban</option>
+                                    </select>
+                                </div>
+                                <div class="priority-indicator">
+                                    <span>Priority:</span>
+                                    <div class="priority-dots">
+                                        <div class="priority-dot active"></div>
+                                        <div class="priority-dot active"></div>
+                                        <div class="priority-dot"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="guideline-item">
+                            <div class="guideline-header">
+                                <div class="guideline-icon-picker" onclick="selectIcon(this)">🎵</div>
+                                <input type="text" class="guideline-title-input" value="Stay On Topic"
+                                    placeholder="Guideline title...">
+                                <div class="guideline-actions">
+                                    <button class="action-btn" onclick="moveUp(this)" title="Move up">↑</button>
+                                    <button class="action-btn" onclick="moveDown(this)" title="Move down">↓</button>
+                                    <button class="action-btn delete" onclick="deleteGuideline(this)"
+                                        title="Delete">🗑️</button>
+                                </div>
+                            </div>
+                            <textarea class="guideline-description"
+                                placeholder="Describe this guideline...">Keep discussions music-related and relevant to the community's interests.</textarea>
+                            <div class="guideline-settings">
+                                <div class="enforcement-level">
+                                    <span>Enforcement:</span>
+                                    <select class="enforcement-select">
+                                        <option value="warning" selected>Warning</option>
+                                        <option value="removal">Remove Content</option>
+                                        <option value="timeout">Timeout</option>
+                                        <option value="ban">Ban</option>
+                                    </select>
+                                </div>
+                                <div class="priority-indicator">
+                                    <span>Priority:</span>
+                                    <div class="priority-dots">
+                                        <div class="priority-dot active"></div>
+                                        <div class="priority-dot"></div>
+                                        <div class="priority-dot"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="add-guideline-btn" onclick="addGuideline()">
+                        <span>➕</span>
+                        <span>Add New Guideline</span>
+                    </button>
+                </div>
+
+                <div class="editor-section">
+                    <div class="section-title">👁️ Preview</div>
+                    <div class="preview-section">
+                        <div class="preview-title">Community Guidelines</div>
+                        <div id="previewContent">
+                            <div class="preview-guideline">
+                                <div class="preview-icon">🤝</div>
+                                <div class="preview-text">
+                                    <strong>Be Respectful:</strong> Treat all members with kindness and respect. No
+                                    harassment, discrimination, or offensive language.
+                                </div>
+                            </div>
+                            <div class="preview-guideline">
+                                <div class="preview-icon">💝</div>
+                                <div class="preview-text">
+                                    <strong>Dating Stories:</strong> Share authentic experiences. Keep stories
+                                    appropriate and supportive of others' journeys.
+                                </div>
+                            </div>
+                            <div class="preview-guideline">
+                                <div class="preview-icon">🎵</div>
+                                <div class="preview-text">
+                                    <strong>Stay On Topic:</strong> Keep discussions music-related and relevant to the
+                                    community's interests.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="save-publish-section">
+                    <div class="save-publish-title">Publish Guidelines</div>
+                    <div class="save-publish-desc">Your guidelines will be visible to all community members</div>
+                    <div class="save-publish-actions">
+                        <button class="save-publish-btn" onclick="saveDraft()">Save Draft</button>
+                        <button class="save-publish-btn primary" onclick="publishGuidelines()">Publish</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const iconOptions = ['🤝', '💝', '🎵', '🚫', '🛡️', '📝', '⚠️', '🎯', '💬', '🔥', '⭐', '💎', '🌟', '📱', '🎪', '🎨', '🏆', '💡', '🎭', '🎉'];
+
+        function goBack() {
+            if (confirm('Are you sure you want to go back? Any unsaved changes will be lost.')) {
+                alert("🔙 Returning to Music Lovers Hub community");
+            }
+        }
+
+        function selectIcon(element) {
+            const iconGrid = document.createElement('div');
+            iconGrid.style.cssText = `
+                position: absolute;
+                background: white;
+                border: 1px solid #E5E7EB;
+                border-radius: 8px;
+                padding: 8px;
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                gap: 4px;
+                z-index: 1000;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            `;
+
+            iconOptions.forEach(icon => {
+                const iconBtn = document.createElement('button');
+                iconBtn.textContent = icon;
+                iconBtn.style.cssText = `
+                    background: none;
+                    border: none;
+                    font-size: 16px;
+                    padding: 4px;
+                    cursor: pointer;
+                    border-radius: 4px;
+                    transition: background 0.2s;
+                `;
+                iconBtn.onmouseover = () => iconBtn.style.background = '#F3F4F6';
+                iconBtn.onmouseout = () => iconBtn.style.background = 'none';
+                iconBtn.onclick = () => {
+                    element.textContent = icon;
+                    iconGrid.remove();
+                    updatePreview();
+                };
+                iconGrid.appendChild(iconBtn);
+            });
+
+            element.style.position = 'relative';
+            element.appendChild(iconGrid);
+
+            // Close on click outside
+            setTimeout(() => {
+                document.addEventListener('click', function closeGrid(e) {
+                    if (!iconGrid.contains(e.target) && e.target !== element) {
+                        iconGrid.remove();
+                        document.removeEventListener('click', closeGrid);
+                    }
+                });
+            }, 0);
+        }
+
+        function addGuideline() {
+            const guidelinesList = document.getElementById('guidelinesList');
+            const newGuideline = document.createElement('div');
+            newGuideline.className = 'guideline-item';
+            newGuideline.innerHTML = `
+                <div class="guideline-header">
+                    <div class="guideline-icon-picker" onclick="selectIcon(this)">📝</div>
+                    <input type="text" class="guideline-title-input" value="" placeholder="Guideline title...">
+                    <div class="guideline-actions">
+                        <button class="action-btn" onclick="moveUp(this)" title="Move up">↑</button>
+                        <button class="action-btn" onclick="moveDown(this)" title="Move down">↓</button>
+                        <button class="action-btn delete" onclick="deleteGuideline(this)" title="Delete">🗑️</button>
+                    </div>
+                </div>
+                <textarea class="guideline-description" placeholder="Describe this guideline..."></textarea>
+                <div class="guideline-settings">
+                    <div class="enforcement-level">
+                        <span>Enforcement:</span>
+                        <select class="enforcement-select">
+                            <option value="warning" selected>Warning</option>
+                            <option value="removal">Remove Content</option>
+                            <option value="timeout">Timeout</option>
+                            <option value="ban">Ban</option>
+                        </select>
+                    </div>
+                    <div class="priority-indicator">
+                        <span>Priority:</span>
+                        <div class="priority-dots">
+                            <div class="priority-dot active"></div>
+                            <div class="priority-dot"></div>
+                            <div class="priority-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            guidelinesList.appendChild(newGuideline);
+            updatePreview();
+        }
+
+        function deleteGuideline(element) {
+            if (confirm('Are you sure you want to delete this guideline?')) {
+                element.closest('.guideline-item').remove();
+                updatePreview();
+            }
+        }
+
+        function moveUp(element) {
+            const item = element.closest('.guideline-item');
+            const prev = item.previousElementSibling;
+            if (prev) {
+                item.parentNode.insertBefore(item, prev);
+                updatePreview();
+            }
+        }
+
+        function moveDown(element) {
+            const item = element.closest('.guideline-item');
+            const next = item.nextElementSibling;
+            if (next) {
+                item.parentNode.insertBefore(next, item);
+                updatePreview();
+            }
+        }
+
+        function updatePreview() {
+            const guidelines = document.querySelectorAll('.guideline-item');
+            const previewContent = document.getElementById('previewContent');
+            previewContent.innerHTML = '';
+
+            guidelines.forEach(guideline => {
+                const icon = guideline.querySelector('.guideline-icon-picker').textContent;
+                const title = guideline.querySelector('.guideline-title-input').value;
+                const description = guideline.querySelector('.guideline-description').value;
+
+                if (title || description) {
+                    const previewItem = document.createElement('div');
+                    previewItem.className = 'preview-guideline';
+                    previewItem.innerHTML = `
+                        <div class="preview-icon">${icon}</div>
+                        <div class="preview-text">
+                            <strong>${title || 'Untitled'}:</strong> ${description || 'No description'}
+                        </div>
+                    `;
+                    previewContent.appendChild(previewItem);
+                }
+            });
+        }
+
+        function loadTemplate(templateType) {
+            const templates = {
+                basic: [
+                    { icon: '🤝', title: 'Be Respectful', description: 'Treat all members with kindness and respect.' },
+                    { icon: '🎯', title: 'Stay On Topic', description: 'Keep discussions relevant to the community.' },
+                    { icon: '🚫', title: 'No Spam', description: 'Avoid repetitive or promotional content.' }
+                ],
+                dating: [
+                    { icon: '💝', title: 'Authentic Stories', description: 'Share genuine dating experiences.' },
+                    { icon: '🤝', title: 'Be Supportive', description: 'Support others\' dating journeys.' },
+                    { icon: '🛡️', title: 'Privacy Respect', description: 'Respect others\' privacy and boundaries.' }
+                ],
+                hobby: [
+                    { icon: '🎵', title: 'Music Focus', description: 'Keep discussions music-related.' },
+                    { icon: '🎨', title: 'Creative Expression', description: 'Share music and creative content.' },
+                    { icon: '🤝', title: 'Collaboration', description: 'Encourage musical collaboration.' }
+                ],
+                events: [
+                    { icon: '📅', title: 'Event Relevance', description: 'Post about community events.' },
+                    { icon: '🎪', title: 'Safe Events', description: 'Ensure event safety and accessibility.' },
+                    { icon: '🎉', title: 'Inclusive Events', description: 'Welcome all community members.' }
+                ]
+            };
+
+            if (confirm(`Load ${templateType} template? This will replace current guidelines.`)) {
+                const guidelinesList = document.getElementById('guidelinesList');
+                guidelinesList.innerHTML = '';
+
+                templates[templateType].forEach(template => {
+                    const newGuideline = document.createElement('div');
+                    newGuideline.className = 'guideline-item';
+                    newGuideline.innerHTML = `
+                        <div class="guideline-header">
+                            <div class="guideline-icon-picker" onclick="selectIcon(this)">${template.icon}</div>
+                            <input type="text" class="guideline-title-input" value="${template.title}" placeholder="Guideline title...">
+                            <div class="guideline-actions">
+                                <button class="action-btn" onclick="moveUp(this)" title="Move up">↑</button>
+                                <button class="action-btn" onclick="moveDown(this)" title="Move down">↓</button>
+                                <button class="action-btn delete" onclick="deleteGuideline(this)" title="Delete">🗑️</button>
+                            </div>
+                        </div>
+                        <textarea class="guideline-description" placeholder="Describe this guideline...">${template.description}</textarea>
+                        <div class="guideline-settings">
+                            <div class="enforcement-level">
+                                <span>Enforcement:</span>
+                                <select class="enforcement-select">
+                                    <option value="warning" selected>Warning</option>
+                                    <option value="removal">Remove Content</option>
+                                    <option value="timeout">Timeout</option>
+                                    <option value="ban">Ban</option>
+                                </select>
+                            </div>
+                            <div class="priority-indicator">
+                                <span>Priority:</span>
+                                <div class="priority-dots">
+                                    <div class="priority-dot active"></div>
+                                    <div class="priority-dot"></div>
+                                    <div class="priority-dot"></div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    guidelinesList.appendChild(newGuideline);
+                });
+                updatePreview();
+            }
+        }
+
+        function saveGuidelines() {
+            const guidelines = Array.from(document.querySelectorAll('.guideline-item')).map(item => ({
+                icon: item.querySelector('.guideline-icon-picker').textContent,
+                title: item.querySelector('.guideline-title-input').value,
+                description: item.querySelector('.guideline-description').value,
+                enforcement: item.querySelector('.enforcement-select').value
+            }));
+
+            alert(`💾 Guidelines Saved!\n\n${guidelines.length} guidelines saved as draft.\n\nUse 'Publish' to make them visible to community members.`);
+        }
+
+        function saveDraft() {
+            saveGuidelines();
+        }
+
+        function publishGuidelines() {
+            const guidelines = document.querySelectorAll('.guideline-item');
+            const count = guidelines.length;
+
+            if (count === 0) {
+                alert('Please add at least one guideline before publishing.');
+                return;
+            }
+
+            alert(`📋 Guidelines Published!\n\n${count} guidelines are now live and visible to all Music Lovers Hub members.\n\nMembers will be notified of the updated guidelines.`);
+        }
+
+        // Initialize preview
+        document.addEventListener('DOMContentLoaded', function () {
+            updatePreview();
+
+            // Add event listeners for real-time preview updates
+            document.addEventListener('input', function (e) {
+                if (e.target.classList.contains('guideline-title-input') ||
+                    e.target.classList.contains('guideline-description')) {
+                    updatePreview();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,8 +1,8 @@
-# VibeMatch - Dating Web App MVP Wireframes
+# Plenty of Hearts - Dating Web App MVP Wireframes
 
 ## Project Overview
 
-**App Name:** VibeMatch  
+**App Name:** Plenty of Hearts  
 **Tagline:** "Find your vibe. Not just a match."  
 **Platform:** Web application (Desktop with mobile responsiveness)  
 **Design Philosophy:** Fun, clean, emotionally intelligent interface that blends dating with self-discovery
@@ -52,7 +52,7 @@
 ├─────────────────────────────────────┤
 │                                     │
 │              [LOGO]                 │
-│            VibeMatch                │
+│            Plenty of Hearts                │
 │                                     │
 │         Find your vibe.             │
 │       Not just a match.             │
@@ -95,13 +95,13 @@
 
 ---
 
-### 2. Personality Quiz Flow (VibeMatch)
+### 2. Personality Quiz Flow (Plenty of Hearts)
 
 #### Quiz Introduction Screen
 
 ```
 ┌─────────────────────────────────────┐
-│  ◄    VibeMatch Quiz           ✕    │
+│  ◄    Plenty of Hearts Quiz           ✕    │
 ├─────────────────────────────────────┤
 │                                     │
 │              🧠                     │
@@ -208,7 +208,7 @@
 
 ```
 ┌─────────────────────────────────────┐
-│     🔥        VibeMatch        ⚙️    │
+│     🔥        Plenty of Hearts        ⚙️    │
 ├─────────────────────────────────────┤
 │                                     │
 │  ┌─────────────────────────────────┐ │
@@ -789,7 +789,7 @@ This wireframe foundation supports a scalable, engaging dating web application t
 
 ```
 ┌─────────────────────────────────────┐
-│         💖 VIBEMATCH QUIZ           │
+│         💖 PLENTY OF HEARTS QUIZ           │
 ├─────────────────────────────────────┤
 │                                     │
 │        What's Your Dating           │
@@ -823,7 +823,7 @@ This wireframe foundation supports a scalable, engaging dating web application t
 
 ```
 ┌─────────────────────────────────────┐
-│         💖 VIBEMATCH PREMIUM        │
+│         💖 PLENTY OF HEARTS PREMIUM        │
 ├─────────────────────────────────────┤
 │                                     │
 │       Hi [First Name],              │
@@ -858,7 +858,7 @@ This wireframe foundation supports a scalable, engaging dating web application t
 
 ```
 ┌─────────────────────────────────────┐
-│        📊 VIBEMATCH ANALYTICS       │
+│        📊 PLENTY OF HEARTS ANALYTICS       │
 ├─────────────────────────────────────┤
 │                                     │
 │  📈 User Acquisition (This Week)    │

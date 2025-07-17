@@ -1,8 +1,8 @@
-# VibeMatch - GoHighLevel Integration Guide
+# Plenty of Hearts - GoHighLevel Integration Guide
 
 > **"Find your vibe. Find your market. Find your revenue."**
 
-A comprehensive integration guide for connecting VibeMatch with GoHighLevel to maximize user acquisition, engagement, and revenue through advanced CRM automation and marketing workflows.
+A comprehensive integration guide for connecting Plenty of Hearts with GoHighLevel to maximize user acquisition, engagement, and revenue through advanced CRM automation and marketing workflows.
 
 ## 🎯 Integration Overview
 
@@ -34,7 +34,7 @@ A comprehensive integration guide for connecting VibeMatch with GoHighLevel to m
 ```
 Landing Page Flow:
 ┌─────────────────────────────────────┐
-│         💖 VibeMatch Quiz           │
+│         💖 Plenty of Hearts Quiz           │
 │                                     │
 │    "What's Your Dating Personality?" │
 │                                     │
@@ -134,19 +134,19 @@ Thank You Email + Social Sharing
 
 ```
 Day 1: Welcome + Personality Quiz Results
-Subject: "Welcome to VibeMatch, [Name]! Here's your dating personality"
+Subject: "Welcome to Plenty of Hearts, [Name]! Here's your dating personality"
 - Personalized personality insights
 - App download link with pre-filled profile
 - Social proof and success stories
 
 Day 2: Profile Optimization Tips
-Subject: "5 tips to make your VibeMatch profile irresistible"
+Subject: "5 tips to make your Plenty of Hearts profile irresistible"
 - Video profile best practices
 - Photo recommendations
 - Bio writing tips
 
 Day 3: How Matching Works
-Subject: "How VibeMatch finds your perfect connections"
+Subject: "How Plenty of Hearts finds your perfect connections"
 - Algorithm explanation
 - Personality-based matching benefits
 - Success story examples
@@ -164,13 +164,13 @@ Subject: "Stay safe while finding your vibe"
 - Reporting tools
 
 Day 6: Premium Features Preview
-Subject: "See who likes you with VibeMatch Premium"
+Subject: "See who likes you with Plenty of Hearts Premium"
 - Feature comparison
 - Limited-time discount offer
 - Success stories from premium users
 
 Day 7: Local Events & Communities
-Subject: "Find your tribe: Local VibeMatch events"
+Subject: "Find your tribe: Local Plenty of Hearts events"
 - Community features introduction
 - Local event listings
 - Group joining recommendations
@@ -260,7 +260,7 @@ Week 4: Personal outreach from support
 - Fresh start profile reset offer
 
 180-Day Inactive Users:
-- Subject: "Final chance: Your VibeMatch account"
+- Subject: "Final chance: Your Plenty of Hearts account"
 - Account deletion warning
 - Major incentive to return
 - Simple one-click reactivation
@@ -375,7 +375,7 @@ Service Offerings:
 #### User Data Synchronization
 
 ```javascript
-// VibeMatch to GHL User Creation
+// Plenty of Hearts to GHL User Creation
 POST /api/ghl/contacts
 {
   "firstName": "John",

@@ -1,8 +1,8 @@
-# VibeMatch - Technical Design Specifications
+# Plenty of Hearts - Technical Design Specifications
 
 ## 🎯 Project Overview
 
-**App Name:** VibeMatch  
+**App Name:** Plenty of Hearts  
 **Tagline:** "Find your vibe. Not just a match."  
 **Target Platform:** Web Application (React with responsive design)  
 **MVP Timeline:** 12-16 weeks
@@ -319,4 +319,4 @@ def calculate_match_score(user_a, user_b):
 - **Video Processing:** Azure Media Services / Cloudinary
 - **AI Services:** Google Gemini API for conversation features
 
-This specification provides a comprehensive foundation for developing the VibeMatch MVP while maintaining scalability for future enhancements.
+This specification provides a comprehensive foundation for developing the Plenty of Hearts MVP while maintaining scalability for future enhancements.

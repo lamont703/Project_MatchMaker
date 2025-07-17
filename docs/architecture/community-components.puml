@@ -1,57 +1,138 @@
 @startuml VibeMatch_Community_Components
-title VibeMatch - Community Platform Architecture
+title VibeMatch - Community Platform Architecture with Quiz Integration
 
 participant "CommunityPage" as CommunityPage
 participant "CommunityDetails" as CommunityDetails
 participant "PostComponents" as PostComponents
 participant "EventComponents" as EventComponents
+participant "QuizComponents" as QuizComponents
+participant "StoryComponents" as StoryComponents
+participant "GuidelinesComponents" as GuidelinesComponents
 participant "CommunityService" as CommunityService
 participant "ContentService" as ContentService
 participant "EventService" as EventService
+participant "QuizService" as QuizService
+participant "StoryService" as StoryService
+participant "GuidelinesService" as GuidelinesService
+participant "ModerationService" as ModerationService
 participant "DiscoveryService" as DiscoveryService
 participant "CommunityMatching" as CommunityMatching
 participant "CommunitiesDB" as CommunitiesDB
 participant "ActivityCache" as ActivityCache
 
-note over CommunityPage : Community Frontend\n- Community List\n- Search & Filter\n- Category Tabs
+note over CommunityPage : Community Frontend\n- Community List\n- Search & Filter\n- Category Tabs\n- Featured Community Quizzes
 
-note over CommunityDetails : Community Details\n- Member List\n- Post Feed\n- Event Calendar\n- Join/Leave Button
+note over CommunityDetails : Community Details\n- Member List\n- Post Feed\n- Event Calendar\n- **Quiz Integration Section**\n- **Dating Stories Section**\n- **Community Guidelines Display**\n- Quiz Leaderboards\n- Join/Leave Button
 
-note over PostComponents : Post Management\n- Post Creator\n- Post Card\n- Comment Thread\n- Like System
+note over PostComponents : Post Management\n- Post Creator\n- Post Card\n- Comment Thread\n- Like System\n- **Quiz Result Posts**\n- **Quiz Challenge Posts**\n- **Dating Story Posts**
 
-note over EventComponents : Event Management\n- Event Creator\n- Event Card\n- RSVP System\n- Calendar View
+note over EventComponents : Event Management\n- Event Creator\n- Event Card\n- RSVP System\n- Calendar View\n- **Pre-Event Quizzes**\n- **Team Formation Quizzes**
 
-note over CommunityService : Backend Services\n- CRUD Operations\n- Member Management\n- Permission System\n- Search Engine
+note over QuizComponents : **NEW: Quiz Integration**\n- Community-Specific Quizzes\n- Mini-Quiz Components\n- Quiz Result Sharing\n- Quiz Challenge System\n- Quiz Leaderboards\n- Member Matching via Quizzes
 
-note over ContentService : Content Management\n- Post Management\n- Comment System\n- Media Upload\n- Content Moderation
+note over StoryComponents : **NEW: Dating Stories**\n- Story Creation Interface\n- Story Categories (Success, Funny, Lessons)\n- Privacy Settings (Anonymous/Named)\n- Story Filtering and Search\n- Story Moderation Tools\n- Social Engagement Features
 
-note over EventService : Event Management\n- Event CRUD\n- RSVP Tracking\n- Notification System\n- Calendar Integration
+note over GuidelinesComponents : **NEW: Community Guidelines**\n- Guidelines Display Interface\n- Guidelines Editor (Moderators)\n- Template System\n- Enforcement Level Settings\n- Violation Reporting\n- Member Education
 
-note over DiscoveryService : Discovery Engine\n- Recommendation Engine\n- Trending Algorithm\n- User Interest Matching\n- Community Suggestions
+note over CommunityService : Backend Services\n- CRUD Operations\n- Member Management\n- Permission System\n- Search Engine\n- **Quiz Permissions**
 
-note over CommunityMatching : Enhanced Matching\n- Shared Interest Detection\n- Community-based Recommendations\n- Event Attendance Matching\n- Social Discovery Algorithm
+note over ContentService : Content Management\n- Post Management\n- Comment System\n- Media Upload\n- Content Moderation\n- **Quiz Result Posts**\n- **Quiz Challenge Posts**
 
-note over CommunitiesDB : Data Storage\n- Community Profiles\n- Member Relationships\n- Posts & Comments\n- Events & RSVPs
+note over EventService : Event Management\n- Event CRUD\n- RSVP Tracking\n- Notification System\n- Calendar Integration\n- **Quiz-Event Integration**
 
-note over ActivityCache : Performance Cache\n- Recent Posts\n- Active Members\n- Trending Communities
+note over QuizService : **NEW: Quiz Management**\n- Quiz Creation & Management\n- Community-Specific Quizzes\n- Quiz Results Processing\n- Quiz Challenge System\n- Quiz Analytics\n- Member Compatibility Scoring
+
+note over StoryService : **NEW: Dating Stories Management**\n- Story Creation & Editing\n- Category Management\n- Privacy Controls\n- Story Moderation Queue\n- Content Filtering\n- Story Analytics
+
+note over GuidelinesService : **NEW: Guidelines Management**\n- Guidelines CRUD Operations\n- Template Management\n- Enforcement Rule Engine\n- Violation Tracking\n- Member Education Content\n- Guideline Analytics
+
+note over ModerationService : **NEW: Content Moderation**\n- Automated Content Screening\n- Moderator Dashboard\n- Violation Report Processing\n- Enforcement Actions\n- Appeals System\n- Moderation Analytics
+
+note over DiscoveryService : Discovery Engine\n- Recommendation Engine\n- Trending Algorithm\n- User Interest Matching\n- Community Suggestions\n- **Quiz-Based Recommendations**
+
+note over CommunityMatching : Enhanced Matching\n- Shared Interest Detection\n- Community-based Recommendations\n- Event Attendance Matching\n- Social Discovery Algorithm\n- **Quiz Result Matching**\n- **Personality Compatibility**
+
+note over CommunitiesDB : Data Storage\n- Community Profiles\n- Member Relationships\n- Posts & Comments\n- Events & RSVPs\n- **Quiz Templates**\n- **Quiz Responses**\n- **Quiz Results**\n- **Quiz Challenges**\n- **Dating Stories**\n- **Story Categories**\n- **Community Guidelines**\n- **Moderation Logs**\n- **Violation Reports**
+
+note over ActivityCache : Performance Cache\n- Recent Posts\n- Active Members\n- Trending Communities\n- **Quiz Leaderboards**\n- **Popular Quizzes**\n- **Trending Stories**\n- **Story Categories**\n- **Community Guidelines**\n- **Moderation Queue**
 
 CommunityPage -> CommunityService : Get communities
 CommunityDetails -> CommunityService : Get community details
 CommunityDetails -> ContentService : Get posts
 CommunityDetails -> EventService : Get events
+CommunityDetails -> QuizService : Get community quizzes
+CommunityDetails -> StoryService : Get dating stories
+CommunityDetails -> GuidelinesService : Get community guidelines
 
 PostComponents -> ContentService : CRUD posts
+PostComponents -> QuizService : Share quiz results
+PostComponents -> StoryService : Share dating stories
 EventComponents -> EventService : CRUD events
+EventComponents -> QuizService : Get event quizzes
+QuizComponents -> QuizService : CRUD quizzes
+StoryComponents -> StoryService : CRUD stories
+StoryComponents -> ModerationService : Submit for moderation
+GuidelinesComponents -> GuidelinesService : CRUD guidelines
+GuidelinesComponents -> ModerationService : Report violations
 
 CommunityService -> CommunitiesDB : Store community data
 ContentService -> CommunitiesDB : Store posts and comments
 EventService -> CommunitiesDB : Store events and RSVPs
-DiscoveryService -> CommunitiesDB : Read community data
+QuizService -> CommunitiesDB : Store quiz data
+StoryService -> CommunitiesDB : Store dating stories
+GuidelinesService -> CommunitiesDB : Store community guidelines
+ModerationService -> CommunitiesDB : Store moderation logs
 
 CommunityService -> ActivityCache : Cache community data
 DiscoveryService -> ActivityCache : Cache trending data
+QuizService -> ActivityCache : Cache quiz leaderboards
+StoryService -> ActivityCache : Cache trending stories
+GuidelinesService -> ActivityCache : Cache community guidelines
+ModerationService -> ActivityCache : Cache moderation queue
 
 CommunityService -> CommunityMatching : Share activity data
 DiscoveryService -> CommunityMatching : Get recommendations
+QuizService -> CommunityMatching : Share quiz results
+StoryService -> CommunityMatching : Share story engagement data
+
+== Quiz Integration Flows ==
+
+CommunityDetails -> QuizComponents : Display community quizzes
+QuizComponents -> QuizService : Start quiz
+QuizService -> QuizComponents : Return quiz questions
+QuizComponents -> QuizService : Submit answers
+QuizService -> CommunityMatching : Process compatibility
+QuizService -> ContentService : Create result post
+QuizService -> CommunityService : Update member data
+
+== Dating Stories Flows ==
+
+CommunityDetails -> StoryComponents : Display dating stories
+StoryComponents -> StoryService : Create new story
+StoryService -> ModerationService : Submit for review
+ModerationService -> StoryService : Approve/reject story
+StoryService -> ContentService : Publish approved story
+StoryService -> CommunityMatching : Update member interests
+
+== Community Guidelines Flows ==
+
+CommunityDetails -> GuidelinesComponents : Display guidelines
+GuidelinesComponents -> GuidelinesService : Get guidelines
+GuidelinesService -> GuidelinesComponents : Return guidelines
+GuidelinesComponents -> ModerationService : Report violation
+ModerationService -> GuidelinesService : Process report
+ModerationService -> CommunityService : Take enforcement action
+
+== Community Features ==
+
+note over QuizComponents : **Community Quiz Types**\n- Weekly Personality Matches\n- Icebreaker Quizzes\n- Topic-Specific Assessments\n- Event Compatibility Tests\n- Challenge Competitions\n- Member Matching Quizzes
+
+note over StoryComponents : **Dating Story Types**\n- Success Stories\n- Funny Dating Tales\n- Lessons Learned\n- Adventure Stories\n- Anonymous Sharing\n- Community Support
+
+note over GuidelinesComponents : **Guideline Features**\n- Visual Guidelines Editor\n- Template System\n- Enforcement Levels\n- Violation Reporting\n- Moderator Tools\n- Member Education
+
+note over ModerationService : **Moderation Features**\n- Automated Content Screening\n- Manual Review Queue\n- Enforcement Actions\n- Appeal System\n- Moderator Dashboard\n- Community Health Metrics
+
+note over CommunityMatching : **Enhanced Matching**\n- Personality Compatibility\n- Interest Alignment\n- Communication Style Matching\n- Activity Preferences\n- Event Attendance Prediction\n- **Story Engagement Analysis**
 
 @enduml 

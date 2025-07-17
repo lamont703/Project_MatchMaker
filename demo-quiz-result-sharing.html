@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeMatch - Quiz Result Sharing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone-container {
+            width: 375px;
+            height: 812px;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            color: white;
+            padding: 50px 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            font-size: 18px;
+            cursor: pointer;
+            padding: 8px;
+            margin: -8px;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            flex: 1;
+            text-align: center;
+            margin: 0 16px;
+        }
+
+        .share-btn {
+            font-size: 18px;
+            cursor: pointer;
+            padding: 8px;
+            margin: -8px;
+        }
+
+        .content {
+            height: calc(100% - 90px);
+            overflow-y: auto;
+            padding: 24px 20px;
+        }
+
+        .my-result-card {
+            background: linear-gradient(135deg, #1DB584 0%, #059669 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .my-result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></svg>');
+            background-size: 60px 60px;
+            opacity: 0.3;
+        }
+
+        .my-result-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .my-result-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .my-result-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .my-result-description {
+            font-size: 14px;
+            line-height: 1.5;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .community-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 16px;
+        }
+
+        .share-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: none;
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, #1DB584 0%, #059669 100%);
+            color: white;
+        }
+
+        .action-btn.secondary {
+            background: white;
+            color: #1DB584;
+            border: 2px solid #1DB584;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(29, 181, 132, 0.3);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .comparison-card {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .comparison-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .member-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        .member-info {
+            flex: 1;
+        }
+
+        .member-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1F2937;
+        }
+
+        .member-meta {
+            font-size: 12px;
+            color: #6B7280;
+        }
+
+        .compatibility-score {
+            text-align: center;
+            padding: 8px 16px;
+            background: #F0FDF4;
+            border: 1px solid #BBF7D0;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #166534;
+        }
+
+        .results-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .result-box {
+            text-align: center;
+            padding: 16px;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .result-box.yours {
+            background: linear-gradient(135deg, rgba(29, 181, 132, 0.1), rgba(5, 150, 105, 0.05));
+            border: 1px solid #BBF7D0;
+        }
+
+        .result-box.theirs {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.05));
+            border: 1px solid #DDD6FE;
+        }
+
+        .result-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6B7280;
+            margin-bottom: 8px;
+        }
+
+        .result-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .result-type {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1F2937;
+        }
+
+        .compatibility-details {
+            background: #F8FAFC;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .compatibility-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 12px;
+        }
+
+        .compatibility-points {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .compatibility-point {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #374151;
+        }
+
+        .point-icon {
+            font-size: 16px;
+            min-width: 20px;
+        }
+
+        .connection-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .connection-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: none;
+        }
+
+        .connection-btn.primary {
+            background: #1DB584;
+            color: white;
+        }
+
+        .connection-btn.secondary {
+            background: #F3F4F6;
+            color: #6B7280;
+            border: 1px solid #E5E7EB;
+        }
+
+        .connection-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1DB584;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #6B7280;
+        }
+
+        .leaderboard-card {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .leaderboard-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .leaderboard-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1F2937;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .leaderboard-item:last-child {
+            border-bottom: none;
+        }
+
+        .rank {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1DB584;
+            min-width: 24px;
+        }
+
+        .leaderboard-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: white;
+        }
+
+        .leaderboard-info {
+            flex: 1;
+        }
+
+        .leaderboard-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1F2937;
+        }
+
+        .leaderboard-result {
+            font-size: 12px;
+            color: #6B7280;
+        }
+
+        .leaderboard-score {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1DB584;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                align-items: flex-start;
+                padding: 0;
+            }
+
+            .phone-container {
+                width: 100%;
+                height: 100vh;
+                border-radius: 0;
+                box-shadow: none;
+                max-width: none;
+            }
+
+            .header {
+                padding: 40px 20px 16px;
+            }
+
+            .content {
+                padding: 20px 16px;
+            }
+
+            .my-result-card {
+                padding: 20px;
+            }
+
+            .my-result-icon {
+                font-size: 56px;
+            }
+
+            .my-result-title {
+                font-size: 20px;
+            }
+
+            .results-comparison {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="phone-container">
+        <div class="header">
+            <span class="back-btn" onclick="goBack()">◄</span>
+            <h1>🎮 Quiz Results</h1>
+            <span class="share-btn" onclick="shareResult()">📤</span>
+        </div>
+
+        <div class="content">
+            <div class="my-result-card">
+                <div class="community-badge">
+                    <span>🎵</span>
+                    <span>Music Lovers Hub</span>
+                </div>
+                <div class="my-result-icon">🎨</div>
+                <div class="my-result-title">The Creative Curator</div>
+                <div class="my-result-subtitle">Your Music Personality</div>
+                <div class="my-result-description">
+                    You have an artistic ear for music and love discovering hidden gems. You're the friend who always
+                    has the perfect playlist for any mood.
+                </div>
+            </div>
+
+            <div class="share-actions">
+                <button class="action-btn primary" onclick="shareToFeed()">📋 Share to Feed</button>
+                <button class="action-btn secondary" onclick="findMatches()">💝 Find Matches</button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">89%</div>
+                    <div class="stat-label">Compatibility</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Similar Members</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">#8</div>
+                    <div class="stat-label">Community Rank</div>
+                </div>
+            </div>
+
+            <div class="section-title">💫 Similar Results</div>
+
+            <div class="comparison-card">
+                <div class="comparison-header">
+                    <div class="member-avatar">S</div>
+                    <div class="member-info">
+                        <div class="member-name">Sarah</div>
+                        <div class="member-meta">Active 2h ago • 2 mutual friends</div>
+                    </div>
+                    <div class="compatibility-score">94% Match</div>
+                </div>
+
+                <div class="results-comparison">
+                    <div class="result-box yours">
+                        <div class="result-label">Your Result</div>
+                        <div class="result-icon">🎨</div>
+                        <div class="result-type">Creative Curator</div>
+                    </div>
+                    <div class="result-box theirs">
+                        <div class="result-label">Sarah's Result</div>
+                        <div class="result-icon">🎨</div>
+                        <div class="result-type">Creative Curator</div>
+                    </div>
+                </div>
+
+                <div class="compatibility-details">
+                    <div class="compatibility-title">Why You Match</div>
+                    <div class="compatibility-points">
+                        <div class="compatibility-point">
+                            <span class="point-icon">🎵</span>
+                            <span>Both love discovering hidden indie gems</span>
+                        </div>
+                        <div class="compatibility-point">
+                            <span class="point-icon">📱</span>
+                            <span>Similar playlist curation styles</span>
+                        </div>
+                        <div class="compatibility-point">
+                            <span class="point-icon">🎤</span>
+                            <span>Shared interest in live acoustic performances</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="connection-actions">
+                    <button class="connection-btn primary" onclick="connectWithMember('Sarah')">💬 Message</button>
+                    <button class="connection-btn secondary" onclick="viewProfile('Sarah')">👤 View Profile</button>
+                    <button class="connection-btn secondary" onclick="compareResults('Sarah')">📊 Compare</button>
+                </div>
+            </div>
+
+            <div class="comparison-card">
+                <div class="comparison-header">
+                    <div class="member-avatar">A</div>
+                    <div class="member-info">
+                        <div class="member-name">Alex</div>
+                        <div class="member-meta">Active 1h ago • Going to same event</div>
+                    </div>
+                    <div class="compatibility-score">91% Match</div>
+                </div>
+
+                <div class="results-comparison">
+                    <div class="result-box yours">
+                        <div class="result-label">Your Result</div>
+                        <div class="result-icon">🎨</div>
+                        <div class="result-type">Creative Curator</div>
+                    </div>
+                    <div class="result-box theirs">
+                        <div class="result-label">Alex's Result</div>
+                        <div class="result-icon">🌍</div>
+                        <div class="result-type">Global Explorer</div>
+                    </div>
+                </div>
+
+                <div class="compatibility-details">
+                    <div class="compatibility-title">Why You Match</div>
+                    <div class="compatibility-points">
+                        <div class="compatibility-point">
+                            <span class="point-icon">🌍</span>
+                            <span>Both appreciate world music and cultural sounds</span>
+                        </div>
+                        <div class="compatibility-point">
+                            <span class="point-icon">🎭</span>
+                            <span>Love discovering new artists and venues</span>
+                        </div>
+                        <div class="compatibility-point">
+                            <span class="point-icon">🎪</span>
+                            <span>Similar taste in music festivals</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="connection-actions">
+                    <button class="connection-btn primary" onclick="connectWithMember('Alex')">💬 Message</button>
+                    <button class="connection-btn secondary" onclick="viewProfile('Alex')">👤 View Profile</button>
+                    <button class="connection-btn secondary" onclick="compareResults('Alex')">📊 Compare</button>
+                </div>
+            </div>
+
+            <div class="leaderboard-card">
+                <div class="leaderboard-header">
+                    <div class="leaderboard-title">🏆 Community Leaderboard</div>
+                    <span style="font-size: 12px; color: #6B7280;">This Week</span>
+                </div>
+
+                <div class="leaderboard-item">
+                    <div class="rank">1</div>
+                    <div class="leaderboard-avatar">S</div>
+                    <div class="leaderboard-info">
+                        <div class="leaderboard-name">Sarah</div>
+                        <div class="leaderboard-result">Creative Curator</div>
+                    </div>
+                    <div class="leaderboard-score">2,340 pts</div>
+                </div>
+
+                <div class="leaderboard-item">
+                    <div class="rank">2</div>
+                    <div class="leaderboard-avatar">M</div>
+                    <div class="leaderboard-info">
+                        <div class="leaderboard-name">Mike</div>
+                        <div class="leaderboard-result">Social Connector</div>
+                    </div>
+                    <div class="leaderboard-score">2,180 pts</div>
+                </div>
+
+                <div class="leaderboard-item">
+                    <div class="rank">3</div>
+                    <div class="leaderboard-avatar">A</div>
+                    <div class="leaderboard-info">
+                        <div class="leaderboard-name">Alex</div>
+                        <div class="leaderboard-result">Global Explorer</div>
+                    </div>
+                    <div class="leaderboard-score">1,950 pts</div>
+                </div>
+
+                <div class="leaderboard-item" style="background: #F0FDF4; border-radius: 8px; padding: 12px 8px;">
+                    <div class="rank">8</div>
+                    <div class="leaderboard-avatar">Y</div>
+                    <div class="leaderboard-info">
+                        <div class="leaderboard-name">You</div>
+                        <div class="leaderboard-result">Creative Curator</div>
+                    </div>
+                    <div class="leaderboard-score">1,240 pts</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            alert("🔙 Returning to quiz or community page");
+        }
+
+        function shareResult() {
+            alert("📤 Share Options\n\n• Copy Link\n• Share to Social Media\n• Send to Friends\n• Share in Community");
+        }
+
+        function shareToFeed() {
+            alert("📋 Sharing to Community Feed\n\nYour Creative Curator result will be posted to the Music Lovers Hub community feed!");
+        }
+
+        function findMatches() {
+            alert("💝 Finding Matches\n\nSearching for members with similar music personalities...\n\n• Sarah (94% match)\n• Alex (91% match)\n• Jordan (89% match)\n• Maya (87% match)");
+        }
+
+        function connectWithMember(name) {
+            alert(`💬 Connecting with ${name}\n\nOpening message thread...\n\n"Hey ${name}! I saw we have similar music taste from the quiz results. Want to share some playlist recommendations?"`);
+        }
+
+        function viewProfile(name) {
+            alert(`👤 Viewing ${name}'s Profile\n\nOpening full profile with:\n• Quiz results history\n• Music preferences\n• Recent activity\n• Mutual connections`);
+        }
+
+        function compareResults(name) {
+            alert(`📊 Comparing Results with ${name}\n\nDetailed comparison would show:\n• Question-by-question responses\n• Personality trait breakdown\n• Compatibility analysis\n• Shared interests`);
+        }
+
+        // Add some interactive animations
+        document.querySelectorAll('.comparison-card').forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 8px 24px rgba(29, 181, 132, 0.1)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.04)';
+            });
+        });
+    </script>
+</body>
+
+</html>

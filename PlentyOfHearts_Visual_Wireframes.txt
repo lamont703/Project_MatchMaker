@@ -1,5 +1,5 @@
 ================================================================================
-                      VIBEMATCH - WEB APP VISUAL WIREFRAMES
+                      PLENTY OF HEARTS - WEB APP VISUAL WIREFRAMES
                          "Find your vibe. Not just a match."
 ================================================================================
 
@@ -9,7 +9,7 @@ SCREEN 1: WELCOME / ONBOARDING
 ├─────────────────────────────────────┤
 │                                     │
 │              [LOGO]                 │
-│            VibeMatch                │
+│            Plenty of Hearts                │
 │                                     │
 │         Find your vibe.             │
 │       Not just a match.             │
@@ -74,7 +74,7 @@ SCREEN 3: PROFILE SETUP
 
 SCREEN 4: MAIN SWIPE DECK
 ┌─────────────────────────────────────┐
-│     🔥        VibeMatch        ⚙️    │
+│     🔥        Plenty of Hearts        ⚙️    │
 ├─────────────────────────────────────┤
 │  ┌─────────────────────────────────┐ │
 │  │        [VIDEO PREVIEW]          │ │
